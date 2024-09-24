@@ -1011,7 +1011,7 @@ Let's try an example and just change the required argument \texttt{n} to ask \em
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -1.6833549 -1.1287186 -0.1249324  0.3778556  0.1855474
+## [1]  0.423823710  0.001035304  0.148332883 -1.213186995 -1.658291015
 \end{verbatim}
 
 The random numbers have a mean of 0 and an SD of 1. Of course, since this are random numbers, you have probably got different numbers. Run the function again and you will see that you get each time different `'random'' numbers.
@@ -1025,7 +1025,7 @@ Now we can change the additional arguments to produce a different set of numbers
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 114.46637 107.85137 108.55824 108.05152  89.06406
+## [1] 67.10088 92.87379 95.28350 99.48276 79.58259
 \end{verbatim}
 
 This time \emph{R} has still produced 5 random numbers, but now this set of numbers has a mean of 100 and a standard deviation of 15 as specified (this is the distribution of the scores in many IQ tests). Always remember to use the help documentation to help you understand what arguments a function requires.
@@ -1281,8 +1281,8 @@ Drawing random numbers from a normal distribution has already been discussed in 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 0.02713361 0.46934903 0.85745194 0.21484789 0.72696067 0.57191923
-##  [7] 0.27422518 0.43113654 0.16024892 0.69137626
+##  [1] 0.48205581 0.01572842 0.66497131 0.72412406 0.51874063 0.45560804
+##  [7] 0.76610654 0.84850499 0.94760887 0.10134695
 \end{verbatim}
 
 \begin{Shaded}
@@ -1292,8 +1292,8 @@ Drawing random numbers from a normal distribution has already been discussed in 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 80.95865 61.29394 53.30255 25.66264 49.09679 89.91870 12.99131 70.77675
-##  [9] 91.97282 14.33229
+##  [1] 40.19333 97.29094 90.96705 77.03365 56.79203 12.80568 54.30917 22.14785
+##  [9] 43.00552 10.83110
 \end{verbatim}
 
 \begin{geek}
@@ -1996,14 +1996,14 @@ in this dataset?
 \end{Shaded}
 
 \begin{verbatim}
-##    variable_a         variable_b         variable_c
-##  Min.   :-178.884   Min.   :-2.01614   Min.   :10  
-##  1st Qu.:  -5.974   1st Qu.:-0.82479   1st Qu.:10  
-##  Median :  63.894   Median :-0.06314   Median :10  
-##  Mean   :  68.598   Mean   : 0.01040   Mean   :10  
-##  3rd Qu.: 138.881   3rd Qu.: 0.76557   3rd Qu.:10  
-##  Max.   : 389.452   Max.   : 3.44916   Max.   :10  
-##                     NA's   :131
+##    variable_a        variable_b         variable_c
+##  Min.   :-232.64   Min.   :-2.28053   Min.   :10  
+##  1st Qu.:  17.40   1st Qu.:-0.94987   1st Qu.:10  
+##  Median :  78.22   Median :-0.09955   Median :10  
+##  Mean   :  79.84   Mean   :-0.10707   Mean   :10  
+##  3rd Qu.: 159.32   3rd Qu.: 0.62574   3rd Qu.:10  
+##  Max.   : 302.67   Max.   : 2.32938   Max.   :10  
+##                    NA's   :131
 \end{verbatim}
 
 \webexhide{Solution}
@@ -2339,7 +2339,7 @@ Now that the \texttt{praise} package is loaded, you can use the function in that
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "You are polished!"
+## [1] "You are mind-blowing!"
 \end{verbatim}
 
 \emph{(As you see, you can do really useful things with \emph{R} \texttt{;-)})}
@@ -4435,7 +4435,7 @@ By the way: To calculate the correlation coefficient \(r\), you can use the func
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5637072
+## [1] 0.5611271
 \end{verbatim}
 
 \webexunhide

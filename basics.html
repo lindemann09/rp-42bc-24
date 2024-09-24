@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-08-14" />
+<meta name="date" content="2024-09-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -554,11 +554,11 @@ Solution
 <p>In the arguments section, there are explanations for each of the arguments. <code>n</code> is the number of random numbers we want to create, <code>mean</code> is the mean of the data points we will create and <code>sd</code> is the standard deviation of the set. In the details section it notes that if no values are entered for <code>mean</code> and <code>sd</code> it will use a default of 0 and 1 for these values. Because there is no default value for <code>n</code> it must be specified otherwise the code won’t run.</p>
 <p>Let’s try an example and just change the required argument <code>n</code> to ask <em>R</em> to produce 5 random numbers.</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="basics.html#cb48-1" aria-hidden="true"></a><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1] -0.3871825  0.8076891 -1.1014879 -0.7147565  0.1427846</code></pre>
+<pre><code>## [1]  0.04072503  1.53490516 -0.44372530  0.36611999 -0.47923241</code></pre>
 <p>The random numbers have a mean of 0 and an SD of 1. Of course, since this are random numbers, you have probably got different numbers. Run the function again and you will see that you get each time different ‘’random’’ numbers.</p>
 <p>Now we can change the additional arguments to produce a different set of numbers.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="basics.html#cb50-1" aria-hidden="true"></a><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">100</span>, <span class="dt">sd =</span> <span class="dv">15</span>)</span></code></pre></div>
-<pre><code>## [1]  83.38245 100.61738  84.39346 121.68937 108.84509</code></pre>
+<pre><code>## [1] 101.64613 106.36423  95.48473  93.71154 122.92979</code></pre>
 <p>This time <em>R</em> has still produced 5 random numbers, but now this set of numbers has a mean of 100 and a standard deviation of 15 as specified (this is the distribution of the scores in many IQ tests). Always remember to use the help documentation to help you understand what arguments a function requires.</p>
 </div>
 <div id="argument-names" class="section level3 hasAnchor" number="4.6.4">

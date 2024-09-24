@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-08-14" />
+<meta name="date" content="2024-09-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -356,11 +356,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Random numbers sequences are very useful to illustrate probabilistic phenomena in statistics and are required in psychology for mathematical modelling and simulations. <em>R</em> can generate random numbers from different probability functions.</p>
 <p>Drawing random numbers from a normal distribution has already been discussed in section <a href="basics.html#examplernorm">4.6.3</a>. The function <code>runif()</code> is used draw random numbers from a uniform distribution:</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="vectors.html#cb74-1" aria-hidden="true"></a><span class="kw">runif</span>(<span class="dv">10</span>)                     <span class="co"># 10 random numbers between 0 and 1</span></span></code></pre></div>
-<pre><code>##  [1] 0.7417203 0.7555441 0.7166340 0.5435085 0.8077694 0.1376479 0.6010563
-##  [8] 0.8622733 0.2827043 0.7901420</code></pre>
+<pre><code>##  [1] 0.70495432 0.07475692 0.97061138 0.67043164 0.85248037 0.10433969
+##  [7] 0.41983497 0.09317999 0.54561153 0.38130469</code></pre>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="vectors.html#cb76-1" aria-hidden="true"></a><span class="kw">runif</span>(<span class="dv">10</span>, <span class="dt">min=</span> <span class="dv">10</span>, <span class="dt">max =</span> <span class="dv">99</span>)  <span class="co"># 10 random numbers between 10 and 99</span></span></code></pre></div>
-<pre><code>##  [1] 30.98985 11.40980 26.85295 85.46111 88.79985 25.48309 50.38712 40.24703
-##  [9] 45.14093 50.72852</code></pre>
+<pre><code>##  [1] 61.46416 70.24606 12.90441 29.78228 98.23044 14.82666 72.65920 86.76312
+##  [9] 54.29612 93.56663</code></pre>
 <div class="geek">
 <p>
 More information about random number generation and the probability distributions that are implemented in base <em>R</em> can be found by calling <code>?RNG</code> and <code>?distributions</code>.

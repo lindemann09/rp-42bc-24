@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-08-14" />
+<meta name="date" content="2024-09-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -352,7 +352,6 @@ You find a file <code>babynames.Rdata</code> among the example data. It contains
 Load the dataset (via double click). How many rows does this file have?
 </p>
 </div>
-<p><em>Remark</em>: The file is not compatible with older <em>R</em> versions: see <a href="#babynames">workaround</a> <a href="#babynames"><strong>??</strong></a>.</p>
 <div class="webex-solution">
 <button>
 Solution
@@ -371,7 +370,6 @@ Solution
 <h3>.Rdata<a href="importing-data.html#rdata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To load an <em>R</em> data file via a script or the console, you called <code>load()</code> and the file path as argument. A file path consist of the subdirectory (relative to your current directory) and the filename separated by a <code>/</code> (backslash). For instance, if the data file is <code>babynames.Rdata</code> located in the subfolder <code>data</code>, this command should load the dataset:</p>
 <div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="importing-data.html#cb175-1" aria-hidden="true"></a><span class="kw">load</span>(<span class="st">&quot;data/babynames.Rdata&quot;</span>)</span></code></pre></div>
-<p><em>Remark</em>: The file is not compatible with older <em>R</em> versions: see <a href="#babynames">workaround</a> <a href="#babynames"><strong>??</strong></a>.</p>
 <p><strong>Hint:</strong> You can use the autocompletion function of RStudio and type only <code>load("</code>, followed <code>TAB</code>.</p>
 <div class="important">
 <p>

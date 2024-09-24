@@ -1011,7 +1011,7 @@ Let's try an example and just change the required argument \texttt{n} to ask \em
 \end{Shaded}
 
 \begin{verbatim}
-## [1]  1.1024533  0.1680279 -0.1245201 -0.8814788  0.6010797
+## [1] -1.6833549 -1.1287186 -0.1249324  0.3778556  0.1855474
 \end{verbatim}
 
 The random numbers have a mean of 0 and an SD of 1. Of course, since this are random numbers, you have probably got different numbers. Run the function again and you will see that you get each time different `'random'' numbers.
@@ -1025,7 +1025,7 @@ Now we can change the additional arguments to produce a different set of numbers
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 101.25440 121.51564 104.27113  82.71518  98.96914
+## [1] 114.46637 107.85137 108.55824 108.05152  89.06406
 \end{verbatim}
 
 This time \emph{R} has still produced 5 random numbers, but now this set of numbers has a mean of 100 and a standard deviation of 15 as specified (this is the distribution of the scores in many IQ tests). Always remember to use the help documentation to help you understand what arguments a function requires.
@@ -1281,8 +1281,8 @@ Drawing random numbers from a normal distribution has already been discussed in 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 0.6224636 0.9635273 0.9478201 0.9307898 0.4228697 0.2180384 0.1569678
-##  [8] 0.5750673 0.2994291 0.2148341
+##  [1] 0.02713361 0.46934903 0.85745194 0.21484789 0.72696067 0.57191923
+##  [7] 0.27422518 0.43113654 0.16024892 0.69137626
 \end{verbatim}
 
 \begin{Shaded}
@@ -1292,8 +1292,8 @@ Drawing random numbers from a normal distribution has already been discussed in 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 86.49134 84.25849 10.48352 65.56770 82.57073 42.65674 96.45384 83.36714
-##  [9] 76.51249 49.27280
+##  [1] 80.95865 61.29394 53.30255 25.66264 49.09679 89.91870 12.99131 70.77675
+##  [9] 91.97282 14.33229
 \end{verbatim}
 
 \begin{geek}
@@ -1996,13 +1996,13 @@ in this dataset?
 \end{Shaded}
 
 \begin{verbatim}
-##    variable_a         variable_b        variable_c
-##  Min.   :-186.225   Min.   :-2.2860   Min.   :10  
-##  1st Qu.:   9.555   1st Qu.:-0.4382   1st Qu.:10  
-##  Median :  79.436   Median : 0.1154   Median :10  
-##  Mean   :  76.192   Mean   : 0.1312   Mean   :10  
-##  3rd Qu.: 144.913   3rd Qu.: 0.7023   3rd Qu.:10  
-##  Max.   : 380.146   Max.   : 2.8374   Max.   :10  
+##    variable_a         variable_b         variable_c
+##  Min.   :-178.884   Min.   :-2.01614   Min.   :10  
+##  1st Qu.:  -5.974   1st Qu.:-0.82479   1st Qu.:10  
+##  Median :  63.894   Median :-0.06314   Median :10  
+##  Mean   :  68.598   Mean   : 0.01040   Mean   :10  
+##  3rd Qu.: 138.881   3rd Qu.: 0.76557   3rd Qu.:10  
+##  Max.   : 389.452   Max.   : 3.44916   Max.   :10  
 ##                     NA's   :131
 \end{verbatim}
 
@@ -2339,7 +2339,7 @@ Now that the \texttt{praise} package is loaded, you can use the function in that
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "You are sensational!"
+## [1] "You are polished!"
 \end{verbatim}
 
 \emph{(As you see, you can do really useful things with \emph{R} \texttt{;-)})}
@@ -4397,7 +4397,7 @@ assumptions:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-245-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-245-1.pdf}
 
 \hypertarget{plot-a-categorical-and-a-continuous-variable}{%
 \subsubsection{Plot a categorical and a continuous variable}\label{plot-a-categorical-and-a-continuous-variable}}
@@ -4410,7 +4410,7 @@ assumptions:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-246-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-246-1.pdf}
 
 \hypertarget{plot-two-continuous-variables}{%
 \subsubsection{Plot two continuous variables}\label{plot-two-continuous-variables}}
@@ -4423,7 +4423,7 @@ assumptions:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-247-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-247-1.pdf}
 \webexhide{Excursus: Correlation coefficient}
 
 By the way: To calculate the correlation coefficient \(r\), you can use the function \texttt{cor()}.
@@ -4435,7 +4435,7 @@ By the way: To calculate the correlation coefficient \(r\), you can use the func
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5890496
+## [1] 0.5637072
 \end{verbatim}
 
 \webexunhide
@@ -4455,7 +4455,7 @@ Let's start with a totally empty plot layer created by the\texttt{ggplot()} func
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-249-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-249-1.pdf}
 
 Like with all \emph{Tidyverse} functions, the first argument to \texttt{ggplot()} is the data frame you want to plot. We use our simulated data \texttt{simulation}.
 
@@ -4467,7 +4467,7 @@ Like with all \emph{Tidyverse} functions, the first argument to \texttt{ggplot()
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-250-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-250-1.pdf}
 
 People often omit the argument name \texttt{mapping} and just put the \texttt{aes()} function directly as the second argument to \texttt{ggplot}. That's also fine. You can also omit \texttt{x} and \texttt{y} as arguments inside \texttt{aes()}, but I suggest to use argument names if you more than one variable, because it improves the readability.
 
@@ -4481,7 +4481,7 @@ If we add, for example, the \texttt{geom\_point()}, we tell \emph{R} to plot the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-251-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-251-1.pdf}
 
 \hypertarget{geoms-or-plot-types}{%
 \subsection{Geoms or plot types}\label{geoms-or-plot-types}}
@@ -4500,7 +4500,7 @@ Bar plot are done pity easy by adding (\texttt{+}) the geom \texttt{geom\_bar()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-252-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-252-1.pdf}
 
 \hypertarget{density-plots}{%
 \subsubsection{Density plots}\label{density-plots}}
@@ -4514,7 +4514,7 @@ Density plots are good for one continuous variable, but only if you have a fairl
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-253-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-253-1.pdf}
 
 You can represent subsets of a variable by assigning the category variable to the argument \texttt{group}, \texttt{fill}, or \texttt{color}.
 
@@ -4525,7 +4525,7 @@ You can represent subsets of a variable by assigning the category variable to th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-254-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-254-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4534,7 +4534,7 @@ You can represent subsets of a variable by assigning the category variable to th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-255-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-255-1.pdf}
 
 \hypertarget{histogram}{%
 \subsubsection{Histogram}\label{histogram}}
@@ -4552,7 +4552,7 @@ Histogram are useful to get an overview on the shape of the distribution of your
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 \end{verbatim}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-256-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-256-1.pdf}
 
 If you don't like the colours, don't panic:
 
@@ -4563,7 +4563,7 @@ If you don't like the colours, don't panic:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-257-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-257-1.pdf}
 
 Again, you can add the factor variable the mapping (\texttt{aes()}) of the plot and make different histograms for each factor level.
 
@@ -4578,7 +4578,7 @@ Again, you can add the factor variable the mapping (\texttt{aes()}) of the plot 
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 \end{verbatim}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-258-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-258-1.pdf}
 
 \hypertarget{column-plots}{%
 \subsubsection{Column plots}\label{column-plots}}
@@ -4596,7 +4596,7 @@ If not, you can use the function \texttt{stat\_summary} to calculate the mean an
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-259-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-259-1.pdf}
 
 \hypertarget{box-plots}{%
 \subsubsection{Box plots}\label{box-plots}}
@@ -4610,7 +4610,7 @@ Boxplots are, I my view, a much better way to depict grouped continuous data, be
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-260-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-260-1.pdf}
 
 \hypertarget{violin-pots}{%
 \subsubsection{Violin pots}\label{violin-pots}}
@@ -4624,7 +4624,7 @@ Violin pots are like sideways, mirrored density plots. They give even more direc
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-261-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-261-1.pdf}
 
 \hypertarget{scatter-plot}{%
 \subsubsection{Scatter plot}\label{scatter-plot}}
@@ -4639,7 +4639,7 @@ Let's plot \texttt{IQ\_A} on the \texttt{x} and \texttt{IQ\_B} on the \texttt{y}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-262-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-262-1.pdf}
 
 \hypertarget{line-graph}{%
 \subsubsection{Line graph}\label{line-graph}}
@@ -4653,7 +4653,7 @@ To illustrate the correlation between the two variables, we can plot line graph 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-263-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-263-1.pdf}
 
 \hypertarget{combining-two-plot-types}{%
 \subsubsection{Combining two plot types}\label{combining-two-plot-types}}
@@ -4669,7 +4669,7 @@ Finally, it's also possible the combine two plot types, such a line and scatter 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{R-Manual-42BC-24_files/figure-latex/unnamed-chunk-264-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-264-1.pdf}
 
 \newpage
 

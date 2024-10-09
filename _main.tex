@@ -1018,7 +1018,7 @@ Let's try an example and just change the required argument \texttt{n} to ask \em
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -1.6747317  1.7264760  0.3087845 -0.8936886 -0.7387236
+## [1]  1.34598307 -1.93423140 -0.04383764  0.32993987  1.15514765
 \end{verbatim}
 
 The random numbers have a mean of 0 and an SD of 1. Of course, since this are random numbers, you have probably got different numbers. Run the function again and you will see that you get each time different `'random'' numbers.
@@ -1032,7 +1032,7 @@ Now we can change the additional arguments to produce a different set of numbers
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 111.92039 121.73170 118.42128  95.86474  92.00639
+## [1] 104.02543 112.61202  85.72245 114.08902 100.46111
 \end{verbatim}
 
 This time \emph{R} has still produced 5 random numbers, but now this set of numbers has a mean of 100 and a standard deviation of 15 as specified (this is the distribution of the scores in many IQ tests). Always remember to use the help documentation to help you understand what arguments a function requires.
@@ -1288,8 +1288,8 @@ Drawing random numbers from a normal distribution has already been discussed in 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 0.4199564 0.2094391 0.6317297 0.6463398 0.6104386 0.6776756 0.8535622
-##  [8] 0.2046722 0.6727076 0.9031345
+##  [1] 0.03637661 0.06360644 0.63611516 0.39051917 0.37345532 0.51225228
+##  [7] 0.32133011 0.23485957 0.82402430 0.38025419
 \end{verbatim}
 
 \begin{Shaded}
@@ -1299,8 +1299,8 @@ Drawing random numbers from a normal distribution has already been discussed in 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 91.24728 40.59633 10.56870 76.71650 75.44483 54.49120 58.79676 67.12028
-##  [9] 94.39000 31.96855
+##  [1] 33.90631 54.17126 76.92904 86.29597 45.98563 15.12934 31.67234 42.22995
+##  [9] 40.19823 36.98721
 \end{verbatim}
 
 \begin{geek}
@@ -2003,14 +2003,14 @@ in this dataset?
 \end{Shaded}
 
 \begin{verbatim}
-##    variable_a        variable_b         variable_c
-##  Min.   :-259.09   Min.   :-1.42189   Min.   :10  
-##  1st Qu.:  27.56   1st Qu.:-0.58439   1st Qu.:10  
-##  Median :  96.69   Median :-0.05853   Median :10  
-##  Mean   :  86.04   Mean   : 0.21985   Mean   :10  
-##  3rd Qu.: 150.05   3rd Qu.: 0.94854   3rd Qu.:10  
-##  Max.   : 351.84   Max.   : 2.68173   Max.   :10  
-##                    NA's   :131
+##    variable_a         variable_b         variable_c
+##  Min.   :-173.220   Min.   :-2.68079   Min.   :10  
+##  1st Qu.:   6.334   1st Qu.:-0.80996   1st Qu.:10  
+##  Median :  86.670   Median :-0.00754   Median :10  
+##  Mean   :  73.167   Mean   :-0.09343   Mean   :10  
+##  3rd Qu.: 148.005   3rd Qu.: 0.55309   3rd Qu.:10  
+##  Max.   : 312.665   Max.   : 2.42227   Max.   :10  
+##                     NA's   :131
 \end{verbatim}
 
 \webexhide{Solution}
@@ -2346,7 +2346,7 @@ Now that the \texttt{praise} package is loaded, you can use the function in that
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "You are ace!"
+## [1] "You are stellar!"
 \end{verbatim}
 
 \emph{(As you see, you can do really useful things with \emph{R} \texttt{;-)})}
@@ -2561,13 +2561,13 @@ As with all \emph{R} -packages, if you want to make use of it in yours scripts, 
 \end{Shaded}
 
 \begin{verbatim}
-## -- Attaching core tidyverse packages ------------------------------------------------------------------------------------------------------------- tidyverse 2.0.0 --
+## -- Attaching core tidyverse packages --------------------------------------------------------------------- tidyverse 2.0.0 --
 ## v dplyr     1.1.4     v readr     2.1.5
 ## v forcats   1.0.0     v stringr   1.5.1
 ## v ggplot2   3.5.1     v tibble    3.2.1
 ## v lubridate 1.9.3     v tidyr     1.3.1
 ## v purrr     1.0.2     
-## -- Conflicts ------------------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts --------------------------------------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
@@ -4455,7 +4455,7 @@ By the way: To calculate the correlation coefficient \(r\), you can use the func
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5448645
+## [1] 0.5945371
 \end{verbatim}
 
 \webexunhide

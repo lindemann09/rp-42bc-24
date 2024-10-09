@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-09-24" />
+<meta name="date" content="2024-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -57,8 +56,9 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -291,6 +291,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">9</span> Importing Data<a href="importing-data.html#importing-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>A crucial function of a statistical software is of course the ability to read data from files. There are many different types of files that you might work with when doing data analysis. These different file types are usually distinguished by the three letter extension following a period at the end of the file name. Here are some examples of functions (and packages!) that you can use to import data from different file types:</p>
 <table>
+<colgroup>
+<col width="18%" />
+<col width="34%" />
+<col width="34%" />
+<col width="12%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Extension</th>
@@ -346,10 +352,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>.Rdata:</strong> <em>R</em> ’s own data files (.Rdata) can be very easily imported just by clicking on the file in the file browser.</p>
 <div class="myexercise">
 <p>
-You find a file <code>babynames.Rdata</code> among the example data. It contains the frequencies of names given to babies in the US since 1880.
+You find a file <code>babynames.Rdata</code> among the example data.
+It contains the frequencies of names given to babies in the US since
+1880.
 </p>
 <p>
-Load the dataset (via double click). How many rows does this file have?
+Load the dataset (via double click). How many rows does this file
+have?
 </p>
 </div>
 <div class="webex-solution">
@@ -358,7 +367,7 @@ Solution
 </button>
 <p>Almost two million rows: <code>1924664</code></p>
 </div>
-<div id="other-file-types" class="section level4 unnumbered hasAnchor" number="">
+<div id="other-file-types" class="section level4 unnumbered hasAnchor">
 <h4>Other file types<a href="importing-data.html#other-file-types" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>To import data from other (non-<em>R</em>) file types, you can use the import panel of RStudio.</p>
 <p><img src="images/data_import.png" width="350px" /></p>
@@ -366,25 +375,29 @@ Solution
 </div>
 <div id="import-via-console-or-script" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Import via Console or Script<a href="importing-data.html#import-via-console-or-script" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="rdata" class="section level3 unnumbered hasAnchor" number="">
+<div id="rdata" class="section level3 unnumbered hasAnchor">
 <h3>.Rdata<a href="importing-data.html#rdata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To load an <em>R</em> data file via a script or the console, you called <code>load()</code> and the file path as argument. A file path consist of the subdirectory (relative to your current directory) and the filename separated by a <code>/</code> (backslash). For instance, if the data file is <code>babynames.Rdata</code> located in the subfolder <code>data</code>, this command should load the dataset:</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="importing-data.html#cb175-1" aria-hidden="true"></a><span class="kw">load</span>(<span class="st">&quot;data/babynames.Rdata&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="importing-data.html#cb175-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/babynames.Rdata&quot;</span>)</span></code></pre></div>
 <p><strong>Hint:</strong> You can use the autocompletion function of RStudio and type only <code>load("</code>, followed <code>TAB</code>.</p>
 <div class="important">
 <p>
-Since file paths are always relative to the <strong>current working directory</strong>, you need to check in which directory you are currently in (or in which folder the current script is).
+Since file paths are always relative to the <strong>current working
+directory</strong>, you need to check in which directory you are
+currently in (or in which folder the current script is).
 </p>
 <p>
-The console displays the current working directory on top of the console panel. Also the command <code>getcw()</code> gives you this information. The autocompletion function is also handy here.
+The console displays the current working directory on top of the
+console panel. Also the command <code>getcw()</code> gives you this
+information. The autocompletion function is also handy here.
 </p>
 </div>
 </div>
-<div id="csv--and-xlsx-files-and-other-files" class="section level3 unnumbered hasAnchor" number="">
+<div id="csv--and-xlsx-files-and-other-files" class="section level3 unnumbered hasAnchor">
 <h3>csv- and xlsx-files and other files<a href="importing-data.html#csv--and-xlsx-files-and-other-files" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>When you read in CSV files, it is best practice to use the <code>readr::read_csv()</code> function. Note that you would normally want to store the result of the <code>read_csv()</code> function to an object, as so:</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="importing-data.html#cb176-1" aria-hidden="true"></a><span class="kw">library</span>(readr) <span class="co"># load the package (just needed the first time)</span></span>
-<span id="cb176-2"><a href="importing-data.html#cb176-2" aria-hidden="true"></a>csv_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/exam_anxiety.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="importing-data.html#cb176-1" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># load the package (just needed the first time)</span></span>
+<span id="cb176-2"><a href="importing-data.html#cb176-2" tabindex="-1"></a>csv_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/exam_anxiety.csv&quot;</span>)</span></code></pre></div>
 <p>The function <code>read_excel()</code> from the package <code>readxl</code> is handy to read in Excel spreadsheet data.</p>
 <p>A summary of data import function can be found in this <a href="readings.html#cheatsheets">data import cheat sheet</a>.</p>
 

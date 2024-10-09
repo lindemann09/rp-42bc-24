@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-09-24" />
+<meta name="date" content="2024-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -57,8 +56,9 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -289,7 +289,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="transformingdata" class="section level1 hasAnchor" number="11">
 <h1><span class="header-section-number">11</span> Transforming Data<a href="transformingdata.html#transformingdata" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="example-data" class="section level3 unnumbered hasAnchor" number="">
+<div id="example-data" class="section level3 unnumbered hasAnchor">
 <h3>Example data<a href="transformingdata.html#example-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To illustrate the <em>Tidyverse</em>-functions for data transformation, we use an example dataset <code>teaching_method.csv</code> from that <a href="./data">data folder</a>.</p>
 <p>The fake dataset looks like this (only 6 first rows are depicted):</p>
@@ -358,10 +358,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <p>Students from universities in different Dutch cities were taught in statistics and cognitive psychology. Two teaching methods were compared (method A &amp; B). There was in addition a control condition with no teaching at all. The knowledge about the subjects was tested before and after the courses with a test of 40 questions and 4 choices. The results of the test (number of correct answers) for the two subjects are shown in the variables <code>statistcs</code> and <code>cog_psy</code>.</p>
 <p>Let’s load <em>Tidyverse</em> and the dataset:</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="transformingdata.html#cb182-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb182-2"><a href="transformingdata.html#cb182-2" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/teaching_method.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="transformingdata.html#cb182-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb182-2"><a href="transformingdata.html#cb182-2" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/teaching_method.csv&quot;</span>)</span></code></pre></div>
 <p>The import dataset is a tibble and looks in the console of RStudio like this:</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="transformingdata.html#cb183-1" aria-hidden="true"></a><span class="kw">print</span>(teach)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="transformingdata.html#cb183-1" tabindex="-1"></a><span class="fu">print</span>(teach)</span></code></pre></div>
 <pre><code>## # A tibble: 60 × 6
 ##    student teaching_method city      time   statistics cog_psy
 ##      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
@@ -381,19 +381,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.1</span> Selecting rows: <code>Filter()</code><a href="transformingdata.html#selecting-rows-filter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><img src="images/dplyr-filter.png" width="300px" style="display: block; margin: auto;" /></p>
 <p>We have already selected rows or cases of data frames with base-<em>R</em> (see for last assignment or <a href="dataframes.html#subsettinglogicalsdataframe">section</a> <a href="dataframes.html#subsettinglogicalsdataframe">7.1.3</a> ). If we want to select all students from Rotterdam, we would do it in base-<em>R</em> like this:</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="transformingdata.html#cb185-1" aria-hidden="true"></a>teach[teach<span class="op">$</span>city <span class="op">==</span><span class="st"> &quot;Rotterdam&quot;</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="transformingdata.html#cb185-1" tabindex="-1"></a>teach[teach<span class="sc">$</span>city <span class="sc">==</span> <span class="st">&quot;Rotterdam&quot;</span>, ]</span></code></pre></div>
 <p>With <em>Tidyverse</em> this can be done much more easily with function <code>filter()</code>.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="transformingdata.html#cb186-1" aria-hidden="true"></a><span class="kw">filter</span>(teach, city <span class="op">==</span><span class="st"> &quot;Rotterdam&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="transformingdata.html#cb186-1" tabindex="-1"></a><span class="fu">filter</span>(teach, city <span class="sc">==</span> <span class="st">&quot;Rotterdam&quot;</span>)</span></code></pre></div>
 <p>Of curse, you can use any logical comparisons that are possible in <em>R</em>. For example, if you want to have all rows, which are not a control condition or all rows where <code>cog_psy</code> is smaller 15:</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="transformingdata.html#cb187-1" aria-hidden="true"></a><span class="kw">filter</span>(teach, teaching_method <span class="op">!=</span><span class="st"> &quot;control&quot;</span>)</span>
-<span id="cb187-2"><a href="transformingdata.html#cb187-2" aria-hidden="true"></a><span class="kw">filter</span>(teach, cog_psy <span class="op">&lt;</span><span class="st"> </span><span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="transformingdata.html#cb187-1" tabindex="-1"></a><span class="fu">filter</span>(teach, teaching_method <span class="sc">!=</span> <span class="st">&quot;control&quot;</span>)</span>
+<span id="cb187-2"><a href="transformingdata.html#cb187-2" tabindex="-1"></a><span class="fu">filter</span>(teach, cog_psy <span class="sc">&lt;</span> <span class="dv">15</span>)</span></code></pre></div>
 <p>This table gives an overview of of logical comparisons in <em>R</em>:
 <img src="images/logic_in_r.png" width="500px" style="display: block; margin: auto;" /></p>
 <div id="multiple-criteria" class="section level3 hasAnchor" number="11.1.1">
 <h3><span class="header-section-number">11.1.1</span> Multiple criteria<a href="transformingdata.html#multiple-criteria" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>logical “AND”</strong></p>
 <p>The great thing with <em>Tidyverse</em> is that you can very easy combine the filtering conditions. For instance, all cases in which the <code>city</code> is “Rotterdam” and the <code>time</code> is “after” and the <code>teaching_method</code> is not “control”.</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="transformingdata.html#cb188-1" aria-hidden="true"></a><span class="kw">filter</span>(teach, city<span class="op">==</span><span class="st">&quot;Rotterdam&quot;</span> <span class="op">&amp;</span><span class="st"> </span>time<span class="op">==</span><span class="st">&quot;after&quot;</span> <span class="op">&amp;</span><span class="st"> </span>teaching_method<span class="op">!=</span><span class="st">&quot;control&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="transformingdata.html#cb188-1" tabindex="-1"></a><span class="fu">filter</span>(teach, city<span class="sc">==</span><span class="st">&quot;Rotterdam&quot;</span> <span class="sc">&amp;</span> time<span class="sc">==</span><span class="st">&quot;after&quot;</span> <span class="sc">&amp;</span> teaching_method<span class="sc">!=</span><span class="st">&quot;control&quot;</span>)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -445,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The sign <code>&amp;</code> is used in <em>R</em> as logical <em>and</em>.</p>
 <p><strong>logical “OR”</strong></p>
 <p>The sign <code>|</code> is used in <em>R</em> as logical <em>or</em>. For example, to select all rows, in which have test score in <code>statistics</code> lower 8 <strong>or</strong> in <code>cog_psy</code> lower 6.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="transformingdata.html#cb189-1" aria-hidden="true"></a><span class="kw">filter</span>(teach, statistics<span class="op">&lt;</span><span class="st"> </span><span class="dv">8</span> <span class="op">|</span><span class="st"> </span>cog_psy <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="transformingdata.html#cb189-1" tabindex="-1"></a><span class="fu">filter</span>(teach, statistics<span class="sc">&lt;</span> <span class="dv">8</span> <span class="sc">|</span> cog_psy <span class="sc">&lt;</span> <span class="dv">6</span>)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -517,8 +517,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.2</span> Sorting rows: <code>arrange()</code><a href="transformingdata.html#sorting-rows-arrange" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><img src="images/dplyr-arrange.png" width="300px" style="display: block; margin: auto;" /></p>
 <p><code>arrange()</code> works similarly to <code>filter()</code> except that instead of selecting rows, it changes their order. It takes a data frame and a set of column names (or more complicated expressions) to order by.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="transformingdata.html#cb190-1" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">arrange</span>(teach, statistics)   <span class="co"># re-arrange &amp; override to old data frame</span></span>
-<span id="cb190-2"><a href="transformingdata.html#cb190-2" aria-hidden="true"></a>teach</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="transformingdata.html#cb190-1" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">arrange</span>(teach, statistics)   <span class="co"># re-arrange &amp; override to old data frame</span></span>
+<span id="cb190-2"><a href="transformingdata.html#cb190-2" tabindex="-1"></a>teach</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -1016,8 +1016,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <p>Use <code>desc()</code> to re-order by a column in descending order:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="transformingdata.html#cb191-1" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">arrange</span>(teach, <span class="kw">desc</span>(statistics))</span>
-<span id="cb191-2"><a href="transformingdata.html#cb191-2" aria-hidden="true"></a>teach</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="transformingdata.html#cb191-1" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">arrange</span>(teach, <span class="fu">desc</span>(statistics))</span>
+<span id="cb191-2"><a href="transformingdata.html#cb191-2" tabindex="-1"></a>teach</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -1515,11 +1515,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <p>If you want to sort first by <code>city</code> and then by the <code>statistics</code> test score, you just provide more than one column name. Each additional listed column will be used to break ties in the values of preceding columns:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="transformingdata.html#cb192-1" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">arrange</span>(teach, city, statistics) <span class="co"># sort for city then for statistics</span></span>
-<span id="cb192-2"><a href="transformingdata.html#cb192-2" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">arrange</span>(teach, city, statistics) <span class="co"># sort for statistics and then for city</span></span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="transformingdata.html#cb192-1" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">arrange</span>(teach, city, statistics) <span class="co"># sort for city then for statistics</span></span>
+<span id="cb192-2"><a href="transformingdata.html#cb192-2" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">arrange</span>(teach, city, statistics) <span class="co"># sort for statistics and then for city</span></span></code></pre></div>
 <div class="myexercise">
 <p>
-Check out the different types of sorting and use RStudios object viewer to see differently sorted data frames.
+Check out the different types of sorting and use RStudios object
+viewer to see differently sorted data frames.
 </p>
 </div>
 </div>
@@ -1531,7 +1532,7 @@ Check out the different types of sorting and use RStudios object viewer to see d
 <p>Selecting variables from a data frame was already easy in base-<em>R</em> (see <a href="dataframes.html#selectbyname">section</a> <a href="dataframes.html#selectbyname">7.1.1</a>]). <em>Tidyverse</em> offers the function <code>select()</code> for this and you will see that it’s even easier. <code>select()</code> more powerful when it come to selecting multiple variables and it improves the readability of your code.</p>
 <p>It’s not uncommon to get datasets with a large amount of variables. In this case, the first challenge is often narrowing in on the variables you’re actually interested in. <code>select()</code> allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.</p>
 <p>Select the variable for our data frame <code>teach</code>:</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="transformingdata.html#cb193-1" aria-hidden="true"></a><span class="kw">select</span>(teach, cog_psy)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="transformingdata.html#cb193-1" tabindex="-1"></a><span class="fu">select</span>(teach, cog_psy)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -1724,7 +1725,7 @@ Check out the different types of sorting and use RStudios object viewer to see d
 </table>
 </div>
 <p>To select multiple variables just add further variables names as argument, separated by a comma:</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="transformingdata.html#cb194-1" aria-hidden="true"></a><span class="kw">select</span>(teach, cog_psy, student, city)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="transformingdata.html#cb194-1" tabindex="-1"></a><span class="fu">select</span>(teach, cog_psy, student, city)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -2043,7 +2044,7 @@ Check out the different types of sorting and use RStudios object viewer to see d
 <h3><span class="header-section-number">11.3.2</span> Re-arranging the Order of Variables<a href="transformingdata.html#re-arranging-the-order-of-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As you see the variables appear in the order you mentioned them in the command. Inn other words, you can use select also to re-arrange the order of your columns.</p>
 <p>When re-arranging the order, another option is to use the <code>everything()</code> helper, which stands for all remaining variable. This is useful if you have a handful of variables you’d like to move to the start (or end) of the data frame.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="transformingdata.html#cb195-1" aria-hidden="true"></a><span class="kw">select</span>(teach,  city, <span class="kw">everything</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="transformingdata.html#cb195-1" tabindex="-1"></a><span class="fu">select</span>(teach,  city, <span class="fu">everything</span>())</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -2545,7 +2546,7 @@ Check out the different types of sorting and use RStudios object viewer to see d
 <h3><span class="header-section-number">11.3.3</span> Dropping a Variable<a href="transformingdata.html#dropping-a-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><img src="images/dplyr-select-drop.png" width="300px" style="display: block; margin: auto;" />
 If you want to exclude a column you just write <code>-</code> followed by the variable name:</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="transformingdata.html#cb196-1" aria-hidden="true"></a><span class="kw">select</span>(teach, <span class="op">-</span>city)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="transformingdata.html#cb196-1" tabindex="-1"></a><span class="fu">select</span>(teach, <span class="sc">-</span>city)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -2986,7 +2987,7 @@ If you want to exclude a column you just write <code>-</code> followed by the va
 <h3><span class="header-section-number">11.3.4</span> Select a Range of Variables<a href="transformingdata.html#select-a-range-of-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><img src="images/dplyr-select-range.png" width="300px" style="display: block; margin: auto;" /></p>
 <p>If you want to select all variable from column <code>city</code> to column <code>statistics</code>, it’s very handy to use this <code>:</code>-operator. This operator only works for variable names for you use <em>Tidyverse</em>.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="transformingdata.html#cb197-1" aria-hidden="true"></a><span class="kw">select</span>(teach, city<span class="op">:</span>statistics)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="transformingdata.html#cb197-1" tabindex="-1"></a><span class="fu">select</span>(teach, city<span class="sc">:</span>statistics)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -3308,10 +3309,19 @@ If you want to exclude a column you just write <code>-</code> followed by the va
 <p><img src="images/dplyr-mutate.png" width="300px" style="display: block; margin: auto;" />
 Very often you want to add new columns that are functions of existing columns. That’s the job of <code>mutate()</code>.</p>
 <p><code>mutate()</code> always adds new columns at the end of your dataset. For instance, if you want to calculate the test scores (i.e., number of correct answers) into percentage, we have multiple the score with <span class="math inline">\(\frac{N_\text{questions}}{100}\)</span>? We know the test had 40 questions, thus:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="transformingdata.html#cb198-1" aria-hidden="true"></a>teach_extended &lt;-<span class="st"> </span><span class="kw">mutate</span>(teach, <span class="dt">percent_statistics =</span> statistics <span class="op">/</span><span class="st"> </span><span class="dv">40</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</span>
-<span id="cb198-2"><a href="transformingdata.html#cb198-2" aria-hidden="true"></a>teach_extended</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="transformingdata.html#cb198-1" tabindex="-1"></a>teach_extended <span class="ot">&lt;-</span> <span class="fu">mutate</span>(teach, <span class="at">percent_statistics =</span> statistics <span class="sc">/</span> <span class="dv">40</span> <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb198-2"><a href="transformingdata.html#cb198-2" tabindex="-1"></a>teach_extended</span></code></pre></div>
 <div class="kable-table">
 <table>
+<colgroup>
+<col width="10%" />
+<col width="20%" />
+<col width="12%" />
+<col width="8%" />
+<col width="13%" />
+<col width="10%" />
+<col width="24%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="right">student</th>
@@ -3868,18 +3878,18 @@ Very often you want to add new columns that are functions of existing columns. T
 </table>
 </div>
 <p>You probably remember from last week, you can also do this with base <em>R</em>:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="transformingdata.html#cb199-1" aria-hidden="true"></a>teach<span class="op">$</span>percent_statistics &lt;-<span class="st"> </span>teach<span class="op">$</span>statistics <span class="op">/</span><span class="st"> </span><span class="dv">40</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span></span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="transformingdata.html#cb199-1" tabindex="-1"></a>teach<span class="sc">$</span>percent_statistics <span class="ot">&lt;-</span> teach<span class="sc">$</span>statistics <span class="sc">/</span> <span class="dv">40</span> <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
 <p>However, <code>mutate()</code> becomes really convenient (and again produces simpler code), if you need to add several columns. Just like <code>arrange()</code> or <code>select()</code>, you can add further variables by adding another argument to the function call (separated with a comma):</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="transformingdata.html#cb200-1" aria-hidden="true"></a>teach_extended &lt;-<span class="st"> </span><span class="kw">mutate</span>(teach,</span>
-<span id="cb200-2"><a href="transformingdata.html#cb200-2" aria-hidden="true"></a>                    <span class="dt">percent_statistics =</span> statistics <span class="op">/</span><span class="st"> </span><span class="dv">40</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>,</span>
-<span id="cb200-3"><a href="transformingdata.html#cb200-3" aria-hidden="true"></a>                    <span class="dt">percent_cog_psy =</span> cog_psy <span class="op">/</span><span class="st"> </span><span class="dv">40</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="transformingdata.html#cb200-1" tabindex="-1"></a>teach_extended <span class="ot">&lt;-</span> <span class="fu">mutate</span>(teach,</span>
+<span id="cb200-2"><a href="transformingdata.html#cb200-2" tabindex="-1"></a>                    <span class="at">percent_statistics =</span> statistics <span class="sc">/</span> <span class="dv">40</span> <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb200-3"><a href="transformingdata.html#cb200-3" tabindex="-1"></a>                    <span class="at">percent_cog_psy =</span> cog_psy <span class="sc">/</span> <span class="dv">40</span> <span class="sc">*</span> <span class="dv">100</span>)</span></code></pre></div>
 <p>Check out how the resulting data frame <code>teach_extended</code> looks like. Remember that when you’re in RStudio, the easiest way to see all the columns is the object viewer using <code>View(teach_extended)</code>.</p>
 <p><strong>Hint for data frames with many variables</strong>: To check a data frame with many variables in the console, the function <code>glimpse()</code> produces a nice vertical overview of all columns and the first data.</p>
 <div class="webex-solution">
 <button>
 glimpse
 </button>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="transformingdata.html#cb201-1" aria-hidden="true"></a><span class="kw">glimpse</span>(teach_extended)</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="transformingdata.html#cb201-1" tabindex="-1"></a><span class="fu">glimpse</span>(teach_extended)</span></code></pre></div>
 <pre><code>## Rows: 60
 ## Columns: 8
 ## $ student            &lt;dbl&gt; 28, 19, 4, 17, 10, 2, 11, 16, 25, 5, 1, 8, 13, 22, …
@@ -3893,14 +3903,16 @@ glimpse
 </div>
 <div class="myexercise">
 <p>
-Take the command above and calculate and add further variables. We want to have also for each row
+Take the command above and calculate and add further variables. We
+want to have also for each row
 </p>
 <ul>
 <li>
 the average score of both test (<code>mean_score</code>) and
 </li>
 <li>
-the average percentage correct in both tests (<code>percent_correct_both</code>).
+the average percentage correct in both tests
+(<code>percent_correct_both</code>).
 </li>
 </ul>
 </div>
@@ -3908,11 +3920,11 @@ the average percentage correct in both tests (<code>percent_correct_both</code>)
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="transformingdata.html#cb203-1" aria-hidden="true"></a>teach_extended &lt;-<span class="st"> </span><span class="kw">mutate</span>(teach, <span class="dt">percent_statistics =</span> statistics<span class="op">/</span><span class="dv">40</span><span class="op">*</span><span class="dv">100</span>,</span>
-<span id="cb203-2"><a href="transformingdata.html#cb203-2" aria-hidden="true"></a>              <span class="dt">percent_cog_psy =</span> cog_psy<span class="op">/</span><span class="dv">40</span><span class="op">*</span><span class="dv">100</span>,</span>
-<span id="cb203-3"><a href="transformingdata.html#cb203-3" aria-hidden="true"></a>              <span class="dt">mean_score =</span> (statistics<span class="op">+</span>cog_psy)<span class="op">/</span><span class="dv">2</span>,</span>
-<span id="cb203-4"><a href="transformingdata.html#cb203-4" aria-hidden="true"></a>              <span class="dt">percent_correct_both =</span> mean_score<span class="op">/</span><span class="dv">40</span><span class="op">*</span><span class="dv">100</span>)</span>
-<span id="cb203-5"><a href="transformingdata.html#cb203-5" aria-hidden="true"></a><span class="kw">glimpse</span>(teach_extended)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="transformingdata.html#cb203-1" tabindex="-1"></a>teach_extended <span class="ot">&lt;-</span> <span class="fu">mutate</span>(teach, <span class="at">percent_statistics =</span> statistics<span class="sc">/</span><span class="dv">40</span><span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb203-2"><a href="transformingdata.html#cb203-2" tabindex="-1"></a>              <span class="at">percent_cog_psy =</span> cog_psy<span class="sc">/</span><span class="dv">40</span><span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb203-3"><a href="transformingdata.html#cb203-3" tabindex="-1"></a>              <span class="at">mean_score =</span> (statistics<span class="sc">+</span>cog_psy)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb203-4"><a href="transformingdata.html#cb203-4" tabindex="-1"></a>              <span class="at">percent_correct_both =</span> mean_score<span class="sc">/</span><span class="dv">40</span><span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb203-5"><a href="transformingdata.html#cb203-5" tabindex="-1"></a><span class="fu">glimpse</span>(teach_extended)</span></code></pre></div>
 <pre><code>## Rows: 60
 ## Columns: 10
 ## $ student              &lt;dbl&gt; 28, 19, 4, 17, 10, 2, 11, 16, 25, 5, 1, 8, 13, 22…

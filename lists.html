@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-09-24" />
+<meta name="date" content="2024-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -57,8 +56,9 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -291,8 +291,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">6</span> Lists<a href="lists.html#lists" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Lists are like atomic vectors because they group data into a one-dimensional set. However, lists do not group together individual values; lists group together <em>R</em> objects, such as atomic vectors and other lists. For example, you can make a list that contains a numeric vector of length 31 in its first element, a character vector of length 1 in its second element, and a new list of length 3 in its third element. To do this, use the <code>list()</code> function.</p>
 <p><code>list()</code> creates a list the same way <code>c()</code> creates a vector. Separate each element in the list with a comma:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="lists.html#cb128-1" aria-hidden="true"></a>a_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">100</span><span class="op">:</span><span class="dv">111</span>, <span class="st">&quot;Erasmus&quot;</span>, <span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>))</span>
-<span id="cb128-2"><a href="lists.html#cb128-2" aria-hidden="true"></a>a_list</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="lists.html#cb128-1" tabindex="-1"></a>a_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">100</span><span class="sc">:</span><span class="dv">111</span>, <span class="st">&quot;Erasmus&quot;</span>, <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span>
+<span id="cb128-2"><a href="lists.html#cb128-2" tabindex="-1"></a>a_list</span></code></pre></div>
 <pre><code>## [[1]]
 ##  [1] 100 101 102 103 104 105 106 107 108 109 110 111
 ## 
@@ -306,27 +306,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="subsetting-lists" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Subsetting lists<a href="lists.html#subsetting-lists" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If you want to access the third element in the list you have to call:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="lists.html#cb130-1" aria-hidden="true"></a>a_list[[<span class="dv">3</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="lists.html#cb130-1" tabindex="-1"></a>a_list[[<span class="dv">3</span>]]</span></code></pre></div>
 <pre><code>## [1] FALSE  TRUE FALSE</code></pre>
 <p>In our example, this is a vector with 3 logicals.</p>
 <p>Please keep in mind that <strong>you have to use the double-bracketed indexes <code>[[..]]</code>, if you want to access the content of a specific object in a list</strong>. Single-brackets, e.g. <code>a_list[3]</code>, don’t raise an error, but returns something slightly different. This behaviour is often confusing for beginners.</p>
 <div class="geek">
 <p>
-But this actually very consistent. <code>a_list[3]</code> returns a list with on object, because <code>a_list[c(3,2)]</code> would return also a list (with two objects) and because subsetting atomic vectors with single brackets also return vectors. This check this out:
+But this actually very consistent. <code>a_list[3]</code> returns a
+list with on object, because <code>a_list[c(3,2)]</code> would return
+also a list (with two objects) and because subsetting atomic vectors
+with single brackets also return vectors. This check this out:
 </p>
 <p>
-<code>typeof(a_list[2])</code> and <code>typeof(a_list[[2]])</code>
+<code>typeof(a_list[2])</code> and
+<code>typeof(a_list[[2]])</code>
 </p>
 </div>
 </div>
 <div id="namedlists" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Named lists<a href="lists.html#namedlists" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This subsetting is double-brackets not very intuitive. At least in my view. I try to avoid it always and prefer to use names in lists. List produce readable code, if you use <code>name</code> attribute and if assign useful names to the elements in the list. You assign names to lists, like you did it with vectors in section <a href="vectors.html#namedvectors">5.4</a>. In our example, it would be:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="lists.html#cb132-1" aria-hidden="true"></a>b_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">100</span><span class="op">:</span><span class="dv">111</span>, <span class="st">&quot;Erasmus&quot;</span>, <span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>))</span>
-<span id="cb132-2"><a href="lists.html#cb132-2" aria-hidden="true"></a><span class="kw">names</span>(b_list) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;my_sequence&quot;</span>, <span class="st">&quot;university&quot;</span>, <span class="st">&quot;x&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="lists.html#cb132-1" tabindex="-1"></a>b_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">100</span><span class="sc">:</span><span class="dv">111</span>, <span class="st">&quot;Erasmus&quot;</span>, <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span>
+<span id="cb132-2"><a href="lists.html#cb132-2" tabindex="-1"></a><span class="fu">names</span>(b_list) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;my_sequence&quot;</span>, <span class="st">&quot;university&quot;</span>, <span class="st">&quot;x&quot;</span>)</span></code></pre></div>
 <p>But this can be done also in one line of code and is even easier and even more readable, right?</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="lists.html#cb133-1" aria-hidden="true"></a>b_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">my_sequence=</span><span class="dv">100</span><span class="op">:</span><span class="dv">111</span>, <span class="dt">university=</span><span class="st">&quot;Erasmus&quot;</span>, <span class="dt">x=</span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>))</span>
-<span id="cb133-2"><a href="lists.html#cb133-2" aria-hidden="true"></a>b_list</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="lists.html#cb133-1" tabindex="-1"></a>b_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">my_sequence=</span><span class="dv">100</span><span class="sc">:</span><span class="dv">111</span>, <span class="at">university=</span><span class="st">&quot;Erasmus&quot;</span>, <span class="at">x=</span><span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span>
+<span id="cb133-2"><a href="lists.html#cb133-2" tabindex="-1"></a>b_list</span></code></pre></div>
 <pre><code>## $my_sequence
 ##  [1] 100 101 102 103 104 105 106 107 108 109 110 111
 ## 
@@ -339,13 +343,14 @@ But this actually very consistent. <code>a_list[3]</code> returns a list with on
 <div id="listsdollar" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> The <code>$</code> operator<a href="lists.html#listsdollar" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If you want to access a specific element you can call it by it’s name using the <code>$</code> operator. See want you get, if you type:</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="lists.html#cb135-1" aria-hidden="true"></a>b_list<span class="op">$</span>my_sequence</span>
-<span id="cb135-2"><a href="lists.html#cb135-2" aria-hidden="true"></a>b_list<span class="op">$</span>university</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="lists.html#cb135-1" tabindex="-1"></a>b_list<span class="sc">$</span>my_sequence</span>
+<span id="cb135-2"><a href="lists.html#cb135-2" tabindex="-1"></a>b_list<span class="sc">$</span>university</span></code></pre></div>
 <p>You can also add a new element to list simply by using the <code>$</code> operator followed by a new name</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="lists.html#cb136-1" aria-hidden="true"></a>b_list<span class="op">$</span>my_new_element &lt;-<span class="st"> </span><span class="fl">15.6</span></span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="lists.html#cb136-1" tabindex="-1"></a>b_list<span class="sc">$</span>my_new_element <span class="ot">&lt;-</span> <span class="fl">15.6</span></span></code></pre></div>
 <div class="myexercise">
 <p>
-Have a look in RStudio in the Environment viewer and see how <code>a_list</code> and <code>b_list</code> are displayed.
+Have a look in RStudio in the Environment viewer and see how
+<code>a_list</code> and <code>b_list</code> are displayed.
 </p>
 <ul>
 <li>
@@ -371,13 +376,16 @@ Make a list called <code>lst</code> with three objects
 </p>
 <ul>
 <li>
-a vector called <code>subjects</code> containing the names John, Maria and Linda
+a vector called <code>subjects</code> containing the names John,
+Maria and Linda
 </li>
 <li>
-a vector called <code>body_len</code> containing the length in meter 1.92, 1.71 and 1.63
+a vector called <code>body_len</code> containing the length in meter
+1.92, 1.71 and 1.63
 </li>
 <li>
-a vector called <code>body_cm</code> containing the calculated length in centimeter
+a vector called <code>body_cm</code> containing the calculated
+length in centimeter
 </li>
 </ul>
 </div>
@@ -385,10 +393,10 @@ a vector called <code>body_cm</code> containing the calculated length in centime
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="lists.html#cb137-1" aria-hidden="true"></a>lst &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">subjects=</span><span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Linda&quot;</span>),</span>
-<span id="cb137-2"><a href="lists.html#cb137-2" aria-hidden="true"></a>            <span class="dt">body_len=</span><span class="kw">c</span>(<span class="fl">1.92</span>, <span class="fl">1.71</span>, <span class="fl">1.63</span>))</span>
-<span id="cb137-3"><a href="lists.html#cb137-3" aria-hidden="true"></a>lst<span class="op">$</span>body_cm =<span class="st"> </span>lst<span class="op">$</span>body_len <span class="op">*</span><span class="st"> </span><span class="dv">100</span></span>
-<span id="cb137-4"><a href="lists.html#cb137-4" aria-hidden="true"></a><span class="kw">print</span>(lst)</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="lists.html#cb137-1" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">subjects=</span><span class="fu">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Linda&quot;</span>),</span>
+<span id="cb137-2"><a href="lists.html#cb137-2" tabindex="-1"></a>            <span class="at">body_len=</span><span class="fu">c</span>(<span class="fl">1.92</span>, <span class="fl">1.71</span>, <span class="fl">1.63</span>))</span>
+<span id="cb137-3"><a href="lists.html#cb137-3" tabindex="-1"></a>lst<span class="sc">$</span>body_cm <span class="ot">=</span> lst<span class="sc">$</span>body_len <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb137-4"><a href="lists.html#cb137-4" tabindex="-1"></a><span class="fu">print</span>(lst)</span></code></pre></div>
 <pre><code>## $subjects
 ## [1] &quot;John&quot;  &quot;Maria&quot; &quot;Linda&quot;
 ## 

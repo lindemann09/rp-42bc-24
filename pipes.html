@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-09-24" />
+<meta name="date" content="2024-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -57,8 +56,9 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -296,32 +296,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">16.1</span> The pipe operator: <code>%&gt;%</code><a href="pipes.html#the-pipe-operator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><em>Tidyverse</em> has the operator <code>%&gt;%</code>, which sends an object (e.g. data frame) as input for the following function:</p>
 <p>For example, instead writing</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="pipes.html#cb263-1" aria-hidden="true"></a><span class="co"># classical function call</span></span>
-<span id="cb263-2"><a href="pipes.html#cb263-2" aria-hidden="true"></a><span class="kw">drop_na</span>(my_data)                <span class="co"># example a</span></span>
-<span id="cb263-3"><a href="pipes.html#cb263-3" aria-hidden="true"></a><span class="kw">mutate</span>(my_data, <span class="dt">new_var =</span> a <span class="op">+</span><span class="st"> </span>b) <span class="co"># example b</span></span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="pipes.html#cb263-1" tabindex="-1"></a><span class="co"># classical function call</span></span>
+<span id="cb263-2"><a href="pipes.html#cb263-2" tabindex="-1"></a><span class="fu">drop_na</span>(my_data)                <span class="co"># example a</span></span>
+<span id="cb263-3"><a href="pipes.html#cb263-3" tabindex="-1"></a><span class="fu">mutate</span>(my_data, <span class="at">new_var =</span> a <span class="sc">+</span> b) <span class="co"># example b</span></span></code></pre></div>
 <p>you can write</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="pipes.html#cb264-1" aria-hidden="true"></a><span class="co"># the same with pipes</span></span>
-<span id="cb264-2"><a href="pipes.html#cb264-2" aria-hidden="true"></a>my_data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>()                <span class="co"># example a</span></span>
-<span id="cb264-3"><a href="pipes.html#cb264-3" aria-hidden="true"></a>my_data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">new_var =</span> a <span class="op">+</span><span class="st"> </span>b)  <span class="co"># example b</span></span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="pipes.html#cb264-1" tabindex="-1"></a><span class="co"># the same with pipes</span></span>
+<span id="cb264-2"><a href="pipes.html#cb264-2" tabindex="-1"></a>my_data <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()                <span class="co"># example a</span></span>
+<span id="cb264-3"><a href="pipes.html#cb264-3" tabindex="-1"></a>my_data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">new_var =</span> a <span class="sc">+</span> b)  <span class="co"># example b</span></span></code></pre></div>
 <p>The two versions of example a and b do exactly the same. It’s just a different syntax. Instead having the data frame as first argument of the functions <code>drop_na()</code> or <code>mutate()</code> (first two example lines), you “push it” or “pipe it” to the following function with <code>%&gt;%</code>. That is, <em>R</em> uses the forwarded object as input for function and you can (or have to!) omit mentioning the data inside the function call (last two example lines).</p>
 <div class="geek">
 <p>
-The package that defines pipes in <em>Tidyverse</em> is called <code>magrittr</code>.
+The package that defines pipes in <em>Tidyverse</em> is called
+<code>magrittr</code>.
 </p>
 </div>
 </div>
 <div id="motivation-for-pipes" class="section level2 hasAnchor" number="16.2">
 <h2><span class="header-section-number">16.2</span> Motivation for pipes<a href="pipes.html#motivation-for-pipes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Why shall I use pipes? Pipes can be very handy, because you can not only send data to functions, but also the results of functions (i.e., the resulting data) to the following functions. You can build with this technology very efficiently a complex processing pipeline and your code remains well structured and readable (which this is always the aim of a good data science practice).</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="pipes.html#cb265-1" aria-hidden="true"></a><span class="co"># classical function call</span></span>
-<span id="cb265-2"><a href="pipes.html#cb265-2" aria-hidden="true"></a>data_with_na &lt;-<span class="st"> </span><span class="kw">drop_na</span>(my_data)                <span class="co"># step a</span></span>
-<span id="cb265-3"><a href="pipes.html#cb265-3" aria-hidden="true"></a><span class="kw">mutate</span>(data_with_na, <span class="dt">new_var =</span> a <span class="op">+</span><span class="st"> </span>b) <span class="co"># step b</span></span>
-<span id="cb265-4"><a href="pipes.html#cb265-4" aria-hidden="true"></a></span>
-<span id="cb265-5"><a href="pipes.html#cb265-5" aria-hidden="true"></a><span class="co"># the same with pipes</span></span>
-<span id="cb265-6"><a href="pipes.html#cb265-6" aria-hidden="true"></a>my_data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">new_var =</span> a <span class="op">+</span><span class="st"> </span>b)  <span class="co"># step a and b</span></span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="pipes.html#cb265-1" tabindex="-1"></a><span class="co"># classical function call</span></span>
+<span id="cb265-2"><a href="pipes.html#cb265-2" tabindex="-1"></a>data_with_na <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(my_data)                <span class="co"># step a</span></span>
+<span id="cb265-3"><a href="pipes.html#cb265-3" tabindex="-1"></a><span class="fu">mutate</span>(data_with_na, <span class="at">new_var =</span> a <span class="sc">+</span> b) <span class="co"># step b</span></span>
+<span id="cb265-4"><a href="pipes.html#cb265-4" tabindex="-1"></a></span>
+<span id="cb265-5"><a href="pipes.html#cb265-5" tabindex="-1"></a><span class="co"># the same with pipes</span></span>
+<span id="cb265-6"><a href="pipes.html#cb265-6" tabindex="-1"></a>my_data <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">new_var =</span> a <span class="sc">+</span> b)  <span class="co"># step a and b</span></span></code></pre></div>
 <div class="important">
 <p>
-Don’t forget, pipes work only with functions that are developed for this purpose. Fortunately, this is the case for all <em>Tidyverse</em>-functions.
+Don’t forget, pipes work only with functions that are developed for
+this purpose. Fortunately, this is the case for all
+<em>Tidyverse</em>-functions.
 </p>
 </div>
 </div>
@@ -337,25 +340,25 @@ Try to do this analysis yourself, be fore you go on.
 <h3><span class="header-section-number">16.3.1</span> Intermediate steps<a href="pipes.html#intermediatesteps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To do it, we need to read the data and process it in multiple steps. For each step we create a new data frame and use the previous data frame as input. You are already familiar with that approach.</p>
 <p>One solution to the problem above looks, for example, like this:</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="pipes.html#cb266-1" aria-hidden="true"></a><span class="co">#reading the data</span></span>
-<span id="cb266-2"><a href="pipes.html#cb266-2" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;Unknown&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="pipes.html#cb267-1" aria-hidden="true"></a><span class="co">#remove nan values</span></span>
-<span id="cb267-2"><a href="pipes.html#cb267-2" aria-hidden="true"></a>teach2 &lt;-<span class="st"> </span><span class="kw">drop_na</span>(teach)</span>
-<span id="cb267-3"><a href="pipes.html#cb267-3" aria-hidden="true"></a></span>
-<span id="cb267-4"><a href="pipes.html#cb267-4" aria-hidden="true"></a><span class="co"># filtering the cities</span></span>
-<span id="cb267-5"><a href="pipes.html#cb267-5" aria-hidden="true"></a>teach3 &lt;-<span class="st"> </span><span class="kw">filter</span>(teach2, city <span class="op">!=</span><span class="st"> &quot;Leiden&quot;</span>, city <span class="op">!=</span><span class="st"> &quot;Utrecht&quot;</span>)</span>
-<span id="cb267-6"><a href="pipes.html#cb267-6" aria-hidden="true"></a></span>
-<span id="cb267-7"><a href="pipes.html#cb267-7" aria-hidden="true"></a><span class="co"># calculating percent correct for cog.psy-</span></span>
-<span id="cb267-8"><a href="pipes.html#cb267-8" aria-hidden="true"></a>teach4 &lt;-<span class="st"> </span><span class="kw">mutate</span>(teach3, <span class="dt">percent_cog_psy=</span> cog_psy <span class="op">*</span><span class="st"> </span><span class="dv">40</span><span class="op">/</span><span class="dv">100</span>)</span>
-<span id="cb267-9"><a href="pipes.html#cb267-9" aria-hidden="true"></a></span>
-<span id="cb267-10"><a href="pipes.html#cb267-10" aria-hidden="true"></a><span class="co"># group data for city and teaching method</span></span>
-<span id="cb267-11"><a href="pipes.html#cb267-11" aria-hidden="true"></a>teach4_grouped &lt;-<span class="st"> </span><span class="kw">group_by</span>(teach4, city, teaching_method)</span>
-<span id="cb267-12"><a href="pipes.html#cb267-12" aria-hidden="true"></a></span>
-<span id="cb267-13"><a href="pipes.html#cb267-13" aria-hidden="true"></a><span class="co"># making the summary</span></span>
-<span id="cb267-14"><a href="pipes.html#cb267-14" aria-hidden="true"></a>summary_df&lt;-<span class="st"> </span><span class="kw">summarise</span>(teach4_grouped,</span>
-<span id="cb267-15"><a href="pipes.html#cb267-15" aria-hidden="true"></a>                        <span class="dt">m_cog_psy =</span> <span class="kw">mean</span>(percent_cog_psy) )</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="pipes.html#cb266-1" tabindex="-1"></a><span class="co">#reading the data</span></span>
+<span id="cb266-2"><a href="pipes.html#cb266-2" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="pipes.html#cb267-1" tabindex="-1"></a><span class="co">#remove nan values</span></span>
+<span id="cb267-2"><a href="pipes.html#cb267-2" tabindex="-1"></a>teach2 <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(teach)</span>
+<span id="cb267-3"><a href="pipes.html#cb267-3" tabindex="-1"></a></span>
+<span id="cb267-4"><a href="pipes.html#cb267-4" tabindex="-1"></a><span class="co"># filtering the cities</span></span>
+<span id="cb267-5"><a href="pipes.html#cb267-5" tabindex="-1"></a>teach3 <span class="ot">&lt;-</span> <span class="fu">filter</span>(teach2, city <span class="sc">!=</span> <span class="st">&quot;Leiden&quot;</span>, city <span class="sc">!=</span> <span class="st">&quot;Utrecht&quot;</span>)</span>
+<span id="cb267-6"><a href="pipes.html#cb267-6" tabindex="-1"></a></span>
+<span id="cb267-7"><a href="pipes.html#cb267-7" tabindex="-1"></a><span class="co"># calculating percent correct for cog.psy-</span></span>
+<span id="cb267-8"><a href="pipes.html#cb267-8" tabindex="-1"></a>teach4 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(teach3, <span class="at">percent_cog_psy=</span> cog_psy <span class="sc">*</span> <span class="dv">40</span><span class="sc">/</span><span class="dv">100</span>)</span>
+<span id="cb267-9"><a href="pipes.html#cb267-9" tabindex="-1"></a></span>
+<span id="cb267-10"><a href="pipes.html#cb267-10" tabindex="-1"></a><span class="co"># group data for city and teaching method</span></span>
+<span id="cb267-11"><a href="pipes.html#cb267-11" tabindex="-1"></a>teach4_grouped <span class="ot">&lt;-</span> <span class="fu">group_by</span>(teach4, city, teaching_method)</span>
+<span id="cb267-12"><a href="pipes.html#cb267-12" tabindex="-1"></a></span>
+<span id="cb267-13"><a href="pipes.html#cb267-13" tabindex="-1"></a><span class="co"># making the summary</span></span>
+<span id="cb267-14"><a href="pipes.html#cb267-14" tabindex="-1"></a>summary_df<span class="ot">&lt;-</span> <span class="fu">summarise</span>(teach4_grouped,</span>
+<span id="cb267-15"><a href="pipes.html#cb267-15" tabindex="-1"></a>                        <span class="at">m_cog_psy =</span> <span class="fu">mean</span>(percent_cog_psy) )</span></code></pre></div>
 <p>We produced in total 6 data frames (<code>teach</code>, <code>teach2</code>, <code>teach3</code>, <code>teach4</code>, <code>teach4_grouped</code>, <code>summary_df</code>), but we are actually only interested in the last data frame, which look like this:</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="pipes.html#cb268-1" aria-hidden="true"></a><span class="kw">print</span>(summary_df)</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="pipes.html#cb268-1" tabindex="-1"></a><span class="fu">print</span>(summary_df)</span></code></pre></div>
 <pre><code>## # A tibble: 9 × 3
 ## # Groups:   city [3]
 ##   city      teaching_method m_cog_psy
@@ -374,12 +377,12 @@ Try to do this analysis yourself, be fore you go on.
 <div id="overwrite-the-original" class="section level3 hasAnchor" number="16.3.2">
 <h3><span class="header-section-number">16.3.2</span> Overwrite the original<a href="pipes.html#overwrite-the-original" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Instead of creating intermediate objects at each step, we could overwrite the original object:</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="pipes.html#cb270-1" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;Unknown&quot;</span>))</span>
-<span id="cb270-2"><a href="pipes.html#cb270-2" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">drop_na</span>(teach)</span>
-<span id="cb270-3"><a href="pipes.html#cb270-3" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">filter</span>(teach, city <span class="op">!=</span><span class="st"> &quot;Leiden&quot;</span>, city <span class="op">!=</span><span class="st"> &quot;Utrecht&quot;</span>)</span>
-<span id="cb270-4"><a href="pipes.html#cb270-4" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">mutate</span>(teach, <span class="dt">percent_cog_psy=</span> cog_psy <span class="op">*</span><span class="st"> </span><span class="dv">40</span><span class="op">/</span><span class="dv">100</span>)</span>
-<span id="cb270-5"><a href="pipes.html#cb270-5" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">group_by</span>(teach, city, teaching_method)</span>
-<span id="cb270-6"><a href="pipes.html#cb270-6" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">summarise</span>(teach, <span class="dt">m_cog_psy =</span> <span class="kw">mean</span>(percent_cog_psy) )</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="pipes.html#cb270-1" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>))</span>
+<span id="cb270-2"><a href="pipes.html#cb270-2" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(teach)</span>
+<span id="cb270-3"><a href="pipes.html#cb270-3" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">filter</span>(teach, city <span class="sc">!=</span> <span class="st">&quot;Leiden&quot;</span>, city <span class="sc">!=</span> <span class="st">&quot;Utrecht&quot;</span>)</span>
+<span id="cb270-4"><a href="pipes.html#cb270-4" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">mutate</span>(teach, <span class="at">percent_cog_psy=</span> cog_psy <span class="sc">*</span> <span class="dv">40</span><span class="sc">/</span><span class="dv">100</span>)</span>
+<span id="cb270-5"><a href="pipes.html#cb270-5" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">group_by</span>(teach, city, teaching_method)</span>
+<span id="cb270-6"><a href="pipes.html#cb270-6" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">summarise</span>(teach, <span class="at">m_cog_psy =</span> <span class="fu">mean</span>(percent_cog_psy) )</span></code></pre></div>
 <p>This is less typing (and less thinking), so you’re less likely to make mistakes. However, there are two problems:</p>
 <ol style="list-style-type: decimal">
 <li>Debugging is painful: if you make a mistake you’ll need to re-run the complete pipeline from the beginning.</li>
@@ -389,14 +392,14 @@ Try to do this analysis yourself, be fore you go on.
 <div id="build-a-processing-pipeline-with-pipe" class="section level3 hasAnchor" number="16.3.3">
 <h3><span class="header-section-number">16.3.3</span> Build a processing pipeline with pipe <code>%&gt;%</code><a href="pipes.html#build-a-processing-pipeline-with-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Finally, we can use the pipe:</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="pipes.html#cb271-1" aria-hidden="true"></a>summary_df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;Unknown&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb271-2"><a href="pipes.html#cb271-2" aria-hidden="true"></a><span class="st">        </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span></span>
-<span id="cb271-3"><a href="pipes.html#cb271-3" aria-hidden="true"></a><span class="st">        </span><span class="kw">filter</span>(city <span class="op">!=</span><span class="st"> &quot;Leiden&quot;</span>, city <span class="op">!=</span><span class="st"> &quot;Utrecht&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb271-4"><a href="pipes.html#cb271-4" aria-hidden="true"></a><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">percent_cog_psy=</span> cog_psy <span class="op">*</span><span class="st"> </span><span class="dv">40</span><span class="op">/</span><span class="dv">100</span>) <span class="op">%&gt;%</span></span>
-<span id="cb271-5"><a href="pipes.html#cb271-5" aria-hidden="true"></a><span class="st">        </span><span class="kw">group_by</span>(city, teaching_method) <span class="op">%&gt;%</span></span>
-<span id="cb271-6"><a href="pipes.html#cb271-6" aria-hidden="true"></a><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">m_cog_psy =</span> <span class="kw">mean</span>(percent_cog_psy) )</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="pipes.html#cb271-1" tabindex="-1"></a>summary_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb271-2"><a href="pipes.html#cb271-2" tabindex="-1"></a>        <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb271-3"><a href="pipes.html#cb271-3" tabindex="-1"></a>        <span class="fu">filter</span>(city <span class="sc">!=</span> <span class="st">&quot;Leiden&quot;</span>, city <span class="sc">!=</span> <span class="st">&quot;Utrecht&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb271-4"><a href="pipes.html#cb271-4" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">percent_cog_psy=</span> cog_psy <span class="sc">*</span> <span class="dv">40</span><span class="sc">/</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb271-5"><a href="pipes.html#cb271-5" tabindex="-1"></a>        <span class="fu">group_by</span>(city, teaching_method) <span class="sc">%&gt;%</span></span>
+<span id="cb271-6"><a href="pipes.html#cb271-6" tabindex="-1"></a>        <span class="fu">summarise</span>(<span class="at">m_cog_psy =</span> <span class="fu">mean</span>(percent_cog_psy) )</span></code></pre></div>
 <p>If you compare this code with the code in which we produced multiple <a href="pipes.html#intermediatesteps">intermediate data frames</a>, I think you see the benefit. It does not only do the same computations, it’s also faster executed (which you noticed however only if you have really big datasets).</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="pipes.html#cb272-1" aria-hidden="true"></a><span class="kw">print</span>(summary_df)</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="pipes.html#cb272-1" tabindex="-1"></a><span class="fu">print</span>(summary_df)</span></code></pre></div>
 <pre><code>## # A tibble: 9 × 3
 ## # Groups:   city [3]
 ##   city      teaching_method m_cog_psy

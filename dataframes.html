@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-09-24" />
+<meta name="date" content="2024-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -57,8 +56,9 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -337,12 +337,12 @@ Figure 7.1: Data frames
 </div>
 <p>Data frames store data as a sequence of columns. Each column can be a different data type. Every column in a data frame must be the same length.</p>
 <p>Creating a data frame by hand takes a lot of typing, but you can do it (if you like) with the <code>data.frame</code> function. Give <code>data.frame</code> any number of vectors, each separated with a comma. Each vector should be set equal to a name that describes the vector. <code>data.frame</code> will turn each vector into a column of the new data frame:</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="dataframes.html#cb139-1" aria-hidden="true"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Subject_id =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>, <span class="dv">4</span>),</span>
-<span id="cb139-2"><a href="dataframes.html#cb139-2" aria-hidden="true"></a>                 <span class="dt">Gender =</span> <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;male&quot;</span> ),</span>
-<span id="cb139-3"><a href="dataframes.html#cb139-3" aria-hidden="true"></a>                 <span class="dt">IQ=</span><span class="kw">c</span>(<span class="dv">102</span>, <span class="dv">121</span>, <span class="dv">112</span>, <span class="dv">103</span>),</span>
-<span id="cb139-4"><a href="dataframes.html#cb139-4" aria-hidden="true"></a>                 <span class="dt">International_student =</span> <span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="dataframes.html#cb139-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Subject_id =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb139-2"><a href="dataframes.html#cb139-2" tabindex="-1"></a>                 <span class="at">Gender =</span> <span class="fu">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;male&quot;</span> ),</span>
+<span id="cb139-3"><a href="dataframes.html#cb139-3" tabindex="-1"></a>                 <span class="at">IQ=</span><span class="fu">c</span>(<span class="dv">102</span>, <span class="dv">121</span>, <span class="dv">112</span>, <span class="dv">103</span>),</span>
+<span id="cb139-4"><a href="dataframes.html#cb139-4" tabindex="-1"></a>                 <span class="at">International_student =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span></code></pre></div>
 <p>You’ll need to make sure that each vector is the same length. The resulting data frame looks like this:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="dataframes.html#cb140-1" aria-hidden="true"></a><span class="kw">print</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="dataframes.html#cb140-1" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div>
 <pre><code>##   Subject_id Gender  IQ International_student
 ## 1          1 female 102                 FALSE
 ## 2          2 female 121                 FALSE
@@ -350,26 +350,31 @@ Figure 7.1: Data frames
 ## 4          4   male 103                 FALSE</code></pre>
 <div class="important">
 <p>
-Remember: <strong>Use the <code>=</code> assignment inside functions</strong>
+Remember: <strong>Use the <code>=</code> assignment inside
+functions</strong>
 </p>
 <p>
-Since you <code>data.frame</code> is a function and <code>Subject_id</code>, <code>Gender</code>, <code>IQ</code> and <code>International_student</code> are arguments of this function, you have to use the equal sign <code>=</code> to map the vectors to variable names and not the left hand side assignment <code>&lt;-</code>.
+Since you <code>data.frame</code> is a function and
+<code>Subject_id</code>, <code>Gender</code>, <code>IQ</code> and
+<code>International_student</code> are arguments of this function, you
+have to use the equal sign <code>=</code> to map the vectors to variable
+names and not the left hand side assignment <code>&lt;-</code>.
 </p>
 </div>
-<div id="variable-overview" class="section level3 unnumbered hasAnchor" number="">
+<div id="variable-overview" class="section level3 unnumbered hasAnchor">
 <h3>Variable overview<a href="dataframes.html#variable-overview" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To function <code>str()</code> gives you a side-wise overview of the variables in a data frame. This show the variable names, the data types and the first few data points:</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="dataframes.html#cb142-1" aria-hidden="true"></a><span class="kw">str</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="dataframes.html#cb142-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    4 obs. of  4 variables:
 ##  $ Subject_id           : num  1 2 3 4
 ##  $ Gender               : chr  &quot;female&quot; &quot;female&quot; &quot;male&quot; &quot;male&quot;
 ##  $ IQ                   : num  102 121 112 103
 ##  $ International_student: logi  FALSE FALSE TRUE FALSE</code></pre>
 </div>
-<div id="descriptive-summary" class="section level3 unnumbered hasAnchor" number="">
+<div id="descriptive-summary" class="section level3 unnumbered hasAnchor">
 <h3>Descriptive summary<a href="dataframes.html#descriptive-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A descriptive summary of all variables a data frame is very handy and important to check your data quality and to exclude potential technical issue in your dataset. It’s very simply to do by:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="dataframes.html#cb144-1" aria-hidden="true"></a><span class="kw">summary</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="dataframes.html#cb144-1" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code></pre></div>
 <pre><code>##    Subject_id      Gender                IQ        International_student
 ##  Min.   :1.00   Length:4           Min.   :102.0   Mode :logical        
 ##  1st Qu.:1.75   Class :character   1st Qu.:102.8   FALSE:3              
@@ -383,20 +388,22 @@ Since you <code>data.frame</code> is a function and <code>Subject_id</code>, <co
 <strong>Quality check</strong>
 </p>
 <p>
-Below you see summarizing information about dataset call <code>demo_data</code>. Without knowing the data in detail, what is strange in this dataset?
+Below you see summarizing information about dataset call
+<code>demo_data</code>. Without knowing the data in detail, what is
+strange in this dataset?
 </p>
 </div>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="dataframes.html#cb146-1" aria-hidden="true"></a><span class="kw">nrow</span>(demo_data)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="dataframes.html#cb146-1" tabindex="-1"></a><span class="fu">nrow</span>(demo_data)</span></code></pre></div>
 <pre><code>## [1] 200</code></pre>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="dataframes.html#cb148-1" aria-hidden="true"></a><span class="kw">summary</span>(demo_data)</span></code></pre></div>
-<pre><code>##    variable_a        variable_b         variable_c
-##  Min.   :-197.45   Min.   :-2.89074   Min.   :10  
-##  1st Qu.:  22.30   1st Qu.:-0.63104   1st Qu.:10  
-##  Median :  79.35   Median : 0.18533   Median :10  
-##  Mean   :  80.70   Mean   : 0.01367   Mean   :10  
-##  3rd Qu.: 143.48   3rd Qu.: 0.73173   3rd Qu.:10  
-##  Max.   : 392.30   Max.   : 1.81772   Max.   :10  
-##                    NA&#39;s   :131</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="dataframes.html#cb148-1" tabindex="-1"></a><span class="fu">summary</span>(demo_data)</span></code></pre></div>
+<pre><code>##    variable_a         variable_b         variable_c
+##  Min.   :-195.666   Min.   :-2.18884   Min.   :10  
+##  1st Qu.:   5.726   1st Qu.:-0.55576   1st Qu.:10  
+##  Median :  63.006   Median : 0.06660   Median :10  
+##  Mean   :  68.641   Mean   : 0.06696   Mean   :10  
+##  3rd Qu.: 141.270   3rd Qu.: 0.72786   3rd Qu.:10  
+##  Max.   : 377.996   Max.   : 2.05798   Max.   :10  
+##                     NA&#39;s   :131</code></pre>
 <div class="webex-solution">
 <button>
 Solution
@@ -413,22 +420,26 @@ Solution
 <div id="selectbyname" class="section level3 hasAnchor" number="7.1.1">
 <h3><span class="header-section-number">7.1.1</span> Selecting columns by name<a href="dataframes.html#selectbyname" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can access a specific column/variable of the data frame with <code>$</code> <a href="lists.html#listsdollar">operator</a> as you know it from <a href="lists.html#lists">lists</a>. For example:</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="dataframes.html#cb150-1" aria-hidden="true"></a>df<span class="op">$</span>IQ</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="dataframes.html#cb150-1" tabindex="-1"></a>df<span class="sc">$</span>IQ</span></code></pre></div>
 <pre><code>## [1] 102 121 112 103</code></pre>
 <p>As you see above, if you access a variable of a data frame with the <code>$</code> operator, you get an <a href="vectors.html#vectors">atomic vector</a>. This means that you can use subsetting of vectors as described in section <a href="vectors.html#subsetting">5.3</a>.</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="dataframes.html#cb152-1" aria-hidden="true"></a>g &lt;-<span class="st"> </span>df<span class="op">$</span>Gender   <span class="co"># g is a vector with the genders</span></span>
-<span id="cb152-2"><a href="dataframes.html#cb152-2" aria-hidden="true"></a>g[<span class="dv">2</span>]             <span class="co"># print the gender at the second positions</span></span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="dataframes.html#cb152-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> df<span class="sc">$</span>Gender   <span class="co"># g is a vector with the genders</span></span>
+<span id="cb152-2"><a href="dataframes.html#cb152-2" tabindex="-1"></a>g[<span class="dv">2</span>]             <span class="co"># print the gender at the second positions</span></span></code></pre></div>
 <pre><code>## [1] &quot;female&quot;</code></pre>
 <p>But this can be done also in one expression.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="dataframes.html#cb154-1" aria-hidden="true"></a>df<span class="op">$</span>Gender[<span class="dv">2</span>]   <span class="co"># get the Gender in the second row position</span></span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="dataframes.html#cb154-1" tabindex="-1"></a>df<span class="sc">$</span>Gender[<span class="dv">2</span>]   <span class="co"># get the Gender in the second row position</span></span></code></pre></div>
 <pre><code>## [1] &quot;female&quot;</code></pre>
 <div class="myexercise">
 <ul>
 <li>
-Calculate the median of the IQs of the subjects in the data frame.
+Calculate the median of the IQs of the subjects in the data
+frame.
 </li>
 <li>
-Make a vector of logicals that is <code>TRUE</code> for all students that have an IQ larger than the mean IQ (and <code>FALSE</code> otherwise). Include this vector as new variable <code>is_clever</code> to our data frame.
+Make a vector of logicals that is <code>TRUE</code> for all students
+that have an IQ larger than the mean IQ (and <code>FALSE</code>
+otherwise). Include this vector as new variable <code>is_clever</code>
+to our data frame.
 </li>
 </ul>
 </div>
@@ -436,11 +447,11 @@ Make a vector of logicals that is <code>TRUE</code> for all students that have a
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="dataframes.html#cb156-1" aria-hidden="true"></a>m_iq =<span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>IQ)</span>
-<span id="cb156-2"><a href="dataframes.html#cb156-2" aria-hidden="true"></a>m_iq</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="dataframes.html#cb156-1" tabindex="-1"></a>m_iq <span class="ot">=</span> <span class="fu">mean</span>(df<span class="sc">$</span>IQ)</span>
+<span id="cb156-2"><a href="dataframes.html#cb156-2" tabindex="-1"></a>m_iq</span></code></pre></div>
 <pre><code>## [1] 109.5</code></pre>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="dataframes.html#cb158-1" aria-hidden="true"></a>df<span class="op">$</span>is_clever &lt;-<span class="st"> </span>df<span class="op">$</span>IQ <span class="op">&gt;</span><span class="st"> </span>m_iq</span>
-<span id="cb158-2"><a href="dataframes.html#cb158-2" aria-hidden="true"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="dataframes.html#cb158-1" tabindex="-1"></a>df<span class="sc">$</span>is_clever <span class="ot">&lt;-</span> df<span class="sc">$</span>IQ <span class="sc">&gt;</span> m_iq</span>
+<span id="cb158-2"><a href="dataframes.html#cb158-2" tabindex="-1"></a>df</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -489,13 +500,13 @@ Solution
 <div id="selecting-by-row-and-column-indices" class="section level3 hasAnchor" number="7.1.2">
 <h3><span class="header-section-number">7.1.2</span> Selecting by row and column indices<a href="dataframes.html#selecting-by-row-and-column-indices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Cells in an data frame can be also access via row and column indices and the <code>[]</code> operator. The syntax looks like this: <code>[row_index, column_index]</code>.</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="dataframes.html#cb159-1" aria-hidden="true"></a><span class="co"># Check what you get</span></span>
-<span id="cb159-2"><a href="dataframes.html#cb159-2" aria-hidden="true"></a>df[<span class="dv">1</span>, <span class="dv">3</span>]             <span class="co"># returns from the 1st row the column 3</span></span>
-<span id="cb159-3"><a href="dataframes.html#cb159-3" aria-hidden="true"></a>df[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">3</span>]           <span class="co"># returns from row 2-4 the column 2</span></span>
-<span id="cb159-4"><a href="dataframes.html#cb159-4" aria-hidden="true"></a>df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)]  <span class="co"># returns from row 1 and 4 the column 2 and 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="dataframes.html#cb159-1" tabindex="-1"></a><span class="co"># Check what you get</span></span>
+<span id="cb159-2"><a href="dataframes.html#cb159-2" tabindex="-1"></a>df[<span class="dv">1</span>, <span class="dv">3</span>]             <span class="co"># returns from the 1st row the column 3</span></span>
+<span id="cb159-3"><a href="dataframes.html#cb159-3" tabindex="-1"></a>df[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">3</span>]           <span class="co"># returns from row 2-4 the column 2</span></span>
+<span id="cb159-4"><a href="dataframes.html#cb159-4" tabindex="-1"></a>df[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)]  <span class="co"># returns from row 1 and 4 the column 2 and 3</span></span></code></pre></div>
 <p>If you omit one of the indices <em>R</em> takes all rows or columns of the omitted index.</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="dataframes.html#cb160-1" aria-hidden="true"></a>df[, <span class="dv">2</span>]    <span class="co"># all rows of column 2</span></span>
-<span id="cb160-2"><a href="dataframes.html#cb160-2" aria-hidden="true"></a>df[<span class="dv">4</span>, ]    <span class="co"># all columns of row 2 and 4</span></span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="dataframes.html#cb160-1" tabindex="-1"></a>df[, <span class="dv">2</span>]    <span class="co"># all rows of column 2</span></span>
+<span id="cb160-2"><a href="dataframes.html#cb160-2" tabindex="-1"></a>df[<span class="dv">4</span>, ]    <span class="co"># all columns of row 2 and 4</span></span></code></pre></div>
 <p>Consequently, <code>df[,]</code> or <code>df[]</code> should return the entire data frame…and this exactly what <em>R</em> is doing.</p>
 <div class="myexercise">
 <ul>
@@ -503,7 +514,8 @@ Solution
 Access all columns from the 1st and 3rd row of <code>df</code>.
 </li>
 <li>
-Do this also in an reversed order of the columns. That is, the first column should be <code>International_student</code>.
+Do this also in an reversed order of the columns. That is, the first
+column should be <code>International_student</code>.
 </li>
 </ul>
 </div>
@@ -511,7 +523,7 @@ Do this also in an reversed order of the columns. That is, the first column shou
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="dataframes.html#cb161-1" aria-hidden="true"></a>df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), ]</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="dataframes.html#cb161-1" tabindex="-1"></a>df[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), ]</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -544,7 +556,7 @@ Solution
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="dataframes.html#cb162-1" aria-hidden="true"></a>df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dv">4</span><span class="op">:</span><span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="dataframes.html#cb162-1" tabindex="-1"></a>df[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dv">4</span><span class="sc">:</span><span class="dv">1</span>]</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -580,8 +592,8 @@ Solution
 <div id="subsettinglogicalsdataframe" class="section level3 hasAnchor" number="7.1.3">
 <h3><span class="header-section-number">7.1.3</span> Subsetting with logicals<a href="dataframes.html#subsettinglogicalsdataframe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Section <a href="vectors.html#subsettinglogicals">5.3.3</a> demonstrated that you can select subsets with logicals. This subsetting with logical vectors is very useful for data frames and very often used. For example, if you want to have the data of the females only:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="dataframes.html#cb163-1" aria-hidden="true"></a>selected_rows &lt;-<span class="st"> </span>df<span class="op">$</span>Gender <span class="op">==</span><span class="st"> &quot;female&quot;</span>   <span class="co"># logical vector with TRUE for females</span></span>
-<span id="cb163-2"><a href="dataframes.html#cb163-2" aria-hidden="true"></a>df[selected_rows, ]</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="dataframes.html#cb163-1" tabindex="-1"></a>selected_rows <span class="ot">&lt;-</span> df<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">&quot;female&quot;</span>   <span class="co"># logical vector with TRUE for females</span></span>
+<span id="cb163-2"><a href="dataframes.html#cb163-2" tabindex="-1"></a>df[selected_rows, ]</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -612,7 +624,7 @@ Solution
 </table>
 </div>
 <p>Alternatively you can write it in one line:</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="dataframes.html#cb164-1" aria-hidden="true"></a>df[df<span class="op">$</span>Gender <span class="op">==</span><span class="st"> &quot;female&quot;</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="dataframes.html#cb164-1" tabindex="-1"></a>df[df<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">&quot;female&quot;</span>, ]</span></code></pre></div>
 <div class="myexercise">
 <p>
 Make a data frame with the clever people only.
@@ -622,8 +634,8 @@ Make a data frame with the clever people only.
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="dataframes.html#cb165-1" aria-hidden="true"></a>clever &lt;-<span class="st"> </span>df[df<span class="op">$</span>is_clever, ]  <span class="co"># this clever is already a logical vector</span></span>
-<span id="cb165-2"><a href="dataframes.html#cb165-2" aria-hidden="true"></a>clever</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="dataframes.html#cb165-1" tabindex="-1"></a>clever <span class="ot">&lt;-</span> df[df<span class="sc">$</span>is_clever, ]  <span class="co"># this clever is already a logical vector</span></span>
+<span id="cb165-2"><a href="dataframes.html#cb165-2" tabindex="-1"></a>clever</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -662,11 +674,11 @@ Solution
 <div id="lists-and-data-frames" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Lists and data frames<a href="dataframes.html#lists-and-data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Since lists and data frame can store multiple atomic vectors and they can actually both store tabular-like data. You can therefore convert between this two types using an <code>as.</code>-converter function. For instance, the list <code>lst</code> that we made in section <a href="lists.html#listsdollar">6.3</a> can be converter to a data frame.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="dataframes.html#cb166-1" aria-hidden="true"></a>lst &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">subjects=</span><span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Linda&quot;</span>),</span>
-<span id="cb166-2"><a href="dataframes.html#cb166-2" aria-hidden="true"></a>            <span class="dt">body_len=</span><span class="kw">c</span>(<span class="fl">1.92</span>, <span class="fl">1.71</span>, <span class="fl">1.63</span>))</span>
-<span id="cb166-3"><a href="dataframes.html#cb166-3" aria-hidden="true"></a></span>
-<span id="cb166-4"><a href="dataframes.html#cb166-4" aria-hidden="true"></a>df2 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(lst)</span>
-<span id="cb166-5"><a href="dataframes.html#cb166-5" aria-hidden="true"></a>df2</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="dataframes.html#cb166-1" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">subjects=</span><span class="fu">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Linda&quot;</span>),</span>
+<span id="cb166-2"><a href="dataframes.html#cb166-2" tabindex="-1"></a>            <span class="at">body_len=</span><span class="fu">c</span>(<span class="fl">1.92</span>, <span class="fl">1.71</span>, <span class="fl">1.63</span>))</span>
+<span id="cb166-3"><a href="dataframes.html#cb166-3" tabindex="-1"></a></span>
+<span id="cb166-4"><a href="dataframes.html#cb166-4" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(lst)</span>
+<span id="cb166-5"><a href="dataframes.html#cb166-5" tabindex="-1"></a>df2</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -693,7 +705,7 @@ Solution
 </div>
 <p>Note, converting a list to a data frame makes only sense, if the data in the list are indeed tabular, that is, if all objects in the list are atomic vectors of the same length.</p>
 <p>Finally, a data frame can be converted into a list using <code>as.list()</code>. See what you get, if you convert the above data frame <code>df</code>:</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="dataframes.html#cb167-1" aria-hidden="true"></a><span class="kw">as.list</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="dataframes.html#cb167-1" tabindex="-1"></a><span class="fu">as.list</span>(df)</span></code></pre></div>
 <pre><code>## $Subject_id
 ## [1] 1 2 3 4
 ## 

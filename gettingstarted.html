@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-09-24" />
+<meta name="date" content="2024-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -57,8 +56,9 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -297,7 +297,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <strong>Install <em>R</em></strong>
 </p>
 <p>
-Depending on the operating system (OS), download the latest release of <a href="https://cran.rstudio.com/bin/windows/base/">R for Windows</a> or <a href="https://cran.rstudio.com/">R for MacOSX or Linux</a> and install it. If you use Linux, you can install the package <code>r-base</code> via your package manager.
+Depending on the operating system (OS), download the latest release
+of <a href="https://cran.rstudio.com/bin/windows/base/">R for
+Windows</a> or <a href="https://cran.rstudio.com/">R for MacOSX or
+Linux</a> and install it. If you use Linux, you can install the package
+<code>r-base</code> via your package manager.
 </p>
 </div>
 <div class="myexercise">
@@ -305,7 +309,9 @@ Depending on the operating system (OS), download the latest release of <a href="
 <strong>Download <em>RStudio</em> and install it.</strong>
 </p>
 <p>
-Use the correct installer for your operation system from <a href="https://rstudio.com/products/rstudio/download/#download">RStudio homepage</a>.
+Use the correct installer for your operation system from <a
+href="https://rstudio.com/products/rstudio/download/#download">RStudio
+homepage</a>.
 </p>
 </div>
 <p>If you face problems with the installation you might find <a href="https://techvidvan.com/tutorials/install-r/">Step-by-Step Guide for Installing R and R Studio</a> useful. However, there are also several other of tutorials onli{-}ne.</p>
@@ -316,7 +322,11 @@ Use the correct installer for your operation system from <a href="https://rstudi
 <p>To get started with your own programming in <em>RStudio</em> and with this course you need to create a project that you use for all your exercises during this course.</p>
 <div class="myexercise">
 <p>
-Open <em>RStudio</em> and click in the menu <code>File - New Project</code>, <code>New Directory - New Project</code>, select a directory name (e.g. ‘R-practical’) and select a subdirectory, where your want to save the project. Click <code>Create Project</code>.
+Open <em>RStudio</em> and click in the menu
+<code>File - New Project</code>,
+<code>New Directory - New Project</code>, select a directory name
+(e.g. ‘R-practical’) and select a subdirectory, where your want to save
+the project. Click <code>Create Project</code>.
 </p>
 </div>
 <p><strong>Now, you are ready to started working with <em>R</em>…</strong></p>

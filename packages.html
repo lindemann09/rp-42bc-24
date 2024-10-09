@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-09-24" />
+<meta name="date" content="2024-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -57,8 +56,9 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -296,40 +296,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.1</span> Installing a package<a href="packages.html#installing-a-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The traditional place to get <em>R</em> packages is from <a href="https://cran.r-project.org/"><em>CRAN</em>, the Comprehensive R Archive Network</a>, which is where you have downloaded <em>R</em>.</p>
 <p>However, you don’t need to go to <em>CRAN</em>’s website to install packages. It’s much simpler and can be accomplished within the console using the command <code>install.packages("package-name-in-quotes")</code>. <em>R</em> searches online on the <em>CRAN</em> servers for a packages with that name and downloads and installs it locally. This works, of course, only if you have an internet connection. Let’s install a small, fun package <code>praise</code>. You need to use quotes around the package name:</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="packages.html#cb169-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&quot;praise&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="packages.html#cb169-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;praise&quot;</span>)</span></code></pre></div>
 <div class="myexercise">
 <p>
-The next chapters will make use of two packages that help us to important data in <em>R</em>. This packages are called <code>readr</code> and <code>readxl</code>. Please install these two packages.
+The next chapters will make use of two packages that help us to
+important data in <em>R</em>. This packages are called
+<code>readr</code> and <code>readxl</code>. Please install these two
+packages.
 </p>
 </div>
 <div class="webex-solution">
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="packages.html#cb170-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&quot;readr&quot;</span>)</span>
-<span id="cb170-2"><a href="packages.html#cb170-2" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&quot;readxl&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="packages.html#cb170-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readr&quot;</span>)</span>
+<span id="cb170-2"><a href="packages.html#cb170-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readxl&quot;</span>)</span></code></pre></div>
 </div>
 <div class="geek">
 <p>
-If you want to install multiple packages at once, you have to use a vector of the package names you want to install as argument, e.g., <code>install.packages( c(“package-a”, “package-b”) )</code>.
+If you want to install multiple packages at once, you have to use a
+vector of the package names you want to install as argument, e.g.,
+<code>install.packages( c(“package-a”, “package-b”) )</code>.
 </p>
 </div>
 </div>
 <div id="using-a-package" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Using a package<a href="packages.html#using-a-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>So far, we’ve just installed packages. That is, the packages are now available on the local computer. Before we can use the new functionality, we need to tell <em>R</em> to activate the package for this session, or better said, to load the library to memory. This will be done by the function <code>library()</code>. For example, to use the <code>praise</code>-package we call first:</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="packages.html#cb171-1" aria-hidden="true"></a><span class="kw">library</span>(<span class="st">&quot;praise&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="packages.html#cb171-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;praise&quot;</span>)</span></code></pre></div>
 <p>Now that the <code>praise</code> package is loaded, you can use the function in that package. The new function is called <code>praise()</code> and returns a praise to make you feel better.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="packages.html#cb172-1" aria-hidden="true"></a><span class="kw">praise</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;You are sublime!&quot;</code></pre>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="packages.html#cb172-1" tabindex="-1"></a><span class="fu">praise</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;You are primo!&quot;</code></pre>
 <p><em>(As you see, you can do really useful things with <em>R</em> <code>;-)</code>)</em></p>
 <p><strong>But what’s the difference between a package and a library?</strong></p>
 <p>Sometimes there is a confusion between a package and a library. Please don’t get confused. You can find many people calling “libraries” to packages (like me, sometimes). To be precise, a library is a the collection of functions that we use in <em>R</em> and that will be loaded into memory with the <code>library()</code>-command. A package is the bundle of software that you have to install to get the library. A package can contain more than just the library, for instance, documentation, example scripts and data.</p>
-<div id="the-operator" class="section level3 unnumbered hasAnchor" number="">
+<div id="the-operator" class="section level3 unnumbered hasAnchor">
 <h3>The <code>::</code> operator<a href="packages.html#the-operator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Once you have load the package with <code>library()</code> <em>R</em> knows all functions of that package and you can run the function just by calling it’s name (as you know it).</p>
 <p>If you call a function, it’s also possible to mention explicitly the package from which the function stems. This is done with the <code>::</code> operator that separates the package and function name: <code>package-name::function-name()</code>. For example, calling the function <code>praise()</code> from the package <code>praise</code> would look like this:</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="packages.html#cb174-1" aria-hidden="true"></a>praise<span class="op">::</span><span class="kw">praise</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="packages.html#cb174-1" tabindex="-1"></a>praise<span class="sc">::</span><span class="fu">praise</span>()</span></code></pre></div>
 <p><strong>Why should I use the <code>::</code> syntax?</strong></p>
 <p>You don’t have to use <code>::</code> and I guess that you will hardly need it for you own analyses. However, there are some reasons why you should know that this syntax exists:</p>
 <ol style="list-style-type: decimal">
@@ -339,7 +344,9 @@ If you want to install multiple packages at once, you have to use a vector of th
 </ol>
 <div class="geek">
 <p>
-Mask conflicts occur for instance in the <code>tidyverse</code> package collection, that we’ll use next week. Mask conflicts will be depicted as warnings while loading (importing) a library.
+Mask conflicts occur for instance in the <code>tidyverse</code>
+package collection, that we’ll use next week. Mask conflicts will be
+depicted as warnings while loading (importing) a library.
 </p>
 </div>
 </div>
@@ -349,7 +356,9 @@ Mask conflicts occur for instance in the <code>tidyverse</code> package collecti
 <p>If you want to know more about a package, you can use <em>R</em>’s built-in help function: <code>help(package="package-name")</code>.</p>
 <div class="myexercise">
 <p>
-Try to access the documentation of the function <code>read_excel</code> of the newly installed <code>readxl</code>-package.
+Try to access the documentation of the function
+<code>read_excel</code> of the newly installed
+<code>readxl</code>-package.
 </p>
 </div>
 

@@ -1,21 +1,24 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
 ]{scrartcl}
-\usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -34,18 +37,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={Data Processing and Analysis in R (2023)},
-  pdfauthor={Oliver Lindemann},
-  colorlinks=true,
-  linkcolor=violet,
-  filecolor=Maroon,
-  citecolor=Blue,
-  urlcolor=blue,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -57,13 +48,13 @@
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
 \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
 \newcommand{\BuiltInTok}[1]{#1}
 \newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
@@ -71,7 +62,7 @@
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
 \newcommand{\ExtensionTok}[1]{#1}
 \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\ImportTok}[1]{#1}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
@@ -80,13 +71,14 @@
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
 \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -204,10 +196,25 @@
 \pagestyle{fancy}
 \fancyhead[L]{\textit{Data Processing \& Analysis in R}}
 %\fancyfoot[L]{\includegraphics[height=3\baselineskip]{images/R-course-logo}}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Data Processing and Analysis in R (2023)},
+  pdfauthor={Oliver Lindemann},
+  colorlinks=true,
+  linkcolor={violet},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
+  pdfcreator={LaTeX via pandoc}}
 
 \title{Data Processing and Analysis in \emph{R} (2023)}
 \author{Oliver Lindemann}
-\date{2024-09-24}
+\date{2024-10-09}
 
 \begin{document}
 \maketitle
@@ -334,7 +341,7 @@ The manual comprises many code examples. A code example always looks like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DecValTok{7} \OperatorTok{+}\StringTok{ }\DecValTok{8}
+\DecValTok{7} \SpecialCharTok{+} \DecValTok{8}
 \end{Highlighting}
 \end{Shaded}
 
@@ -508,7 +515,7 @@ Before we have a look at the first \emph{R} code examples, you should know that 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Example of code with comments}
-\NormalTok{x =}\StringTok{ }\NormalTok{a }\OperatorTok{/}\StringTok{ }\NormalTok{b       }\CommentTok{\# dividing a by b and storing the result in x}
+\NormalTok{x }\OtherTok{=}\NormalTok{ a }\SpecialCharTok{/}\NormalTok{ b       }\CommentTok{\# dividing a by b and storing the result in x}
 \end{Highlighting}
 \end{Shaded}
 
@@ -529,9 +536,9 @@ Everything that is stored in \emph{R} is called an \textbf{object}. The most bas
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a \textless{}{-}}\StringTok{ }\DecValTok{9}
-\NormalTok{b \textless{}{-}}\StringTok{ }\FloatTok{2724.54}
-\NormalTok{third\_variable \textless{}{-}}\StringTok{ }\DecValTok{71}
+\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{9}
+\NormalTok{b }\OtherTok{\textless{}{-}} \FloatTok{2724.54}
+\NormalTok{third\_variable }\OtherTok{\textless{}{-}} \DecValTok{71}
 \end{Highlighting}
 \end{Shaded}
 
@@ -540,7 +547,7 @@ If you want to print out the content of a certain object or variable, you can us
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(b)}
+\FunctionTok{print}\NormalTok{(b)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -574,7 +581,7 @@ Alternatively, the command \texttt{ls()} lists all objects variables in the R co
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ls}\NormalTok{()}
+\FunctionTok{ls}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -592,8 +599,8 @@ Instead of typing an left arrow \texttt{\textless{}-} you can use the equal sign
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\DecValTok{13}
-\NormalTok{x =}\StringTok{ }\DecValTok{13}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{13}
+\NormalTok{x }\OtherTok{=} \DecValTok{13}
 \end{Highlighting}
 \end{Shaded}
 
@@ -610,11 +617,11 @@ In \emph{R}, there are two different ways to assign a value to a variable; you c
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\DecValTok{13}       \CommentTok{\# left{-}hand{-}side assignment}
-\DecValTok{13}\NormalTok{ {-}\textgreater{}}\StringTok{ }\NormalTok{x       }\CommentTok{\# right{-}hand{-}side assignment}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{13}       \CommentTok{\# left{-}hand{-}side assignment}
+\DecValTok{13} \OtherTok{{-}\textgreater{}}\NormalTok{ x       }\CommentTok{\# right{-}hand{-}side assignment}
 
-\NormalTok{a \textless{}{-}}\StringTok{ }\NormalTok{b        }\CommentTok{\# a receives the value of b}
-\NormalTok{a {-}\textgreater{}}\StringTok{ }\NormalTok{b        }\CommentTok{\# b receives the value of a}
+\NormalTok{a }\OtherTok{\textless{}{-}}\NormalTok{ b        }\CommentTok{\# a receives the value of b}
+\NormalTok{a }\OtherTok{{-}\textgreater{}}\NormalTok{ b        }\CommentTok{\# b receives the value of a}
 \end{Highlighting}
 \end{Shaded}
 
@@ -646,13 +653,13 @@ You use \emph{R} as a calculator and perform basic operations on numbers and var
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a \textless{}{-}}\StringTok{ }\DecValTok{8}
+\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{8}
 
-\DecValTok{12} \OperatorTok{+}\StringTok{ }\DecValTok{6}
-\NormalTok{a }\OperatorTok{*}\StringTok{ }\DecValTok{2}
-\DecValTok{210} \OperatorTok{/}\StringTok{ }\DecValTok{3}
-\NormalTok{(a }\OperatorTok{{-}}\StringTok{ }\DecValTok{3}\NormalTok{) }\OperatorTok{/}\StringTok{ }\DecValTok{4}
-\DecValTok{4}\OperatorTok{**}\DecValTok{3}     \CommentTok{\# 4 to the power of 5}
+\DecValTok{12} \SpecialCharTok{+} \DecValTok{6}
+\NormalTok{a }\SpecialCharTok{*} \DecValTok{2}
+\DecValTok{210} \SpecialCharTok{/} \DecValTok{3}
+\NormalTok{(a }\SpecialCharTok{{-}} \DecValTok{3}\NormalTok{) }\SpecialCharTok{/} \DecValTok{4}
+\DecValTok{4}\SpecialCharTok{**}\DecValTok{3}     \CommentTok{\# 4 to the power of 5}
 \end{Highlighting}
 \end{Shaded}
 
@@ -660,7 +667,7 @@ Of course, the result of a calculations can be stored in new variables, for inst
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\NormalTok{a }\OperatorTok{*}\StringTok{ }\DecValTok{7}
+\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ a }\SpecialCharTok{*} \DecValTok{7}
 \NormalTok{x}
 \end{Highlighting}
 \end{Shaded}
@@ -673,8 +680,8 @@ Look at the following example, which increases the value of the variable \texttt
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\DecValTok{9}
-\NormalTok{x \textless{}{-}}\StringTok{ }\NormalTok{x }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{9}
+\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{+} \DecValTok{1}
 \NormalTok{x}
 \end{Highlighting}
 \end{Shaded}
@@ -690,8 +697,8 @@ circle, what is \texttt{x} ?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{r =}\StringTok{ }\DecValTok{19}
-\NormalTok{pi}\OperatorTok{*}\NormalTok{(r}\OperatorTok{**}\DecValTok{2}\NormalTok{) {-}\textgreater{}}\StringTok{ }\NormalTok{x}
+\NormalTok{r }\OtherTok{=} \DecValTok{19}
+\NormalTok{pi}\SpecialCharTok{*}\NormalTok{(r}\SpecialCharTok{**}\DecValTok{2}\NormalTok{) }\OtherTok{{-}\textgreater{}}\NormalTok{ x}
 \end{Highlighting}
 \end{Shaded}
 
@@ -715,7 +722,7 @@ Besides numeric values as in the example above, \emph{R} can store text (called 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{txt \textless{}{-}}\StringTok{ "Erasmus"}
+\NormalTok{txt }\OtherTok{\textless{}{-}} \StringTok{"Erasmus"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -726,14 +733,14 @@ it does not make sense to substract or add to text string, right? See what happe
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a \textless{}{-}}\StringTok{ "Hello"}
-\NormalTok{b \textless{}{-}}\StringTok{ "World"}
+\NormalTok{a }\OtherTok{\textless{}{-}} \StringTok{"Hello"}
+\NormalTok{b }\OtherTok{\textless{}{-}} \StringTok{"World"}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{+}\StringTok{ }\NormalTok{b}
+\NormalTok{a }\SpecialCharTok{+}\NormalTok{ b}
 \end{Highlighting}
 \end{Shaded}
 
@@ -745,12 +752,12 @@ If you want to concatenate two strings you have to use the function \texttt{past
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{paste}\NormalTok{(a,b)}
+\FunctionTok{paste}\NormalTok{(a, b)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "9 2724.54"
+## [1] "Hello World"
 \end{verbatim}
 
 \begin{important}
@@ -783,7 +790,7 @@ In \emph{R}, \texttt{!} is used for the negation of logicals and reads like ``\e
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\OperatorTok{!}\OtherTok{TRUE}    \CommentTok{\#  reads like "is not true"}
+\SpecialCharTok{!}\ConstantTok{TRUE}    \CommentTok{\#  reads like "is not true"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -793,7 +800,7 @@ In \emph{R}, \texttt{!} is used for the negation of logicals and reads like ``\e
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\OperatorTok{!}\OtherTok{FALSE}   \CommentTok{\#  reads like "is not false"}
+\SpecialCharTok{!}\ConstantTok{FALSE}   \CommentTok{\#  reads like "is not false"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -808,9 +815,9 @@ Please note, that you can preform the same operation that not combing a numerica
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a \textless{}{-}}\StringTok{ }\DecValTok{4}
-\NormalTok{b \textless{}{-}}\StringTok{ "12"}
-\NormalTok{a }\OperatorTok{*}\StringTok{ }\NormalTok{b}
+\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{4}
+\NormalTok{b }\OtherTok{\textless{}{-}} \StringTok{"12"}
+\NormalTok{a }\SpecialCharTok{*}\NormalTok{ b}
 \end{Highlighting}
 \end{Shaded}
 
@@ -841,9 +848,9 @@ You can compare numerical variables using comparators. For example,
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a \textless{}{-}}\StringTok{ }\DecValTok{27}
-\NormalTok{b \textless{}{-}}\StringTok{ }\DecValTok{30}
-\NormalTok{a }\OperatorTok{\textgreater{}}\StringTok{ }\NormalTok{b}
+\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{27}
+\NormalTok{b }\OtherTok{\textless{}{-}} \DecValTok{30}
+\NormalTok{a }\SpecialCharTok{\textgreater{}}\NormalTok{ b}
 \end{Highlighting}
 \end{Shaded}
 
@@ -857,9 +864,9 @@ Further comparisons are:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{\textless{}}\StringTok{ }\NormalTok{b}
-\NormalTok{a }\OperatorTok{==}\StringTok{ }\NormalTok{b   }\CommentTok{\# Are a and b are equal?}
-\NormalTok{a }\OperatorTok{!=}\StringTok{ }\NormalTok{b   }\CommentTok{\# Is a unequal to b?}
+\NormalTok{a }\SpecialCharTok{\textless{}}\NormalTok{ b}
+\NormalTok{a }\SpecialCharTok{==}\NormalTok{ b   }\CommentTok{\# Are a and b are equal?}
+\NormalTok{a }\SpecialCharTok{!=}\NormalTok{ b   }\CommentTok{\# Is a unequal to b?}
 \end{Highlighting}
 \end{Shaded}
 
@@ -886,7 +893,7 @@ Often, functions take one or more arguments. The arguments are for instance data
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{log}\NormalTok{(}\DecValTok{64}\NormalTok{)}
+\FunctionTok{log}\NormalTok{(}\DecValTok{64}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -898,7 +905,7 @@ returns the logarithm natural of 13, \(\log_e(13)\), and prints it out in the RS
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\KeywordTok{log}\NormalTok{(}\DecValTok{64}\NormalTok{)}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{log}\NormalTok{(}\DecValTok{64}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -911,7 +918,7 @@ You can also feed the result of a function directly into another function. For e
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{log}\NormalTok{(}\DecValTok{64}\NormalTok{))}
+\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{log}\NormalTok{(}\DecValTok{64}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -930,7 +937,7 @@ panel.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{15}\OperatorTok{**}\KeywordTok{log}\NormalTok{(}\DecValTok{12}\NormalTok{) }\OperatorTok{/}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\KeywordTok{sin}\NormalTok{(}\FloatTok{4.5}\OperatorTok{*}\NormalTok{pi))}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\DecValTok{15}\SpecialCharTok{**}\FunctionTok{log}\NormalTok{(}\DecValTok{12}\NormalTok{) }\SpecialCharTok{/} \DecValTok{1} \SpecialCharTok{+} \FunctionTok{sin}\NormalTok{(}\FloatTok{4.5}\SpecialCharTok{*}\NormalTok{pi))}
 \CommentTok{\# Sorry, I know the example is not a very meaningful.}
 \end{Highlighting}
 \end{Shaded}
@@ -941,8 +948,8 @@ Importantly: Functions expect a specific data type as argument. If the type of t
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x =}\StringTok{ "1987"}
-\KeywordTok{sin}\NormalTok{(x)}
+\NormalTok{x }\OtherTok{=} \StringTok{"1987"}
+\FunctionTok{sin}\NormalTok{(x)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -954,7 +961,7 @@ For instance, if you just call \texttt{log(64)} you get the natural logarithm \(
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{log}\NormalTok{(}\DecValTok{64}\NormalTok{, }\DataTypeTok{base=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{log}\NormalTok{(}\DecValTok{64}\NormalTok{, }\AttributeTok{base=}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -964,7 +971,7 @@ For instance, if you just call \texttt{log(64)} you get the natural logarithm \(
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{log}\NormalTok{(}\DecValTok{64}\NormalTok{, }\DataTypeTok{base=}\DecValTok{10}\NormalTok{)}
+\FunctionTok{log}\NormalTok{(}\DecValTok{64}\NormalTok{, }\AttributeTok{base=}\DecValTok{10}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1006,12 +1013,12 @@ Let's try an example and just change the required argument \texttt{n} to ask \em
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5}\NormalTok{)}
+\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -0.01284582  0.58660190 -0.21125253 -0.41884527  2.12030640
+## [1] -1.6747317  1.7264760  0.3087845 -0.8936886 -0.7387236
 \end{verbatim}
 
 The random numbers have a mean of 0 and an SD of 1. Of course, since this are random numbers, you have probably got different numbers. Run the function again and you will see that you get each time different `'random'' numbers.
@@ -1020,12 +1027,12 @@ Now we can change the additional arguments to produce a different set of numbers
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{100}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{15}\NormalTok{)}
+\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{, }\AttributeTok{mean =} \DecValTok{100}\NormalTok{, }\AttributeTok{sd =} \DecValTok{15}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1]  99.12965  68.89669  98.87468 104.64313 134.76207
+## [1] 111.92039 121.73170 118.42128  95.86474  92.00639
 \end{verbatim}
 
 This time \emph{R} has still produced 5 random numbers, but now this set of numbers has a mean of 100 and a standard deviation of 15 as specified (this is the distribution of the scores in many IQ tests). Always remember to use the help documentation to help you understand what arguments a function requires.
@@ -1037,8 +1044,8 @@ In the above examples, we have written out the argument names in our code (e.g.,
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{7}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{10}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{2}\NormalTok{)}
-\KeywordTok{rnorm}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{7}\NormalTok{, }\AttributeTok{mean =} \DecValTok{10}\NormalTok{, }\AttributeTok{sd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{rnorm}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1048,7 +1055,7 @@ If you write out the argument names then you can write the arguments in whatever
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{sd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{n =} \DecValTok{7}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{sd =} \DecValTok{2}\NormalTok{, }\AttributeTok{n =} \DecValTok{7}\NormalTok{, }\AttributeTok{mean =} \DecValTok{10}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1118,7 +1125,7 @@ You can make an atomic vector by grouping some values of data together with the 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{vec \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\NormalTok{vec }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{)}
 \NormalTok{vec}
 \end{Highlighting}
 \end{Shaded}
@@ -1129,7 +1136,7 @@ You can make an atomic vector by grouping some values of data together with the 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{vector\_of\_logicals  \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{vector\_of\_logicals  }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)}
 \NormalTok{vector\_of\_logicals}
 \end{Highlighting}
 \end{Shaded}
@@ -1140,7 +1147,7 @@ You can make an atomic vector by grouping some values of data together with the 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{days\_of\_week \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Monday"}\NormalTok{, }\StringTok{"Tuesday"}\NormalTok{, }\StringTok{"Wednesday"}\NormalTok{, }\StringTok{"Thursday"}\NormalTok{, }\StringTok{"Friday"}\NormalTok{,}
+\NormalTok{days\_of\_week }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Monday"}\NormalTok{, }\StringTok{"Tuesday"}\NormalTok{, }\StringTok{"Wednesday"}\NormalTok{, }\StringTok{"Thursday"}\NormalTok{, }\StringTok{"Friday"}\NormalTok{,}
                 \StringTok{"Saturday"}\NormalTok{, }\StringTok{"Sunday"}\NormalTok{)}
 \NormalTok{days\_of\_week}
 \end{Highlighting}
@@ -1155,7 +1162,7 @@ You can make vectors of any type of data, but \textbf{one atomic vector comprise
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\FloatTok{6.5}\NormalTok{)}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\FloatTok{6.5}\NormalTok{)}
 \NormalTok{x}
 \end{Highlighting}
 \end{Shaded}
@@ -1174,9 +1181,9 @@ You can use the \texttt{c()}-command also to concatenate two vectors:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{)}
-\NormalTok{y \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{)}
-\NormalTok{z \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(x, y)}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{)}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(x, y)}
 \NormalTok{z}
 \end{Highlighting}
 \end{Shaded}
@@ -1193,7 +1200,7 @@ The command \texttt{length} returns the number of elements in an atomic vector.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{length}\NormalTok{(days\_of\_week)}
+\FunctionTok{length}\NormalTok{(days\_of\_week)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1208,7 +1215,7 @@ You can generate a simple ascending or descending sequence of integer numbers li
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{100}   \CommentTok{\# ascending sequence}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{100}   \CommentTok{\# ascending sequence}
 \NormalTok{x}
 \end{Highlighting}
 \end{Shaded}
@@ -1224,7 +1231,7 @@ You can generate a simple ascending or descending sequence of integer numbers li
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{y \textless{}{-}}\StringTok{ }\DecValTok{49}\OperatorTok{:{-}}\DecValTok{50}  \CommentTok{\# descending sequence}
+\NormalTok{y }\OtherTok{\textless{}{-}} \DecValTok{49}\SpecialCharTok{:{-}}\DecValTok{50}  \CommentTok{\# descending sequence}
 \NormalTok{y}
 \end{Highlighting}
 \end{Shaded}
@@ -1247,7 +1254,7 @@ What does the numbers in brackets in the output mean? \emph{R} indicates before 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{seq}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DataTypeTok{by=}\NormalTok{.}\DecValTok{2}\NormalTok{)}
+\FunctionTok{seq}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{12}\NormalTok{, }\AttributeTok{by=}\NormalTok{.}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1259,7 +1266,7 @@ If you want to make a vector of a particular length (with equalled spaced number
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{, }\DataTypeTok{length=}\DecValTok{12}\NormalTok{) }\CommentTok{\# 12 numbers between 0  and 1}
+\FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{, }\AttributeTok{length=}\DecValTok{12}\NormalTok{) }\CommentTok{\# 12 numbers between 0  and 1}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1276,24 +1283,24 @@ Drawing random numbers from a normal distribution has already been discussed in 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{)                     }\CommentTok{\# 10 random numbers between 0 and 1}
+\FunctionTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{)                     }\CommentTok{\# 10 random numbers between 0 and 1}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 0.3947272 0.9762568 0.3291006 0.7241211 0.3433192 0.8203235 0.2266102
-##  [8] 0.3906876 0.9122730 0.7054575
+##  [1] 0.4199564 0.2094391 0.6317297 0.6463398 0.6104386 0.6776756 0.8535622
+##  [8] 0.2046722 0.6727076 0.9031345
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DataTypeTok{min=} \DecValTok{10}\NormalTok{, }\DataTypeTok{max =} \DecValTok{99}\NormalTok{)  }\CommentTok{\# 10 random numbers between 10 and 99}
+\FunctionTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{, }\AttributeTok{min=} \DecValTok{10}\NormalTok{, }\AttributeTok{max =} \DecValTok{99}\NormalTok{)  }\CommentTok{\# 10 random numbers between 10 and 99}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 41.89139 66.63993 60.77169 81.73385 25.01999 32.29793 49.51632 16.40719
-##  [9] 73.31788 33.59285
+##  [1] 91.24728 40.59633 10.56870 76.71650 75.44483 54.49120 58.79676 67.12028
+##  [9] 94.39000 31.96855
 \end{verbatim}
 
 \begin{geek}
@@ -1311,8 +1318,8 @@ If you apply an operation on a vector, \emph{R} applies it to each element. You 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{v \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{)}
-\NormalTok{v }\OperatorTok{+}\StringTok{ }\DecValTok{100}
+\NormalTok{v }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\NormalTok{v }\SpecialCharTok{+} \DecValTok{100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1322,7 +1329,7 @@ If you apply an operation on a vector, \emph{R} applies it to each element. You 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{v}\OperatorTok{**}\DecValTok{3}     \CommentTok{\# to the power of 3}
+\NormalTok{v}\SpecialCharTok{**}\DecValTok{3}     \CommentTok{\# to the power of 3}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1332,7 +1339,7 @@ If you apply an operation on a vector, \emph{R} applies it to each element. You 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{sqrt}\NormalTok{(v)  }\CommentTok{\# square root}
+\FunctionTok{sqrt}\NormalTok{(v)  }\CommentTok{\# square root}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1346,8 +1353,8 @@ Please note, for functions it's not always like this. Some functions do indeed a
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{v \textless{}{-}}\StringTok{ }\DecValTok{200}\OperatorTok{:}\DecValTok{3000}
-\KeywordTok{mean}\NormalTok{(v)  }\CommentTok{\# calculate the mean of the numbers 200 to 300}
+\NormalTok{v }\OtherTok{\textless{}{-}} \DecValTok{200}\SpecialCharTok{:}\DecValTok{3000}
+\FunctionTok{mean}\NormalTok{(v)  }\CommentTok{\# calculate the mean of the numbers 200 to 300}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1357,7 +1364,7 @@ Please note, for functions it's not always like this. Some functions do indeed a
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{max}\NormalTok{(v)    }\CommentTok{\# the largest number}
+\FunctionTok{max}\NormalTok{(v)    }\CommentTok{\# the largest number}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1374,8 +1381,8 @@ Examples:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{v \textless{}{-}}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
-\NormalTok{v }\OperatorTok{\textless{}=}\StringTok{ }\DecValTok{3}   \CommentTok{\# smaller or equal to three}
+\NormalTok{v }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}
+\NormalTok{v }\SpecialCharTok{\textless{}=} \DecValTok{3}   \CommentTok{\# smaller or equal to three}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1385,7 +1392,7 @@ Examples:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{v }\OperatorTok{==}\StringTok{ }\DecValTok{5}
+\NormalTok{v }\SpecialCharTok{==} \DecValTok{5}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1395,8 +1402,8 @@ Examples:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{v \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{)}
-\NormalTok{v }\OperatorTok{\textless{}}\StringTok{ }\DecValTok{5}
+\NormalTok{v }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{v }\SpecialCharTok{\textless{}} \DecValTok{5}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1414,9 +1421,9 @@ Basic operations between two vectors are useful only between vectors of the same
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{6}\NormalTok{)}
-\NormalTok{b \textless{}{-}}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
-\NormalTok{a }\OperatorTok{+}\StringTok{ }\NormalTok{b    }\CommentTok{\# c(5+1, 8+2, 2+3, 4+4, ..)}
+\NormalTok{a }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\NormalTok{b }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}
+\NormalTok{a }\SpecialCharTok{+}\NormalTok{ b    }\CommentTok{\# c(5+1, 8+2, 2+3, 4+4, ..)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1426,7 +1433,7 @@ Basic operations between two vectors are useful only between vectors of the same
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{*}\StringTok{ }\NormalTok{b    }\CommentTok{\# c(5/1, 8/2, 2/3, 4/4, ..)}
+\NormalTok{a }\SpecialCharTok{*}\NormalTok{ b    }\CommentTok{\# c(5/1, 8/2, 2/3, 4/4, ..)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1436,7 +1443,7 @@ Basic operations between two vectors are useful only between vectors of the same
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{\textgreater{}}\StringTok{ }\NormalTok{b    }\CommentTok{\# c(5\textgreater{}1, 8\textgreater{}2, 2\textgreater{}3, 4\textgreater{}4, ..)}
+\NormalTok{a }\SpecialCharTok{\textgreater{}}\NormalTok{ b    }\CommentTok{\# c(5\textgreater{}1, 8\textgreater{}2, 2\textgreater{}3, 4\textgreater{}4, ..)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1462,7 +1469,7 @@ Often you want to access only subsets, that is, parts or single elements of a ve
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{2.1}\NormalTok{, }\FloatTok{4.2}\NormalTok{, }\FloatTok{3.3}\NormalTok{, }\FloatTok{5.4}\NormalTok{)}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{2.1}\NormalTok{, }\FloatTok{4.2}\NormalTok{, }\FloatTok{3.3}\NormalTok{, }\FloatTok{5.4}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1499,7 +1506,7 @@ Positive integers return elements at the specified positions:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x[}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{)]      }\CommentTok{\# access the 2nd and 4th element}
+\NormalTok{x[}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{)]      }\CommentTok{\# access the 2nd and 4th element}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1529,7 +1536,7 @@ or another example
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{)]}
+\NormalTok{x[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{)]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1547,7 +1554,7 @@ Negative integers exclude elements at the specified positions
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x[}\OperatorTok{{-}}\DecValTok{2}\NormalTok{]         }\CommentTok{\# exclude 2nd element}
+\NormalTok{x[}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{]         }\CommentTok{\# exclude 2nd element}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1557,7 +1564,7 @@ Negative integers exclude elements at the specified positions
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x[}\OperatorTok{{-}}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)]   }\CommentTok{\# exclude 3rd and 2nd element}
+\NormalTok{x[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)]   }\CommentTok{\# exclude 3rd and 2nd element}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1572,7 +1579,7 @@ Logical vectors select elements where the corresponding logical value is \texttt
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x[}\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{)]}
+\NormalTok{x[}\FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1584,7 +1591,7 @@ It returns the elements 1 and 3, because these elements where \texttt{TRUE} in t
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x[x }\OperatorTok{\textgreater{}}\StringTok{ }\DecValTok{3}\NormalTok{]}
+\NormalTok{x[x }\SpecialCharTok{\textgreater{}} \DecValTok{3}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1626,8 +1633,8 @@ For now the only important attribute is \texttt{name}. It's sometimes convenient
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{body\_len \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{1.84}\NormalTok{, }\FloatTok{1.92}\NormalTok{, }\FloatTok{1.71}\NormalTok{, }\FloatTok{1.63}\NormalTok{)}
-\KeywordTok{names}\NormalTok{(body\_len) \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Peter"}\NormalTok{, }\StringTok{"John"}\NormalTok{, }\StringTok{"Maria"}\NormalTok{, }\StringTok{"Linda"}\NormalTok{)}
+\NormalTok{body\_len }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{1.84}\NormalTok{, }\FloatTok{1.92}\NormalTok{, }\FloatTok{1.71}\NormalTok{, }\FloatTok{1.63}\NormalTok{)}
+\FunctionTok{names}\NormalTok{(body\_len) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Peter"}\NormalTok{, }\StringTok{"John"}\NormalTok{, }\StringTok{"Maria"}\NormalTok{, }\StringTok{"Linda"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1648,7 +1655,7 @@ This will give you just the names:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{names}\NormalTok{(body\_len)}
+\FunctionTok{names}\NormalTok{(body\_len)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1674,7 +1681,7 @@ If the vector is named, you can also use the names or a vector of names to acces
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{body\_len[}\KeywordTok{c}\NormalTok{(}\StringTok{"Maria"}\NormalTok{, }\StringTok{"Peter"}\NormalTok{)]}
+\NormalTok{body\_len[}\FunctionTok{c}\NormalTok{(}\StringTok{"Maria"}\NormalTok{, }\StringTok{"Peter"}\NormalTok{)]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1692,7 +1699,7 @@ Lists are like atomic vectors because they group data into a one-dimensional set
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a\_list \textless{}{-}}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{100}\OperatorTok{:}\DecValTok{111}\NormalTok{, }\StringTok{"Erasmus"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{))}
+\NormalTok{a\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\DecValTok{100}\SpecialCharTok{:}\DecValTok{111}\NormalTok{, }\StringTok{"Erasmus"}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{))}
 \NormalTok{a\_list}
 \end{Highlighting}
 \end{Shaded}
@@ -1748,8 +1755,8 @@ This subsetting is double-brackets not very intuitive. At least in my view. I tr
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{b\_list \textless{}{-}}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{100}\OperatorTok{:}\DecValTok{111}\NormalTok{, }\StringTok{"Erasmus"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{))}
-\KeywordTok{names}\NormalTok{(b\_list) \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"my\_sequence"}\NormalTok{, }\StringTok{"university"}\NormalTok{, }\StringTok{"x"}\NormalTok{)}
+\NormalTok{b\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\DecValTok{100}\SpecialCharTok{:}\DecValTok{111}\NormalTok{, }\StringTok{"Erasmus"}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{))}
+\FunctionTok{names}\NormalTok{(b\_list) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"my\_sequence"}\NormalTok{, }\StringTok{"university"}\NormalTok{, }\StringTok{"x"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1757,7 +1764,7 @@ But this can be done also in one line of code and is even easier and even more r
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{b\_list \textless{}{-}}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{my\_sequence=}\DecValTok{100}\OperatorTok{:}\DecValTok{111}\NormalTok{, }\DataTypeTok{university=}\StringTok{"Erasmus"}\NormalTok{, }\DataTypeTok{x=}\KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{))}
+\NormalTok{b\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{my\_sequence=}\DecValTok{100}\SpecialCharTok{:}\DecValTok{111}\NormalTok{, }\AttributeTok{university=}\StringTok{"Erasmus"}\NormalTok{, }\AttributeTok{x=}\FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{))}
 \NormalTok{b\_list}
 \end{Highlighting}
 \end{Shaded}
@@ -1780,8 +1787,8 @@ If you want to access a specific element you can call it by it's name using the 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{b\_list}\OperatorTok{$}\NormalTok{my\_sequence}
-\NormalTok{b\_list}\OperatorTok{$}\NormalTok{university}
+\NormalTok{b\_list}\SpecialCharTok{$}\NormalTok{my\_sequence}
+\NormalTok{b\_list}\SpecialCharTok{$}\NormalTok{university}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1789,7 +1796,7 @@ You can also add a new element to list simply by using the \texttt{\$} operator 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{b\_list}\OperatorTok{$}\NormalTok{my\_new\_element \textless{}{-}}\StringTok{ }\FloatTok{15.6}
+\NormalTok{b\_list}\SpecialCharTok{$}\NormalTok{my\_new\_element }\OtherTok{\textless{}{-}} \FloatTok{15.6}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1839,10 +1846,10 @@ Make a list called \texttt{lst} with three objects
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lst \textless{}{-}}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{subjects=}\KeywordTok{c}\NormalTok{(}\StringTok{"John"}\NormalTok{, }\StringTok{"Maria"}\NormalTok{, }\StringTok{"Linda"}\NormalTok{),}
-            \DataTypeTok{body\_len=}\KeywordTok{c}\NormalTok{(}\FloatTok{1.92}\NormalTok{, }\FloatTok{1.71}\NormalTok{, }\FloatTok{1.63}\NormalTok{))}
-\NormalTok{lst}\OperatorTok{$}\NormalTok{body\_cm =}\StringTok{ }\NormalTok{lst}\OperatorTok{$}\NormalTok{body\_len }\OperatorTok{*}\StringTok{ }\DecValTok{100}
-\KeywordTok{print}\NormalTok{(lst)}
+\NormalTok{lst }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{subjects=}\FunctionTok{c}\NormalTok{(}\StringTok{"John"}\NormalTok{, }\StringTok{"Maria"}\NormalTok{, }\StringTok{"Linda"}\NormalTok{),}
+            \AttributeTok{body\_len=}\FunctionTok{c}\NormalTok{(}\FloatTok{1.92}\NormalTok{, }\FloatTok{1.71}\NormalTok{, }\FloatTok{1.63}\NormalTok{))}
+\NormalTok{lst}\SpecialCharTok{$}\NormalTok{body\_cm }\OtherTok{=}\NormalTok{ lst}\SpecialCharTok{$}\NormalTok{body\_len }\SpecialCharTok{*} \DecValTok{100}
+\FunctionTok{print}\NormalTok{(lst)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1894,10 +1901,10 @@ Creating a data frame by hand takes a lot of typing, but you can do it (if you l
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df \textless{}{-}}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Subject\_id =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{),}
-                 \DataTypeTok{Gender =} \KeywordTok{c}\NormalTok{(}\StringTok{"female"}\NormalTok{, }\StringTok{"female"}\NormalTok{, }\StringTok{"male"}\NormalTok{, }\StringTok{"male"}\NormalTok{ ),}
-                 \DataTypeTok{IQ=}\KeywordTok{c}\NormalTok{(}\DecValTok{102}\NormalTok{, }\DecValTok{121}\NormalTok{, }\DecValTok{112}\NormalTok{, }\DecValTok{103}\NormalTok{),}
-                 \DataTypeTok{International\_student =} \KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{))}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Subject\_id =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{),}
+                 \AttributeTok{Gender =} \FunctionTok{c}\NormalTok{(}\StringTok{"female"}\NormalTok{, }\StringTok{"female"}\NormalTok{, }\StringTok{"male"}\NormalTok{, }\StringTok{"male"}\NormalTok{ ),}
+                 \AttributeTok{IQ=}\FunctionTok{c}\NormalTok{(}\DecValTok{102}\NormalTok{, }\DecValTok{121}\NormalTok{, }\DecValTok{112}\NormalTok{, }\DecValTok{103}\NormalTok{),}
+                 \AttributeTok{International\_student =} \FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1905,7 +1912,7 @@ You'll need to make sure that each vector is the same length. The resulting data
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(df)}
+\FunctionTok{print}\NormalTok{(df)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1935,7 +1942,7 @@ To function \texttt{str()} gives you a side-wise overview of the variables in a 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{str}\NormalTok{(df)}
+\FunctionTok{str}\NormalTok{(df)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1955,7 +1962,7 @@ A descriptive summary of all variables a data frame is very handy and important 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(df)}
+\FunctionTok{summary}\NormalTok{(df)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1981,7 +1988,7 @@ in this dataset?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{nrow}\NormalTok{(demo\_data)}
+\FunctionTok{nrow}\NormalTok{(demo\_data)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1991,19 +1998,19 @@ in this dataset?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(demo\_data)}
+\FunctionTok{summary}\NormalTok{(demo\_data)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##    variable_a          variable_b        variable_c
-##  Min.   :-281.2484   Min.   :-2.3002   Min.   :10  
-##  1st Qu.:   0.7385   1st Qu.:-0.7940   1st Qu.:10  
-##  Median :  71.7039   Median :-0.1178   Median :10  
-##  Mean   :  79.9659   Mean   :-0.0220   Mean   :10  
-##  3rd Qu.: 158.4197   3rd Qu.: 0.7722   3rd Qu.:10  
-##  Max.   : 360.4800   Max.   : 2.1700   Max.   :10  
-##                      NA's   :131
+##    variable_a        variable_b         variable_c
+##  Min.   :-259.09   Min.   :-1.42189   Min.   :10  
+##  1st Qu.:  27.56   1st Qu.:-0.58439   1st Qu.:10  
+##  Median :  96.69   Median :-0.05853   Median :10  
+##  Mean   :  86.04   Mean   : 0.21985   Mean   :10  
+##  3rd Qu.: 150.05   3rd Qu.: 0.94854   3rd Qu.:10  
+##  Max.   : 351.84   Max.   : 2.68173   Max.   :10  
+##                    NA's   :131
 \end{verbatim}
 
 \webexhide{Solution}
@@ -2031,7 +2038,7 @@ You can access a specific column/variable of the data frame with \texttt{\$} \pr
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df}\OperatorTok{$}\NormalTok{IQ}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{IQ}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2043,7 +2050,7 @@ As you see above, if you access a variable of a data frame with the \texttt{\$} 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{g \textless{}{-}}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{Gender   }\CommentTok{\# g is a vector with the genders}
+\NormalTok{g }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{Gender   }\CommentTok{\# g is a vector with the genders}
 \NormalTok{g[}\DecValTok{2}\NormalTok{]             }\CommentTok{\# print the gender at the second positions}
 \end{Highlighting}
 \end{Shaded}
@@ -2056,7 +2063,7 @@ But this can be done also in one expression.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df}\OperatorTok{$}\NormalTok{Gender[}\DecValTok{2}\NormalTok{]   }\CommentTok{\# get the Gender in the second row position}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{Gender[}\DecValTok{2}\NormalTok{]   }\CommentTok{\# get the Gender in the second row position}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2080,7 +2087,7 @@ But this can be done also in one expression.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{m\_iq =}\StringTok{ }\KeywordTok{mean}\NormalTok{(df}\OperatorTok{$}\NormalTok{IQ)}
+\NormalTok{m\_iq }\OtherTok{=} \FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{IQ)}
 \NormalTok{m\_iq}
 \end{Highlighting}
 \end{Shaded}
@@ -2091,7 +2098,7 @@ But this can be done also in one expression.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df}\OperatorTok{$}\NormalTok{is\_clever \textless{}{-}}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{IQ }\OperatorTok{\textgreater{}}\StringTok{ }\NormalTok{m\_iq}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{is\_clever }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{IQ }\SpecialCharTok{\textgreater{}}\NormalTok{ m\_iq}
 \NormalTok{df}
 \end{Highlighting}
 \end{Shaded}
@@ -2115,8 +2122,8 @@ Cells in an data frame can be also access via row and column indices and the \te
 \begin{Highlighting}[]
 \CommentTok{\# Check what you get}
 \NormalTok{df[}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{]             }\CommentTok{\# returns from the 1st row the column 3}
-\NormalTok{df[}\DecValTok{2}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{]           }\CommentTok{\# returns from row 2{-}4 the column 2}
-\NormalTok{df[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)]  }\CommentTok{\# returns from row 1 and 4 the column 2 and 3}
+\NormalTok{df[}\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{]           }\CommentTok{\# returns from row 2{-}4 the column 2}
+\NormalTok{df[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)]  }\CommentTok{\# returns from row 1 and 4 the column 2 and 3}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2145,7 +2152,7 @@ Consequently, \texttt{df{[},{]}} or \texttt{df{[}{]}} should return the entire d
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), ]}
+\NormalTok{df[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), ]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2157,7 +2164,7 @@ Consequently, \texttt{df{[},{]}} or \texttt{df{[}{]}} should return the entire d
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), }\DecValTok{4}\OperatorTok{:}\DecValTok{1}\NormalTok{]}
+\NormalTok{df[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), }\DecValTok{4}\SpecialCharTok{:}\DecValTok{1}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2176,7 +2183,7 @@ Section \ref{subsettinglogicals} demonstrated that you can select subsets with l
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{selected\_rows \textless{}{-}}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{Gender }\OperatorTok{==}\StringTok{ "female"}   \CommentTok{\# logical vector with TRUE for females}
+\NormalTok{selected\_rows }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{Gender }\SpecialCharTok{==} \StringTok{"female"}   \CommentTok{\# logical vector with TRUE for females}
 \NormalTok{df[selected\_rows, ]}
 \end{Highlighting}
 \end{Shaded}
@@ -2191,7 +2198,7 @@ Alternatively you can write it in one line:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df[df}\OperatorTok{$}\NormalTok{Gender }\OperatorTok{==}\StringTok{ "female"}\NormalTok{, ]}
+\NormalTok{df[df}\SpecialCharTok{$}\NormalTok{Gender }\SpecialCharTok{==} \StringTok{"female"}\NormalTok{, ]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2202,7 +2209,7 @@ Make a data frame with the clever people only.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{clever \textless{}{-}}\StringTok{ }\NormalTok{df[df}\OperatorTok{$}\NormalTok{is\_clever, ]  }\CommentTok{\# this clever is already a logical vector}
+\NormalTok{clever }\OtherTok{\textless{}{-}}\NormalTok{ df[df}\SpecialCharTok{$}\NormalTok{is\_clever, ]  }\CommentTok{\# this clever is already a logical vector}
 \NormalTok{clever}
 \end{Highlighting}
 \end{Shaded}
@@ -2222,10 +2229,10 @@ Since lists and data frame can store multiple atomic vectors and they can actual
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lst \textless{}{-}}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{subjects=}\KeywordTok{c}\NormalTok{(}\StringTok{"John"}\NormalTok{, }\StringTok{"Maria"}\NormalTok{, }\StringTok{"Linda"}\NormalTok{),}
-            \DataTypeTok{body\_len=}\KeywordTok{c}\NormalTok{(}\FloatTok{1.92}\NormalTok{, }\FloatTok{1.71}\NormalTok{, }\FloatTok{1.63}\NormalTok{))}
+\NormalTok{lst }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{subjects=}\FunctionTok{c}\NormalTok{(}\StringTok{"John"}\NormalTok{, }\StringTok{"Maria"}\NormalTok{, }\StringTok{"Linda"}\NormalTok{),}
+            \AttributeTok{body\_len=}\FunctionTok{c}\NormalTok{(}\FloatTok{1.92}\NormalTok{, }\FloatTok{1.71}\NormalTok{, }\FloatTok{1.63}\NormalTok{))}
 
-\NormalTok{df2 \textless{}{-}}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(lst)}
+\NormalTok{df2 }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(lst)}
 \NormalTok{df2}
 \end{Highlighting}
 \end{Shaded}
@@ -2243,7 +2250,7 @@ Finally, a data frame can be converted into a list using \texttt{as.list()}. See
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{as.list}\NormalTok{(df)}
+\FunctionTok{as.list}\NormalTok{(df)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2293,7 +2300,7 @@ However, you don't need to go to \emph{CRAN}'s website to install packages. It's
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"praise"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"praise"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2306,8 +2313,8 @@ important data in \emph{R}. This packages are called \texttt{readr} and
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"readr"}\NormalTok{)}
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"readxl"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"readr"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"readxl"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2326,7 +2333,7 @@ So far, we've just installed packages. That is, the packages are now available o
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(}\StringTok{"praise"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(}\StringTok{"praise"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2334,12 +2341,12 @@ Now that the \texttt{praise} package is loaded, you can use the function in that
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{praise}\NormalTok{()}
+\FunctionTok{praise}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "You are magnificent!"
+## [1] "You are ace!"
 \end{verbatim}
 
 \emph{(As you see, you can do really useful things with \emph{R} \texttt{;-)})}
@@ -2358,7 +2365,7 @@ If you call a function, it's also possible to mention explicitly the package fro
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{praise}\OperatorTok{::}\KeywordTok{praise}\NormalTok{()}
+\NormalTok{praise}\SpecialCharTok{::}\FunctionTok{praise}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2398,18 +2405,31 @@ the newly installed \texttt{readxl}-package.
 
 A crucial function of a statistical software is of course the ability to read data from files. There are many different types of files that you might work with when doing data analysis. These different file types are usually distinguished by the three letter extension following a period at the end of the file name. Here are some examples of functions (and packages!) that you can use to import data from different file types:
 
-\begin{longtable}[]{@{}llll@{}}
-\toprule
-Extension & File Type & Reading & Writing\tabularnewline
-\midrule
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1857}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3429}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3429}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1286}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Extension
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+File Type
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Reading
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Writing
+\end{minipage} \\
+\midrule\noalign{}
 \endhead
-.Rdata, .Rds & \emph{R}'s own data format & \texttt{load()} or \texttt{readRDS()} & \texttt{save()} or \texttt{saveRDS()}\tabularnewline
-.csv & Comma-separated values & \texttt{readr::read\_csv()} & \texttt{readr::write\_csv()}\tabularnewline
-.tsv, .txt & Tab-separated values & \texttt{readr::read\_tsv()} & \texttt{readr::write\_tsv()}\tabularnewline
-.xls, .xlsx & Excel workbook & \texttt{readxl::read\_excel()} & --\tabularnewline
-.sav & SPSS data & \texttt{haven::read\_sav()} & \texttt{haven::write\_sav()}\tabularnewline
-.dta & Stata data & \texttt{haven::read\_dta()} & \texttt{haven::write\_dta()}\tabularnewline
-\bottomrule
+\bottomrule\noalign{}
+\endlastfoot
+.Rdata, .Rds & \emph{R}'s own data format & \texttt{load()} or \texttt{readRDS()} & \texttt{save()} or \texttt{saveRDS()} \\
+.csv & Comma-separated values & \texttt{readr::read\_csv()} & \texttt{readr::write\_csv()} \\
+.tsv, .txt & Tab-separated values & \texttt{readr::read\_tsv()} & \texttt{readr::write\_tsv()} \\
+.xls, .xlsx & Excel workbook & \texttt{readxl::read\_excel()} & -- \\
+.sav & SPSS data & \texttt{haven::read\_sav()} & \texttt{haven::write\_sav()} \\
+.dta & Stata data & \texttt{haven::read\_dta()} & \texttt{haven::write\_dta()} \\
 \end{longtable}
 
 As you see, different packages that are dealing with data import. You have already installed the packages \texttt{readxl} and \texttt{readr} in the previous exercise.
@@ -2454,7 +2474,7 @@ To load an \emph{R} data file via a script or the console, you called \texttt{lo
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{load}\NormalTok{(}\StringTok{"data/babynames.Rdata"}\NormalTok{)}
+\FunctionTok{load}\NormalTok{(}\StringTok{"data/babynames.Rdata"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2478,8 +2498,8 @@ When you read in CSV files, it is best practice to use the \texttt{readr::read\_
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(readr) }\CommentTok{\# load the package (just needed the first time)}
-\NormalTok{csv\_data \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"data/exam\_anxiety.csv"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(readr) }\CommentTok{\# load the package (just needed the first time)}
+\NormalTok{csv\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/exam\_anxiety.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2522,7 +2542,7 @@ because make it makes the data analyses less error-prone.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2536,18 +2556,18 @@ As with all \emph{R} -packages, if you want to make use of it in yours scripts, 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## -- Attaching core tidyverse packages ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ tidyverse 2.0.0 --
-## v dplyr     1.1.3     v readr     2.1.4
-## v forcats   1.0.0     v stringr   1.5.0
-## v ggplot2   3.5.0     v tibble    3.2.1
-## v lubridate 1.9.3     v tidyr     1.3.0
+## -- Attaching core tidyverse packages ------------------------------------------------------------------------------------------------------------- tidyverse 2.0.0 --
+## v dplyr     1.1.4     v readr     2.1.5
+## v forcats   1.0.0     v stringr   1.5.1
+## v ggplot2   3.5.1     v tibble    3.2.1
+## v lubridate 1.9.3     v tidyr     1.3.1
 ## v purrr     1.0.2     
-## -- Conflicts ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
@@ -2577,9 +2597,9 @@ The output of tibble is somewhat nicer that the output of data frames. But the d
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(readr) }\CommentTok{\# load the package (just needed the first time)}
-\NormalTok{csv\_data \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"data/exam\_anxiety.csv"}\NormalTok{)}
-\KeywordTok{print}\NormalTok{(csv\_data)}
+\FunctionTok{library}\NormalTok{(readr) }\CommentTok{\# load the package (just needed the first time)}
+\NormalTok{csv\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/exam\_anxiety.csv"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(csv\_data)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2634,8 +2654,8 @@ Let's load \emph{Tidyverse} and the dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method.csv"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2643,7 +2663,7 @@ The import dataset is a tibble and looks in the console of RStudio like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(teach)}
+\FunctionTok{print}\NormalTok{(teach)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2673,7 +2693,7 @@ We have already selected rows or cases of data frames with base-\emph{R} (see fo
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach[teach}\OperatorTok{$}\NormalTok{city }\OperatorTok{==}\StringTok{ "Rotterdam"}\NormalTok{, ]}
+\NormalTok{teach[teach}\SpecialCharTok{$}\NormalTok{city }\SpecialCharTok{==} \StringTok{"Rotterdam"}\NormalTok{, ]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2681,7 +2701,7 @@ With \emph{Tidyverse} this can be done much more easily with function \texttt{fi
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(teach, city }\OperatorTok{==}\StringTok{ "Rotterdam"}\NormalTok{)}
+\FunctionTok{filter}\NormalTok{(teach, city }\SpecialCharTok{==} \StringTok{"Rotterdam"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2689,8 +2709,8 @@ Of curse, you can use any logical comparisons that are possible in \emph{R}. For
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(teach, teaching\_method }\OperatorTok{!=}\StringTok{ "control"}\NormalTok{)}
-\KeywordTok{filter}\NormalTok{(teach, cog\_psy }\OperatorTok{\textless{}}\StringTok{ }\DecValTok{15}\NormalTok{)}
+\FunctionTok{filter}\NormalTok{(teach, teaching\_method }\SpecialCharTok{!=} \StringTok{"control"}\NormalTok{)}
+\FunctionTok{filter}\NormalTok{(teach, cog\_psy }\SpecialCharTok{\textless{}} \DecValTok{15}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2707,7 +2727,7 @@ The great thing with \emph{Tidyverse} is that you can very easy combine the filt
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(teach, city}\OperatorTok{==}\StringTok{"Rotterdam"} \OperatorTok{\&}\StringTok{ }\NormalTok{time}\OperatorTok{==}\StringTok{"after"} \OperatorTok{\&}\StringTok{ }\NormalTok{teaching\_method}\OperatorTok{!=}\StringTok{"control"}\NormalTok{)}
+\FunctionTok{filter}\NormalTok{(teach, city}\SpecialCharTok{==}\StringTok{"Rotterdam"} \SpecialCharTok{\&}\NormalTok{ time}\SpecialCharTok{==}\StringTok{"after"} \SpecialCharTok{\&}\NormalTok{ teaching\_method}\SpecialCharTok{!=}\StringTok{"control"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2729,7 +2749,7 @@ The sign \texttt{\textbar{}} is used in \emph{R} as logical \emph{or}. For examp
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(teach, statistics}\OperatorTok{\textless{}}\StringTok{ }\DecValTok{8} \OperatorTok{|}\StringTok{ }\NormalTok{cog\_psy }\OperatorTok{\textless{}}\StringTok{ }\DecValTok{6}\NormalTok{)}
+\FunctionTok{filter}\NormalTok{(teach, statistics}\SpecialCharTok{\textless{}} \DecValTok{8} \SpecialCharTok{|}\NormalTok{ cog\_psy }\SpecialCharTok{\textless{}} \DecValTok{6}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2756,7 +2776,7 @@ More information about logical operators in \emph{R} can be found for instance \
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{arrange}\NormalTok{(teach, statistics)   }\CommentTok{\# re{-}arrange \& override to old data frame}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{arrange}\NormalTok{(teach, statistics)   }\CommentTok{\# re{-}arrange \& override to old data frame}
 \NormalTok{teach}
 \end{Highlighting}
 \end{Shaded}
@@ -2782,7 +2802,7 @@ Use \texttt{desc()} to re-order by a column in descending order:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{arrange}\NormalTok{(teach, }\KeywordTok{desc}\NormalTok{(statistics))}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{arrange}\NormalTok{(teach, }\FunctionTok{desc}\NormalTok{(statistics))}
 \NormalTok{teach}
 \end{Highlighting}
 \end{Shaded}
@@ -2808,8 +2828,8 @@ If you want to sort first by \texttt{city} and then by the \texttt{statistics} t
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{arrange}\NormalTok{(teach, city, statistics) }\CommentTok{\# sort for city then for statistics}
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{arrange}\NormalTok{(teach, city, statistics) }\CommentTok{\# sort for statistics and then for city}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{arrange}\NormalTok{(teach, city, statistics) }\CommentTok{\# sort for city then for statistics}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{arrange}\NormalTok{(teach, city, statistics) }\CommentTok{\# sort for statistics and then for city}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2834,7 +2854,7 @@ Select the variable for our data frame \texttt{teach}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{select}\NormalTok{(teach, cog\_psy)}
+\FunctionTok{select}\NormalTok{(teach, cog\_psy)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2859,7 +2879,7 @@ To select multiple variables just add further variables names as argument, separ
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{select}\NormalTok{(teach, cog\_psy, student, city)}
+\FunctionTok{select}\NormalTok{(teach, cog\_psy, student, city)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2889,7 +2909,7 @@ When re-arranging the order, another option is to use the \texttt{everything()} 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{select}\NormalTok{(teach,  city, }\KeywordTok{everything}\NormalTok{())}
+\FunctionTok{select}\NormalTok{(teach,  city, }\FunctionTok{everything}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2919,7 +2939,7 @@ If you want to exclude a column you just write \texttt{-} followed by the variab
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{select}\NormalTok{(teach, }\OperatorTok{{-}}\NormalTok{city)}
+\FunctionTok{select}\NormalTok{(teach, }\SpecialCharTok{{-}}\NormalTok{city)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2949,7 +2969,7 @@ If you want to select all variable from column \texttt{city} to column \texttt{s
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{select}\NormalTok{(teach, city}\OperatorTok{:}\NormalTok{statistics)}
+\FunctionTok{select}\NormalTok{(teach, city}\SpecialCharTok{:}\NormalTok{statistics)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2981,7 +3001,7 @@ Very often you want to add new columns that are functions of existing columns. T
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach\_extended \textless{}{-}}\StringTok{ }\KeywordTok{mutate}\NormalTok{(teach, }\DataTypeTok{percent\_statistics =}\NormalTok{ statistics }\OperatorTok{/}\StringTok{ }\DecValTok{40} \OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{)}
+\NormalTok{teach\_extended }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(teach, }\AttributeTok{percent\_statistics =}\NormalTok{ statistics }\SpecialCharTok{/} \DecValTok{40} \SpecialCharTok{*} \DecValTok{100}\NormalTok{)}
 \NormalTok{teach\_extended}
 \end{Highlighting}
 \end{Shaded}
@@ -3007,7 +3027,7 @@ You probably remember from last week, you can also do this with base \emph{R}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach}\OperatorTok{$}\NormalTok{percent\_statistics \textless{}{-}}\StringTok{ }\NormalTok{teach}\OperatorTok{$}\NormalTok{statistics }\OperatorTok{/}\StringTok{ }\DecValTok{40} \OperatorTok{*}\StringTok{ }\DecValTok{100}
+\NormalTok{teach}\SpecialCharTok{$}\NormalTok{percent\_statistics }\OtherTok{\textless{}{-}}\NormalTok{ teach}\SpecialCharTok{$}\NormalTok{statistics }\SpecialCharTok{/} \DecValTok{40} \SpecialCharTok{*} \DecValTok{100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3015,9 +3035,9 @@ However, \texttt{mutate()} becomes really convenient (and again produces simpler
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach\_extended \textless{}{-}}\StringTok{ }\KeywordTok{mutate}\NormalTok{(teach,}
-                    \DataTypeTok{percent\_statistics =}\NormalTok{ statistics }\OperatorTok{/}\StringTok{ }\DecValTok{40} \OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{,}
-                    \DataTypeTok{percent\_cog\_psy =}\NormalTok{ cog\_psy }\OperatorTok{/}\StringTok{ }\DecValTok{40} \OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{)}
+\NormalTok{teach\_extended }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(teach,}
+                    \AttributeTok{percent\_statistics =}\NormalTok{ statistics }\SpecialCharTok{/} \DecValTok{40} \SpecialCharTok{*} \DecValTok{100}\NormalTok{,}
+                    \AttributeTok{percent\_cog\_psy =}\NormalTok{ cog\_psy }\SpecialCharTok{/} \DecValTok{40} \SpecialCharTok{*} \DecValTok{100}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3029,7 +3049,7 @@ Check out how the resulting data frame \texttt{teach\_extended} looks like. Reme
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{glimpse}\NormalTok{(teach\_extended)}
+\FunctionTok{glimpse}\NormalTok{(teach\_extended)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3065,11 +3085,11 @@ Check out how the resulting data frame \texttt{teach\_extended} looks like. Reme
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach\_extended \textless{}{-}}\StringTok{ }\KeywordTok{mutate}\NormalTok{(teach, }\DataTypeTok{percent\_statistics =}\NormalTok{ statistics}\OperatorTok{/}\DecValTok{40}\OperatorTok{*}\DecValTok{100}\NormalTok{,}
-              \DataTypeTok{percent\_cog\_psy =}\NormalTok{ cog\_psy}\OperatorTok{/}\DecValTok{40}\OperatorTok{*}\DecValTok{100}\NormalTok{,}
-              \DataTypeTok{mean\_score =}\NormalTok{ (statistics}\OperatorTok{+}\NormalTok{cog\_psy)}\OperatorTok{/}\DecValTok{2}\NormalTok{,}
-              \DataTypeTok{percent\_correct\_both =}\NormalTok{ mean\_score}\OperatorTok{/}\DecValTok{40}\OperatorTok{*}\DecValTok{100}\NormalTok{)}
-\KeywordTok{glimpse}\NormalTok{(teach\_extended)}
+\NormalTok{teach\_extended }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(teach, }\AttributeTok{percent\_statistics =}\NormalTok{ statistics}\SpecialCharTok{/}\DecValTok{40}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}
+              \AttributeTok{percent\_cog\_psy =}\NormalTok{ cog\_psy}\SpecialCharTok{/}\DecValTok{40}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}
+              \AttributeTok{mean\_score =}\NormalTok{ (statistics}\SpecialCharTok{+}\NormalTok{cog\_psy)}\SpecialCharTok{/}\DecValTok{2}\NormalTok{,}
+              \AttributeTok{percent\_correct\_both =}\NormalTok{ mean\_score}\SpecialCharTok{/}\DecValTok{40}\SpecialCharTok{*}\DecValTok{100}\NormalTok{)}
+\FunctionTok{glimpse}\NormalTok{(teach\_extended)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3102,12 +3122,12 @@ For instance,
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{summary\_df \textless{}{-}}\StringTok{ }\KeywordTok{summarise}\NormalTok{(teach,}
-                \DataTypeTok{n\_obs=}\KeywordTok{n}\NormalTok{(),}
-                \DataTypeTok{m\_statistics =} \KeywordTok{mean}\NormalTok{(statistics),}
-                \DataTypeTok{m\_cog\_psy =} \KeywordTok{mean}\NormalTok{(cog\_psy),}
-                \DataTypeTok{useless =} \KeywordTok{sum}\NormalTok{(statistics}\OperatorTok{+}\NormalTok{cog\_psy) )}
-\KeywordTok{print}\NormalTok{(summary\_df)}
+\NormalTok{summary\_df }\OtherTok{\textless{}{-}} \FunctionTok{summarise}\NormalTok{(teach,}
+                \AttributeTok{n\_obs=}\FunctionTok{n}\NormalTok{(),}
+                \AttributeTok{m\_statistics =} \FunctionTok{mean}\NormalTok{(statistics),}
+                \AttributeTok{m\_cog\_psy =} \FunctionTok{mean}\NormalTok{(cog\_psy),}
+                \AttributeTok{useless =} \FunctionTok{sum}\NormalTok{(statistics}\SpecialCharTok{+}\NormalTok{cog\_psy) )}
+\FunctionTok{print}\NormalTok{(summary\_df)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3129,8 +3149,8 @@ If you want that all \emph{Tidyverse}-operations will be done separately for dif
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach\_grouped \textless{}{-}}\StringTok{ }\KeywordTok{group\_by}\NormalTok{(teach, city)}
-\KeywordTok{print}\NormalTok{(teach\_grouped)}
+\NormalTok{teach\_grouped }\OtherTok{\textless{}{-}} \FunctionTok{group\_by}\NormalTok{(teach, city)}
+\FunctionTok{print}\NormalTok{(teach\_grouped)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3158,12 +3178,12 @@ If we now apply the \texttt{summarise()} command on the new group data, we get t
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{summary\_df \textless{}{-}}\StringTok{ }\KeywordTok{summarise}\NormalTok{(teach\_grouped,   }\CommentTok{\# use the new grouped df}
-                \DataTypeTok{n\_obs=}\KeywordTok{n}\NormalTok{(),}
-                \DataTypeTok{m\_statistics =} \KeywordTok{mean}\NormalTok{(statistics),}
-                \DataTypeTok{m\_cog\_psy =} \KeywordTok{mean}\NormalTok{(cog\_psy),}
-                \DataTypeTok{useless =} \KeywordTok{sum}\NormalTok{(statistics}\OperatorTok{+}\NormalTok{cog\_psy) )}
-\KeywordTok{print}\NormalTok{(summary\_df)}
+\NormalTok{summary\_df }\OtherTok{\textless{}{-}} \FunctionTok{summarise}\NormalTok{(teach\_grouped,   }\CommentTok{\# use the new grouped df}
+                \AttributeTok{n\_obs=}\FunctionTok{n}\NormalTok{(),}
+                \AttributeTok{m\_statistics =} \FunctionTok{mean}\NormalTok{(statistics),}
+                \AttributeTok{m\_cog\_psy =} \FunctionTok{mean}\NormalTok{(cog\_psy),}
+                \AttributeTok{useless =} \FunctionTok{sum}\NormalTok{(statistics}\SpecialCharTok{+}\NormalTok{cog\_psy) )}
+\FunctionTok{print}\NormalTok{(summary\_df)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3188,12 +3208,12 @@ Like with the other \emph{Tidyverse} functions you can add variables and further
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach\_grouped \textless{}{-}}\StringTok{ }\KeywordTok{group\_by}\NormalTok{(teach, city, teaching\_method)}
-\NormalTok{summary\_df \textless{}{-}}\StringTok{ }\KeywordTok{summarise}\NormalTok{(teach\_grouped,}
-                \DataTypeTok{n\_obs=}\KeywordTok{n}\NormalTok{(),}
-                \DataTypeTok{m\_statistics =} \KeywordTok{mean}\NormalTok{(statistics),}
-                \DataTypeTok{m\_cog\_psy =} \KeywordTok{mean}\NormalTok{(cog\_psy),}
-                \DataTypeTok{useless =} \KeywordTok{sum}\NormalTok{(statistics}\OperatorTok{+}\NormalTok{cog\_psy) )}
+\NormalTok{teach\_grouped }\OtherTok{\textless{}{-}} \FunctionTok{group\_by}\NormalTok{(teach, city, teaching\_method)}
+\NormalTok{summary\_df }\OtherTok{\textless{}{-}} \FunctionTok{summarise}\NormalTok{(teach\_grouped,}
+                \AttributeTok{n\_obs=}\FunctionTok{n}\NormalTok{(),}
+                \AttributeTok{m\_statistics =} \FunctionTok{mean}\NormalTok{(statistics),}
+                \AttributeTok{m\_cog\_psy =} \FunctionTok{mean}\NormalTok{(cog\_psy),}
+                \AttributeTok{useless =} \FunctionTok{sum}\NormalTok{(statistics}\SpecialCharTok{+}\NormalTok{cog\_psy) )}
 \NormalTok{summary\_df}
 \end{Highlighting}
 \end{Shaded}
@@ -3230,7 +3250,7 @@ the course.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summarize}\NormalTok{(}\KeywordTok{group\_by}\NormalTok{(teach, time, teaching\_method), }\DataTypeTok{m\_statistics =} \KeywordTok{mean}\NormalTok{(statistics))}
+\FunctionTok{summarize}\NormalTok{(}\FunctionTok{group\_by}\NormalTok{(teach, time, teaching\_method), }\AttributeTok{m\_statistics =} \FunctionTok{mean}\NormalTok{(statistics))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3262,9 +3282,9 @@ who have lower grades.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach2 \textless{}{-}}\StringTok{ }\KeywordTok{mutate}\NormalTok{(teach, }\DataTypeTok{good\_in\_stats =}\NormalTok{ statistics}\OperatorTok{\textgreater{}}\KeywordTok{median}\NormalTok{(statistics))}
-\NormalTok{teach2\_grouped \textless{}{-}}\StringTok{ }\KeywordTok{group\_by}\NormalTok{(teach2, good\_in\_stats)}
-\KeywordTok{summarize}\NormalTok{(teach2\_grouped, }\DataTypeTok{m\_cog\_psy =} \KeywordTok{mean}\NormalTok{(cog\_psy))}
+\NormalTok{teach2 }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(teach, }\AttributeTok{good\_in\_stats =}\NormalTok{ statistics}\SpecialCharTok{\textgreater{}}\FunctionTok{median}\NormalTok{(statistics))}
+\NormalTok{teach2\_grouped }\OtherTok{\textless{}{-}} \FunctionTok{group\_by}\NormalTok{(teach2, good\_in\_stats)}
+\FunctionTok{summarize}\NormalTok{(teach2\_grouped, }\AttributeTok{m\_cog\_psy =} \FunctionTok{mean}\NormalTok{(cog\_psy))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3280,8 +3300,8 @@ who have lower grades.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summarize}\NormalTok{(}\KeywordTok{group\_by}\NormalTok{(teach, statistics }\OperatorTok{\textgreater{}}\StringTok{ }\KeywordTok{median}\NormalTok{(statistics)), }
-                                \DataTypeTok{m\_cog\_psy =} \KeywordTok{mean}\NormalTok{(cog\_psy))}
+\FunctionTok{summarize}\NormalTok{(}\FunctionTok{group\_by}\NormalTok{(teach, statistics }\SpecialCharTok{\textgreater{}} \FunctionTok{median}\NormalTok{(statistics)), }
+                                \AttributeTok{m\_cog\_psy =} \FunctionTok{mean}\NormalTok{(cog\_psy))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3534,8 +3554,8 @@ In contrast, in the \textbf{wide data} format at the \textbf{left} all measureme
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{weight \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"data/weight.csv"}\NormalTok{)}
-\KeywordTok{print}\NormalTok{(weight)}
+\NormalTok{weight }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/weight.csv"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(weight)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3557,7 +3577,7 @@ It's simple and straightforward to covert the wide data to a long format:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{weight\_long \textless{}{-}}\StringTok{ }\KeywordTok{pivot\_longer}\NormalTok{(weight, }\KeywordTok{c}\NormalTok{(}\StringTok{"Before"}\NormalTok{, }\StringTok{"After"}\NormalTok{), }\DataTypeTok{names\_to=}\StringTok{"Time"}\NormalTok{, }\DataTypeTok{values\_to=}\StringTok{"Weight"}\NormalTok{)}
+\NormalTok{weight\_long }\OtherTok{\textless{}{-}} \FunctionTok{pivot\_longer}\NormalTok{(weight, }\FunctionTok{c}\NormalTok{(}\StringTok{"Before"}\NormalTok{, }\StringTok{"After"}\NormalTok{), }\AttributeTok{names\_to=}\StringTok{"Time"}\NormalTok{, }\AttributeTok{values\_to=}\StringTok{"Weight"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3565,7 +3585,7 @@ Please note, the second argument of \texttt{pivot\_longer()} is the columns to b
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(weight\_long)}
+\FunctionTok{print}\NormalTok{(weight\_long)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3598,8 +3618,8 @@ format.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wide\_again \textless{}{-}}\StringTok{ }\KeywordTok{pivot\_wider}\NormalTok{(weight\_long, }\DataTypeTok{names\_from=}\StringTok{"Time"}\NormalTok{, }\DataTypeTok{values\_from=}\StringTok{"Weight"}\NormalTok{)}
-\KeywordTok{print}\NormalTok{(wide\_again)}
+\NormalTok{wide\_again }\OtherTok{\textless{}{-}} \FunctionTok{pivot\_wider}\NormalTok{(weight\_long, }\AttributeTok{names\_from=}\StringTok{"Time"}\NormalTok{, }\AttributeTok{values\_from=}\StringTok{"Weight"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(wide\_again)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3641,7 +3661,7 @@ the new \texttt{pivot\_wider()} and \texttt{pivot\_longer()} functions.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{height =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{1.69}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\FloatTok{1.82}\NormalTok{)}
+\NormalTok{height }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\FloatTok{1.69}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\FloatTok{1.82}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3649,7 +3669,7 @@ Importantly, \textbf{any operation and any comparison with\texttt{NA} has the re
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{height }\OperatorTok{*}\StringTok{ }\DecValTok{100}  \CommentTok{\# height in cm}
+\NormalTok{height }\SpecialCharTok{*} \DecValTok{100}  \CommentTok{\# height in cm}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3659,8 +3679,8 @@ Importantly, \textbf{any operation and any comparison with\texttt{NA} has the re
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{large\_guys =}\StringTok{ }\NormalTok{height }\OperatorTok{\textgreater{}}\StringTok{ }\FloatTok{1.80}  \CommentTok{\# find all the large guys}
-\KeywordTok{print}\NormalTok{(large\_guys)}
+\NormalTok{large\_guys }\OtherTok{=}\NormalTok{ height }\SpecialCharTok{\textgreater{}} \FloatTok{1.80}  \CommentTok{\# find all the large guys}
+\FunctionTok{print}\NormalTok{(large\_guys)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3672,7 +3692,7 @@ If you want to figure out which elements in a vector is \texttt{NA}, you have to
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{is.na}\NormalTok{(height)}
+\FunctionTok{is.na}\NormalTok{(height)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3684,7 +3704,7 @@ Since your use the \texttt{!}-sign in \emph{R} to make a negation (like in the c
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(height)}
+\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(height)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3700,7 +3720,7 @@ Since all operations with missing values return \texttt{NA}, all functions that 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{mean}\NormalTok{(height)}
+\FunctionTok{mean}\NormalTok{(height)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3712,7 +3732,7 @@ That is a problem, because we typically just want to ignore \texttt{NA} and calc
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{mean}\NormalTok{(height, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(height, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3725,7 +3745,7 @@ That is a problem, because we typically just want to ignore \texttt{NA} and calc
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# manually deleting  NA}
-\KeywordTok{mean}\NormalTok{(height[}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(height)])}
+\FunctionTok{mean}\NormalTok{(height[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(height)])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3736,7 +3756,7 @@ That is a problem, because we typically just want to ignore \texttt{NA} and calc
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# but this is easier, right?}
-\KeywordTok{mean}\NormalTok{(height, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(height, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3755,8 +3775,8 @@ The \href{./data}{data folder} contains a second (more realistic) version of the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{)}
-\KeywordTok{summary}\NormalTok{(teach)}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(teach)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3798,8 +3818,8 @@ the \texttt{summarise()} function of \emph{Tidyverse}?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summarise}\NormalTok{(teach, }\DataTypeTok{m\_stats =} \KeywordTok{mean}\NormalTok{(statistics, }\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{),}
-          \DataTypeTok{m\_cog\_psy =} \KeywordTok{mean}\NormalTok{(cog\_psy, }\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{))}
+\FunctionTok{summarise}\NormalTok{(teach, }\AttributeTok{m\_stats =} \FunctionTok{mean}\NormalTok{(statistics, }\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{),}
+          \AttributeTok{m\_cog\_psy =} \FunctionTok{mean}\NormalTok{(cog\_psy, }\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3823,7 +3843,7 @@ Data reading functions have the optional argument \texttt{na}, which calls for a
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{, }\DataTypeTok{na =} \KeywordTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{))}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{, }\AttributeTok{na =} \FunctionTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3842,7 +3862,7 @@ If you have multiple values that represent a missing value, it could look like t
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"demo.csv"}\NormalTok{, }\DataTypeTok{na =} \KeywordTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{, }\StringTok{"??"}\NormalTok{, }\StringTok{"None"}\NormalTok{, }\DecValTok{{-}99}\NormalTok{,  }\StringTok{"no idea"}\NormalTok{, }\StringTok{"who knows"}\NormalTok{))}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"demo.csv"}\NormalTok{, }\AttributeTok{na =} \FunctionTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{, }\StringTok{"??"}\NormalTok{, }\StringTok{"None"}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{99}\NormalTok{,  }\StringTok{"no idea"}\NormalTok{, }\StringTok{"who knows"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3853,7 +3873,7 @@ If you have multiple values that represent a missing value, it could look like t
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach\_no\_na \textless{}{-}}\StringTok{ }\KeywordTok{drop\_na}\NormalTok{(teach)}
+\NormalTok{teach\_no\_na }\OtherTok{\textless{}{-}} \FunctionTok{drop\_na}\NormalTok{(teach)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3861,7 +3881,7 @@ Often you only want to remove rows, in which only certain variables are \texttt{
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{drop\_na}\NormalTok{(teach, city, statistics)}
+\FunctionTok{drop\_na}\NormalTok{(teach, city, statistics)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3874,8 +3894,8 @@ Try to do it in one line of code.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summarise}\NormalTok{(}\KeywordTok{drop\_na}\NormalTok{(teach), }\DataTypeTok{m\_stats =} \KeywordTok{mean}\NormalTok{(statistics),}
-          \DataTypeTok{m\_cog\_psy =} \KeywordTok{mean}\NormalTok{(cog\_psy))}
+\FunctionTok{summarise}\NormalTok{(}\FunctionTok{drop\_na}\NormalTok{(teach), }\AttributeTok{m\_stats =} \FunctionTok{mean}\NormalTok{(statistics),}
+          \AttributeTok{m\_cog\_psy =} \FunctionTok{mean}\NormalTok{(cog\_psy))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3895,8 +3915,8 @@ If we know that a missing value in a certain variable actually stands for an par
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{mutate}\NormalTok{(teach,}
-              \DataTypeTok{city =} \KeywordTok{replace\_na}\NormalTok{(city, }\StringTok{"Amsterdam"}\NormalTok{))}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(teach,}
+              \AttributeTok{city =} \FunctionTok{replace\_na}\NormalTok{(city, }\StringTok{"Amsterdam"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3919,8 +3939,8 @@ Examples of categorical factors are the variables \texttt{teaching\_method}, \te
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{, }\DataTypeTok{na =} \KeywordTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{))}
-\KeywordTok{glimpse}\NormalTok{(teach)}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{, }\AttributeTok{na =} \FunctionTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{))}
+\FunctionTok{glimpse}\NormalTok{(teach)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3939,11 +3959,11 @@ We want to treat these variable as factors, because they have a fixed and known 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach\_with\_factors \textless{}{-}}\StringTok{ }\KeywordTok{mutate}\NormalTok{(teach,}
-                       \DataTypeTok{teaching\_method=}\KeywordTok{factor}\NormalTok{(teaching\_method),}
-                       \DataTypeTok{city=}\KeywordTok{factor}\NormalTok{(city),}
-                       \DataTypeTok{time=}\KeywordTok{factor}\NormalTok{(time))}
-\KeywordTok{glimpse}\NormalTok{(teach\_with\_factors)}
+\NormalTok{teach\_with\_factors }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(teach,}
+                       \AttributeTok{teaching\_method=}\FunctionTok{factor}\NormalTok{(teaching\_method),}
+                       \AttributeTok{city=}\FunctionTok{factor}\NormalTok{(city),}
+                       \AttributeTok{time=}\FunctionTok{factor}\NormalTok{(time))}
+\FunctionTok{glimpse}\NormalTok{(teach\_with\_factors)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3964,10 +3984,10 @@ The three variables are now factors (\texttt{\textless{}fct\textgreater{}}). The
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach\_with\_factors \textless{}{-}}\StringTok{ }\NormalTok{teach}
-\NormalTok{teach\_with\_factors}\OperatorTok{$}\NormalTok{teaching\_method =}\StringTok{ }\KeywordTok{factor}\NormalTok{(teach\_with\_factors}\OperatorTok{$}\NormalTok{teaching\_method)}
-\NormalTok{teach\_with\_factors}\OperatorTok{$}\NormalTok{city =}\StringTok{ }\KeywordTok{factor}\NormalTok{(teach\_with\_factors}\OperatorTok{$}\NormalTok{city)}
-\NormalTok{teach\_with\_factors}\OperatorTok{$}\NormalTok{time =}\StringTok{ }\KeywordTok{factor}\NormalTok{(teach\_with\_factors}\OperatorTok{$}\NormalTok{time)}
+\NormalTok{teach\_with\_factors }\OtherTok{\textless{}{-}}\NormalTok{ teach}
+\NormalTok{teach\_with\_factors}\SpecialCharTok{$}\NormalTok{teaching\_method }\OtherTok{=} \FunctionTok{factor}\NormalTok{(teach\_with\_factors}\SpecialCharTok{$}\NormalTok{teaching\_method)}
+\NormalTok{teach\_with\_factors}\SpecialCharTok{$}\NormalTok{city }\OtherTok{=} \FunctionTok{factor}\NormalTok{(teach\_with\_factors}\SpecialCharTok{$}\NormalTok{city)}
+\NormalTok{teach\_with\_factors}\SpecialCharTok{$}\NormalTok{time }\OtherTok{=} \FunctionTok{factor}\NormalTok{(teach\_with\_factors}\SpecialCharTok{$}\NormalTok{time)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3980,8 +4000,8 @@ The Advantages of using factors can be best illustrated with a typical example o
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df\_no\_factor =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{gender=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{))}
-\KeywordTok{print}\NormalTok{(df\_no\_factor)}
+\NormalTok{df\_no\_factor }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{gender=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\FunctionTok{print}\NormalTok{(df\_no\_factor)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4006,9 +4026,9 @@ One advantage of factors is that you can define the possible factor levels (like
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df\_factor \textless{}{-}}\StringTok{  }\KeywordTok{mutate}\NormalTok{(df\_no\_factor,}
-            \DataTypeTok{gender =} \KeywordTok{factor}\NormalTok{(gender, }\DataTypeTok{levels=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)))}
-\KeywordTok{print}\NormalTok{(df\_factor)}
+\NormalTok{df\_factor }\OtherTok{\textless{}{-}}  \FunctionTok{mutate}\NormalTok{(df\_no\_factor,}
+            \AttributeTok{gender =} \FunctionTok{factor}\NormalTok{(gender, }\AttributeTok{levels=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)))}
+\FunctionTok{print}\NormalTok{(df\_factor)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4037,9 +4057,9 @@ Don't forget, often the factor levels are represented in a raw data file just by
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df\_factor \textless{}{-}}\StringTok{  }\KeywordTok{mutate}\NormalTok{(df\_no\_factor,}
-            \DataTypeTok{gender =} \KeywordTok{factor}\NormalTok{(gender, }\DataTypeTok{levels=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{labels=}\KeywordTok{c}\NormalTok{(}\StringTok{"female"}\NormalTok{, }\StringTok{"male"}\NormalTok{)))}
-\KeywordTok{print}\NormalTok{(df\_factor)}
+\NormalTok{df\_factor }\OtherTok{\textless{}{-}}  \FunctionTok{mutate}\NormalTok{(df\_no\_factor,}
+            \AttributeTok{gender =} \FunctionTok{factor}\NormalTok{(gender, }\AttributeTok{levels=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{labels=}\FunctionTok{c}\NormalTok{(}\StringTok{"female"}\NormalTok{, }\StringTok{"male"}\NormalTok{)))}
+\FunctionTok{print}\NormalTok{(df\_factor)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4069,7 +4089,7 @@ The output of some functions is nicer and better organized. If we do a summary o
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(df\_no\_factor)}
+\FunctionTok{summary}\NormalTok{(df\_no\_factor)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4087,7 +4107,7 @@ and with factors,
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(df\_factor)}
+\FunctionTok{summary}\NormalTok{(df\_factor)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4131,8 +4151,8 @@ For example, instead writing
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# classical function call}
-\KeywordTok{drop\_na}\NormalTok{(my\_data)                }\CommentTok{\# example a}
-\KeywordTok{mutate}\NormalTok{(my\_data, }\DataTypeTok{new\_var =}\NormalTok{ a }\OperatorTok{+}\StringTok{ }\NormalTok{b) }\CommentTok{\# example b}
+\FunctionTok{drop\_na}\NormalTok{(my\_data)                }\CommentTok{\# example a}
+\FunctionTok{mutate}\NormalTok{(my\_data, }\AttributeTok{new\_var =}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ b) }\CommentTok{\# example b}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4141,8 +4161,8 @@ you can write
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# the same with pipes}
-\NormalTok{my\_data }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{drop\_na}\NormalTok{()                }\CommentTok{\# example a}
-\NormalTok{my\_data }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{new\_var =}\NormalTok{ a }\OperatorTok{+}\StringTok{ }\NormalTok{b)  }\CommentTok{\# example b}
+\NormalTok{my\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{()                }\CommentTok{\# example a}
+\NormalTok{my\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{new\_var =}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ b)  }\CommentTok{\# example b}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4161,11 +4181,11 @@ Why shall I use pipes? Pipes can be very handy, because you can not only send da
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# classical function call}
-\NormalTok{data\_with\_na \textless{}{-}}\StringTok{ }\KeywordTok{drop\_na}\NormalTok{(my\_data)                }\CommentTok{\# step a}
-\KeywordTok{mutate}\NormalTok{(data\_with\_na, }\DataTypeTok{new\_var =}\NormalTok{ a }\OperatorTok{+}\StringTok{ }\NormalTok{b) }\CommentTok{\# step b}
+\NormalTok{data\_with\_na }\OtherTok{\textless{}{-}} \FunctionTok{drop\_na}\NormalTok{(my\_data)                }\CommentTok{\# step a}
+\FunctionTok{mutate}\NormalTok{(data\_with\_na, }\AttributeTok{new\_var =}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ b) }\CommentTok{\# step b}
 
 \CommentTok{\# the same with pipes}
-\NormalTok{my\_data }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{drop\_na}\NormalTok{() }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{new\_var =}\NormalTok{ a }\OperatorTok{+}\StringTok{ }\NormalTok{b)  }\CommentTok{\# step a and b}
+\NormalTok{my\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{new\_var =}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ b)  }\CommentTok{\# step a and b}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4194,27 +4214,27 @@ One solution to the problem above looks, for example, like this:
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\#reading the data}
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{, }\DataTypeTok{na =} \KeywordTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{))}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{, }\AttributeTok{na =} \FunctionTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\#remove nan values}
-\NormalTok{teach2 \textless{}{-}}\StringTok{ }\KeywordTok{drop\_na}\NormalTok{(teach)}
+\NormalTok{teach2 }\OtherTok{\textless{}{-}} \FunctionTok{drop\_na}\NormalTok{(teach)}
 
 \CommentTok{\# filtering the cities}
-\NormalTok{teach3 \textless{}{-}}\StringTok{ }\KeywordTok{filter}\NormalTok{(teach2, city }\OperatorTok{!=}\StringTok{ "Leiden"}\NormalTok{, city }\OperatorTok{!=}\StringTok{ "Utrecht"}\NormalTok{)}
+\NormalTok{teach3 }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(teach2, city }\SpecialCharTok{!=} \StringTok{"Leiden"}\NormalTok{, city }\SpecialCharTok{!=} \StringTok{"Utrecht"}\NormalTok{)}
 
 \CommentTok{\# calculating percent correct for cog.psy{-}}
-\NormalTok{teach4 \textless{}{-}}\StringTok{ }\KeywordTok{mutate}\NormalTok{(teach3, }\DataTypeTok{percent\_cog\_psy=}\NormalTok{ cog\_psy }\OperatorTok{*}\StringTok{ }\DecValTok{40}\OperatorTok{/}\DecValTok{100}\NormalTok{)}
+\NormalTok{teach4 }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(teach3, }\AttributeTok{percent\_cog\_psy=}\NormalTok{ cog\_psy }\SpecialCharTok{*} \DecValTok{40}\SpecialCharTok{/}\DecValTok{100}\NormalTok{)}
 
 \CommentTok{\# group data for city and teaching method}
-\NormalTok{teach4\_grouped \textless{}{-}}\StringTok{ }\KeywordTok{group\_by}\NormalTok{(teach4, city, teaching\_method)}
+\NormalTok{teach4\_grouped }\OtherTok{\textless{}{-}} \FunctionTok{group\_by}\NormalTok{(teach4, city, teaching\_method)}
 
 \CommentTok{\# making the summary}
-\NormalTok{summary\_df\textless{}{-}}\StringTok{ }\KeywordTok{summarise}\NormalTok{(teach4\_grouped,}
-                        \DataTypeTok{m\_cog\_psy =} \KeywordTok{mean}\NormalTok{(percent\_cog\_psy) )}
+\NormalTok{summary\_df}\OtherTok{\textless{}{-}} \FunctionTok{summarise}\NormalTok{(teach4\_grouped,}
+                        \AttributeTok{m\_cog\_psy =} \FunctionTok{mean}\NormalTok{(percent\_cog\_psy) )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4222,7 +4242,7 @@ We produced in total 6 data frames (\texttt{teach}, \texttt{teach2}, \texttt{tea
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(summary\_df)}
+\FunctionTok{print}\NormalTok{(summary\_df)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4251,12 +4271,12 @@ Instead of creating intermediate objects at each step, we could overwrite the or
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{, }\DataTypeTok{na =} \KeywordTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{))}
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{drop\_na}\NormalTok{(teach)}
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{filter}\NormalTok{(teach, city }\OperatorTok{!=}\StringTok{ "Leiden"}\NormalTok{, city }\OperatorTok{!=}\StringTok{ "Utrecht"}\NormalTok{)}
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{mutate}\NormalTok{(teach, }\DataTypeTok{percent\_cog\_psy=}\NormalTok{ cog\_psy }\OperatorTok{*}\StringTok{ }\DecValTok{40}\OperatorTok{/}\DecValTok{100}\NormalTok{)}
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{group\_by}\NormalTok{(teach, city, teaching\_method)}
-\NormalTok{teach \textless{}{-}}\StringTok{ }\KeywordTok{summarise}\NormalTok{(teach, }\DataTypeTok{m\_cog\_psy =} \KeywordTok{mean}\NormalTok{(percent\_cog\_psy) )}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{, }\AttributeTok{na =} \FunctionTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{))}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{drop\_na}\NormalTok{(teach)}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(teach, city }\SpecialCharTok{!=} \StringTok{"Leiden"}\NormalTok{, city }\SpecialCharTok{!=} \StringTok{"Utrecht"}\NormalTok{)}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(teach, }\AttributeTok{percent\_cog\_psy=}\NormalTok{ cog\_psy }\SpecialCharTok{*} \DecValTok{40}\SpecialCharTok{/}\DecValTok{100}\NormalTok{)}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{group\_by}\NormalTok{(teach, city, teaching\_method)}
+\NormalTok{teach }\OtherTok{\textless{}{-}} \FunctionTok{summarise}\NormalTok{(teach, }\AttributeTok{m\_cog\_psy =} \FunctionTok{mean}\NormalTok{(percent\_cog\_psy) )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4278,12 +4298,12 @@ Finally, we can use the pipe:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{summary\_df \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{, }\DataTypeTok{na =} \KeywordTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{)) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{        }\KeywordTok{drop\_na}\NormalTok{() }\OperatorTok{\%\textgreater{}\%}
-\StringTok{        }\KeywordTok{filter}\NormalTok{(city }\OperatorTok{!=}\StringTok{ "Leiden"}\NormalTok{, city }\OperatorTok{!=}\StringTok{ "Utrecht"}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{        }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{percent\_cog\_psy=}\NormalTok{ cog\_psy }\OperatorTok{*}\StringTok{ }\DecValTok{40}\OperatorTok{/}\DecValTok{100}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{        }\KeywordTok{group\_by}\NormalTok{(city, teaching\_method) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{        }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{m\_cog\_psy =} \KeywordTok{mean}\NormalTok{(percent\_cog\_psy) )}
+\NormalTok{summary\_df }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/teaching\_method2.csv"}\NormalTok{, }\AttributeTok{na =} \FunctionTok{c}\NormalTok{(}\StringTok{"Unknown"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+        \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+        \FunctionTok{filter}\NormalTok{(city }\SpecialCharTok{!=} \StringTok{"Leiden"}\NormalTok{, city }\SpecialCharTok{!=} \StringTok{"Utrecht"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+        \FunctionTok{mutate}\NormalTok{(}\AttributeTok{percent\_cog\_psy=}\NormalTok{ cog\_psy }\SpecialCharTok{*} \DecValTok{40}\SpecialCharTok{/}\DecValTok{100}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+        \FunctionTok{group\_by}\NormalTok{(city, teaching\_method) }\SpecialCharTok{\%\textgreater{}\%}
+        \FunctionTok{summarise}\NormalTok{(}\AttributeTok{m\_cog\_psy =} \FunctionTok{mean}\NormalTok{(percent\_cog\_psy) )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4291,7 +4311,7 @@ If you compare this code with the code in which we produced multiple \protect\hy
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(summary\_df)}
+\FunctionTok{print}\NormalTok{(summary\_df)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4351,16 +4371,16 @@ The following code generates the data:
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Just copy \& paste, you don\textquotesingle{}t have to understand the code.}
-\NormalTok{simulation \textless{}{-}}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{school =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"University A"}\NormalTok{, }\DecValTok{300}\NormalTok{),}
-                              \KeywordTok{rep}\NormalTok{(}\StringTok{"University B"}\NormalTok{, }\DecValTok{500}\NormalTok{),}
-                              \KeywordTok{rep}\NormalTok{(}\StringTok{"University C"}\NormalTok{, }\DecValTok{200}\NormalTok{))) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{        }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{school =} \KeywordTok{factor}\NormalTok{(school),}
+\NormalTok{simulation }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{school =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"University A"}\NormalTok{, }\DecValTok{300}\NormalTok{),}
+                              \FunctionTok{rep}\NormalTok{(}\StringTok{"University B"}\NormalTok{, }\DecValTok{500}\NormalTok{),}
+                              \FunctionTok{rep}\NormalTok{(}\StringTok{"University C"}\NormalTok{, }\DecValTok{200}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
+        \FunctionTok{mutate}\NormalTok{(}\AttributeTok{school =} \FunctionTok{factor}\NormalTok{(school),}
              \CommentTok{\# random IQ data for each person}
-             \DataTypeTok{IQ\_A =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{15}\NormalTok{),}
+             \AttributeTok{IQ\_A =} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{15}\NormalTok{),}
              \CommentTok{\# make people from University A more clever}
-             \DataTypeTok{IQ\_A =} \KeywordTok{ifelse}\NormalTok{(school}\OperatorTok{==}\StringTok{"University A"}\NormalTok{, IQ\_A }\OperatorTok{+}\StringTok{ }\DecValTok{20}\NormalTok{, IQ\_A),}
+             \AttributeTok{IQ\_A =} \FunctionTok{ifelse}\NormalTok{(school}\SpecialCharTok{==}\StringTok{"University A"}\NormalTok{, IQ\_A }\SpecialCharTok{+} \DecValTok{20}\NormalTok{, IQ\_A),}
              \CommentTok{\# random different outcome of IQ test B}
-             \DataTypeTok{IQ\_B =}\NormalTok{ IQ\_A }\OperatorTok{+}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{25}\NormalTok{) )}
+             \AttributeTok{IQ\_B =}\NormalTok{ IQ\_A }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{25}\NormalTok{) )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4393,7 +4413,7 @@ assumptions:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ simulation}\OperatorTok{$}\NormalTok{school)}
+\FunctionTok{plot}\NormalTok{(}\AttributeTok{x =}\NormalTok{ simulation}\SpecialCharTok{$}\NormalTok{school)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4406,7 +4426,7 @@ assumptions:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ simulation}\OperatorTok{$}\NormalTok{school, }\DataTypeTok{y =}\NormalTok{ simulation}\OperatorTok{$}\NormalTok{IQ\_A)}
+\FunctionTok{plot}\NormalTok{(}\AttributeTok{x =}\NormalTok{ simulation}\SpecialCharTok{$}\NormalTok{school, }\AttributeTok{y =}\NormalTok{ simulation}\SpecialCharTok{$}\NormalTok{IQ\_A)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4419,7 +4439,7 @@ assumptions:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ simulation}\OperatorTok{$}\NormalTok{IQ\_A, }\DataTypeTok{y =}\NormalTok{ simulation}\OperatorTok{$}\NormalTok{IQ\_B)}
+\FunctionTok{plot}\NormalTok{(}\AttributeTok{x =}\NormalTok{ simulation}\SpecialCharTok{$}\NormalTok{IQ\_A, }\AttributeTok{y =}\NormalTok{ simulation}\SpecialCharTok{$}\NormalTok{IQ\_B)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4430,12 +4450,12 @@ By the way: To calculate the correlation coefficient \(r\), you can use the func
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{cor}\NormalTok{(simulation}\OperatorTok{$}\NormalTok{IQ\_A, simulation}\OperatorTok{$}\NormalTok{IQ\_B)}
+\FunctionTok{cor}\NormalTok{(simulation}\SpecialCharTok{$}\NormalTok{IQ\_A, simulation}\SpecialCharTok{$}\NormalTok{IQ\_B)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5965296
+## [1] 0.5448645
 \end{verbatim}
 
 \webexunhide
@@ -4451,7 +4471,7 @@ Let's start with a totally empty plot layer created by the\texttt{ggplot()} func
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{()}
+\FunctionTok{ggplot}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4463,7 +4483,7 @@ Like with all \emph{Tidyverse} functions, the first argument to \texttt{ggplot()
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{IQ\_A, }\DataTypeTok{y=}\NormalTok{IQ\_B))}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{IQ\_A, }\AttributeTok{y=}\NormalTok{IQ\_B))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4477,7 +4497,7 @@ If we add, for example, the \texttt{geom\_point()}, we tell \emph{R} to plot the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{IQ\_A, }\DataTypeTok{y=}\NormalTok{IQ\_B)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom\_point}\NormalTok{()}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{IQ\_A, }\AttributeTok{y=}\NormalTok{IQ\_B)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4495,8 +4515,8 @@ Bar plot are done pity easy by adding (\texttt{+}) the geom \texttt{geom\_bar()}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(school)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{geom\_bar}\NormalTok{()}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(school)) }\SpecialCharTok{+}
+        \FunctionTok{geom\_bar}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4509,8 +4529,8 @@ Density plots are good for one continuous variable, but only if you have a fairl
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(IQ\_A)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{geom\_density}\NormalTok{()}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(IQ\_A)) }\SpecialCharTok{+}
+        \FunctionTok{geom\_density}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4520,8 +4540,8 @@ You can represent subsets of a variable by assigning the category variable to th
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(IQ\_A, }\DataTypeTok{color=}\NormalTok{school)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{geom\_density}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.7}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(IQ\_A, }\AttributeTok{color=}\NormalTok{school)) }\SpecialCharTok{+}
+        \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.7}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4529,8 +4549,8 @@ You can represent subsets of a variable by assigning the category variable to th
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(IQ\_A, }\DataTypeTok{fill=}\NormalTok{school)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{geom\_density}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.7}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(IQ\_A, }\AttributeTok{fill=}\NormalTok{school)) }\SpecialCharTok{+}
+        \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.7}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4543,8 +4563,8 @@ Histogram are useful to get an overview on the shape of the distribution of your
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(IQ\_A)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{geom\_histogram}\NormalTok{()}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(IQ\_A)) }\SpecialCharTok{+}
+        \FunctionTok{geom\_histogram}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4558,8 +4578,8 @@ If you don't like the colours, don't panic:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(IQ\_A)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom\_histogram}\NormalTok{(}\DataTypeTok{binwidth =} \DecValTok{5}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{color =} \StringTok{"black"}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(IQ\_A)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{5}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4569,8 +4589,8 @@ Again, you can add the factor variable the mapping (\texttt{aes()}) of the plot 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(IQ\_A, }\DataTypeTok{fill =}\NormalTok{ school)) }\OperatorTok{+}
-\StringTok{      }\KeywordTok{geom\_histogram}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(IQ\_A, }\AttributeTok{fill =}\NormalTok{ school)) }\SpecialCharTok{+}
+      \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4589,10 +4609,10 @@ If not, you can use the function \texttt{stat\_summary} to calculate the mean an
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{school, }\DataTypeTok{y=}\NormalTok{IQ\_A, }\DataTypeTok{fill=}\NormalTok{school)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{stat\_summary}\NormalTok{(}\DataTypeTok{fun =}\NormalTok{ mean, }\DataTypeTok{geom =} \StringTok{"col"}\NormalTok{, }\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{stat\_summary}\NormalTok{(}\DataTypeTok{fun.data =}\NormalTok{ mean\_se, }\DataTypeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\DataTypeTok{width =} \FloatTok{0.25}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{coord\_cartesian}\NormalTok{(}\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{120}\NormalTok{))}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{school, }\AttributeTok{y=}\NormalTok{IQ\_A, }\AttributeTok{fill=}\NormalTok{school)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ mean, }\AttributeTok{geom =} \StringTok{"col"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =}\NormalTok{ mean\_se, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_cartesian}\NormalTok{(}\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{120}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4605,8 +4625,8 @@ Boxplots are, I my view, a much better way to depict grouped continuous data, be
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{school, }\DataTypeTok{y=}\NormalTok{IQ\_A, }\DataTypeTok{fill=}\NormalTok{school)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_boxplot}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{school, }\AttributeTok{y=}\NormalTok{IQ\_A, }\AttributeTok{fill=}\NormalTok{school)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4619,8 +4639,8 @@ Violin pots are like sideways, mirrored density plots. They give even more direc
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{school, }\DataTypeTok{y=}\NormalTok{IQ\_A, }\DataTypeTok{fill=}\NormalTok{school)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom\_violin}\NormalTok{(}\DataTypeTok{draw\_quantiles =} \FloatTok{.5}\NormalTok{, }\DataTypeTok{trim =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{school, }\AttributeTok{y=}\NormalTok{IQ\_A, }\AttributeTok{fill=}\NormalTok{school)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{draw\_quantiles =}\NormalTok{ .}\DecValTok{5}\NormalTok{, }\AttributeTok{trim =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4633,9 +4653,9 @@ Let's plot \texttt{IQ\_A} on the \texttt{x} and \texttt{IQ\_B} on the \texttt{y}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(IQ\_A, IQ\_B, }\DataTypeTok{color=}\NormalTok{school)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_point}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme\_classic}\NormalTok{()}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(IQ\_A, IQ\_B, }\AttributeTok{color=}\NormalTok{school)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4648,8 +4668,8 @@ To illustrate the correlation between the two variables, we can plot line graph 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(IQ\_A, IQ\_B)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{x, }\DataTypeTok{method=}\StringTok{"lm"}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(IQ\_A, IQ\_B)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{method=}\StringTok{"lm"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4662,10 +4682,10 @@ Finally, it's also possible the combine two plot types, such a line and scatter 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(simulation, }\KeywordTok{aes}\NormalTok{(IQ\_A, IQ\_B)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_point}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{x, }\DataTypeTok{method=}\StringTok{"lm"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme\_classic}\NormalTok{()}
+\FunctionTok{ggplot}\NormalTok{(simulation, }\FunctionTok{aes}\NormalTok{(IQ\_A, IQ\_B)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{method=}\StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4736,23 +4756,30 @@ Further resources
 \hypertarget{packagelist}{%
 \section{Interesting Packages}\label{packagelist}}
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-Name & Description\tabularnewline
-\midrule
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
 \endhead
-\href{http://lubridate.tidyverse.org/}{lubridate} & Easy dealing with dates and times, see \href{https://r4ds.had.co.nz/dates-and-times.html}{tutorial}\tabularnewline
-\href{https://cran.r-project.org/web/packages/afex/}{afex} & Analysis of factorial experiments\tabularnewline
-\href{https://easystats.github.io/effectsize/}{effectsize} & Indices of effect size and standardized parameters\tabularnewline
-\href{https://cran.r-project.org/web/packages/pwr/}{pwr} & Basic functions for power analysis\tabularnewline
-\href{https://cran.r-project.org/web/packages/easypower}{easypower} & Sample size estimation for experimental designs\tabularnewline
-\href{https://www.lavaan.ugent.be/}{lavaan} & Factor analysis and structural equation modeling\tabularnewline
-\href{https://cran.r-project.org/web/packages/lme4/index.html}{lme4} & Linear mixed-effects models\tabularnewline
-\href{https://richarddmorey.github.io/BayesFactor/}{BayesFactor} & Computation of Bayes bactors for common designs\tabularnewline
-\href{http://www.metafor-project.org/}{metafor} & Meta-analysis package\tabularnewline
-\href{https://cran.r-project.org/web/packages/apaTables/index.html}{apaTables} & Create American Psychological Association (APA) style tables\tabularnewline
-\href{https://cran.r-project.org/web/packages/rtweet/index.html}{rtweet} & Collecting Twitter data\tabularnewline
-\bottomrule
+\bottomrule\noalign{}
+\endlastfoot
+\href{http://lubridate.tidyverse.org/}{lubridate} & Easy dealing with dates and times, see \href{https://r4ds.had.co.nz/dates-and-times.html}{tutorial} \\
+\href{https://cran.r-project.org/web/packages/afex/}{afex} & Analysis of factorial experiments \\
+\href{https://easystats.github.io/effectsize/}{effectsize} & Indices of effect size and standardized parameters \\
+\href{https://cran.r-project.org/web/packages/pwr/}{pwr} & Basic functions for power analysis \\
+\href{https://cran.r-project.org/web/packages/easypower}{easypower} & Sample size estimation for experimental designs \\
+\href{https://www.lavaan.ugent.be/}{lavaan} & Factor analysis and structural equation modeling \\
+\href{https://cran.r-project.org/web/packages/lme4/index.html}{lme4} & Linear mixed-effects models \\
+\href{https://richarddmorey.github.io/BayesFactor/}{BayesFactor} & Computation of Bayes bactors for common designs \\
+\href{http://www.metafor-project.org/}{metafor} & Meta-analysis package \\
+\href{https://cran.r-project.org/web/packages/apaTables/index.html}{apaTables} & Create American Psychological Association (APA) style tables \\
+\href{https://cran.r-project.org/web/packages/rtweet/index.html}{rtweet} & Collecting Twitter data \\
 \end{longtable}
 
 \hypertarget{examples-analyses}{%

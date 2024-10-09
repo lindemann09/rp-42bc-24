@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-09-24" />
+<meta name="date" content="2024-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -57,8 +56,9 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -293,36 +293,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="na-not-available" class="section level2 hasAnchor" number="14.1">
 <h2><span class="header-section-number">14.1</span> <code>NA</code>: Not Available<a href="missing-values.html#na-not-available" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>NA</code> stands for “Not Available” and is used to indicate a missing value. For instance, if you have a vector of the body heights of three subjects and, let’s say, you don’t know the height of the second person, it should look like this in <em>R</em>:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="missing-values.html#cb222-1" aria-hidden="true"></a>height =<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.69</span>, <span class="ot">NA</span>, <span class="fl">1.82</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="missing-values.html#cb222-1" tabindex="-1"></a>height <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">1.69</span>, <span class="cn">NA</span>, <span class="fl">1.82</span>)</span></code></pre></div>
 <p>Importantly, <strong>any operation and any comparison with<code>NA</code> has the result <code>NA</code></strong>. That is, if you make an element-wise operation or comparison with the vector, <em>R</em> returns always <code>NA</code> for any missing elements.</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="missing-values.html#cb223-1" aria-hidden="true"></a>height <span class="op">*</span><span class="st"> </span><span class="dv">100</span>  <span class="co"># height in cm</span></span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="missing-values.html#cb223-1" tabindex="-1"></a>height <span class="sc">*</span> <span class="dv">100</span>  <span class="co"># height in cm</span></span></code></pre></div>
 <pre><code>## [1] 169  NA 182</code></pre>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="missing-values.html#cb225-1" aria-hidden="true"></a>large_guys =<span class="st"> </span>height <span class="op">&gt;</span><span class="st"> </span><span class="fl">1.80</span>  <span class="co"># find all the large guys</span></span>
-<span id="cb225-2"><a href="missing-values.html#cb225-2" aria-hidden="true"></a><span class="kw">print</span>(large_guys)</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="missing-values.html#cb225-1" tabindex="-1"></a>large_guys <span class="ot">=</span> height <span class="sc">&gt;</span> <span class="fl">1.80</span>  <span class="co"># find all the large guys</span></span>
+<span id="cb225-2"><a href="missing-values.html#cb225-2" tabindex="-1"></a><span class="fu">print</span>(large_guys)</span></code></pre></div>
 <pre><code>## [1] FALSE    NA  TRUE</code></pre>
 <p>If you want to figure out which elements in a vector is <code>NA</code>, you have to use <code>is.na()</code> function:</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="missing-values.html#cb227-1" aria-hidden="true"></a><span class="kw">is.na</span>(height)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="missing-values.html#cb227-1" tabindex="-1"></a><span class="fu">is.na</span>(height)</span></code></pre></div>
 <pre><code>## [1] FALSE  TRUE FALSE</code></pre>
 <p>Since your use the <code>!</code>-sign in <em>R</em> to make a negation (like in the comparison <em>“is not equal”</em> <code>!=</code>; see section <a href="basics.html#logicals">4.4.2</a> about logicals or section <a href="basics.html#comparing">4.5</a> about comparisons), you can use this to find all elements in a vector that are <strong>NOT</strong> <code>NA</code>:</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="missing-values.html#cb229-1" aria-hidden="true"></a><span class="op">!</span><span class="kw">is.na</span>(height)</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="missing-values.html#cb229-1" tabindex="-1"></a><span class="sc">!</span><span class="fu">is.na</span>(height)</span></code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE</code></pre>
-<div id="aggregatingprocessing-vectors-with-missing-values" class="section level4 unnumbered hasAnchor" number="">
+<div id="aggregatingprocessing-vectors-with-missing-values" class="section level4 unnumbered hasAnchor">
 <h4>Aggregating/processing vectors with missing values<a href="missing-values.html#aggregatingprocessing-vectors-with-missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Since all operations with missing values return <code>NA</code>, all functions that calculate a single value from a vector (e.g. <code>sum()</code>, <code>mean()</code> or <code>sd()</code>) return always <code>NA</code>, if only one single value in the vector is <code>NA</code>.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="missing-values.html#cb231-1" aria-hidden="true"></a><span class="kw">mean</span>(height)</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="missing-values.html#cb231-1" tabindex="-1"></a><span class="fu">mean</span>(height)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>That is a problem, because we typically just want to ignore <code>NA</code> and calculate the results without the missing value. To do so, we have to exclude all <code>NA</code> values. We could do this manually by selecting only the elements that are not <code>NA</code> (e.g. using <code>filter()</code> or base-<em>R</em> <a href="subsetting">subsetting</a>). However, most vector-base functions in <em>R</em> offer the option to remove all <code>NA</code>s. This option is called <code>na.rm=</code> and if it’s set to <code>TRUE</code>, <em>R</em> excludes the <code>NA</code> before doing the calculation:</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="missing-values.html#cb233-1" aria-hidden="true"></a><span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="missing-values.html#cb233-1" tabindex="-1"></a><span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 1.755</code></pre>
 <div class="webex-solution">
 <button>
 manually deleting NA
 </button>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="missing-values.html#cb235-1" aria-hidden="true"></a><span class="co"># manually deleting  NA</span></span>
-<span id="cb235-2"><a href="missing-values.html#cb235-2" aria-hidden="true"></a><span class="kw">mean</span>(height[<span class="op">!</span><span class="kw">is.na</span>(height)])</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="missing-values.html#cb235-1" tabindex="-1"></a><span class="co"># manually deleting  NA</span></span>
+<span id="cb235-2"><a href="missing-values.html#cb235-2" tabindex="-1"></a><span class="fu">mean</span>(height[<span class="sc">!</span><span class="fu">is.na</span>(height)])</span></code></pre></div>
 <pre><code>## [1] 1.755</code></pre>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="missing-values.html#cb237-1" aria-hidden="true"></a><span class="co"># but this is easier, right?</span></span>
-<span id="cb237-2"><a href="missing-values.html#cb237-2" aria-hidden="true"></a><span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="missing-values.html#cb237-1" tabindex="-1"></a><span class="co"># but this is easier, right?</span></span>
+<span id="cb237-2"><a href="missing-values.html#cb237-2" tabindex="-1"></a><span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 1.755</code></pre>
 </div>
 </div>
@@ -331,8 +331,8 @@ manually deleting NA
 <h2><span class="header-section-number">14.2</span> Missings in data frames<a href="missing-values.html#missings-in-data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The datasets that we have used in the previous chapter were always complete and did not contain any missing data point. In real life, however, you often encounter the situation that you are missing some measurements in some variables. In other words, not all subjects provide a measurement in all columns. This might cause problems for the data processing and we need to deal with that issue.</p>
 <p>The <a href="./data">data folder</a> contains a second (more realistic) version of the teaching method dataset called <code>teaching_method2.csv</code>. Let’s have a look at it.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="missing-values.html#cb239-1" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>)</span>
-<span id="cb239-2"><a href="missing-values.html#cb239-2" aria-hidden="true"></a><span class="kw">summary</span>(teach)</span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="missing-values.html#cb239-1" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>)</span>
+<span id="cb239-2"><a href="missing-values.html#cb239-2" tabindex="-1"></a><span class="fu">summary</span>(teach)</span></code></pre></div>
 <pre><code>##     student     teaching_method        city               time          
 ##  Min.   : 1.0   Length:60          Length:60          Length:60         
 ##  1st Qu.: 8.0   Class :character   Class :character   Class :character  
@@ -358,15 +358,17 @@ Figure 14.1: Screen shot of the data frame displayed in RStudio Viewer
 </div>
 <div class="myexercise">
 <p>
-Calculate the mean of <code>statistics</code> and <code>cog_psy</code> using the <code>summarise()</code> function of <em>Tidyverse</em>?
+Calculate the mean of <code>statistics</code> and
+<code>cog_psy</code> using the <code>summarise()</code> function of
+<em>Tidyverse</em>?
 </p>
 </div>
 <div class="webex-solution">
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="missing-values.html#cb241-1" aria-hidden="true"></a><span class="kw">summarise</span>(teach, <span class="dt">m_stats =</span> <span class="kw">mean</span>(statistics, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</span>
-<span id="cb241-2"><a href="missing-values.html#cb241-2" aria-hidden="true"></a>          <span class="dt">m_cog_psy =</span> <span class="kw">mean</span>(cog_psy, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="missing-values.html#cb241-1" tabindex="-1"></a><span class="fu">summarise</span>(teach, <span class="at">m_stats =</span> <span class="fu">mean</span>(statistics, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb241-2"><a href="missing-values.html#cb241-2" tabindex="-1"></a>          <span class="at">m_cog_psy =</span> <span class="fu">mean</span>(cog_psy, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -389,7 +391,7 @@ Solution
 <p>As you have seen above, when using <code>read_csv()</code>, <em>R</em> detected automatically the missing values in the variables <code>statistics</code> and <code>cog_psy</code> and inserted instead <code>NA</code>. This was the case because there was simple no value in the data file.</p>
 <p>However, very often scientist use specific values to indicate in their raw data that there is a missing value (e.g. <code>??</code>, <code>None</code>, <code>Missing</code>, <code>-99</code>). For example, if you look carefully on the screenshot of the data viewer above (figure <a href="missing-values.html#fig:missingsscreenshort">14.1</a>), the <code>city</code> in row 7 is <em>“Unknown”</em>, which is obviously a missing value. <em>R</em> doesn’t know that, of course, and we have to indicate that the data point <em>“Unknown”</em> represents a missing values and not a Dutch city.</p>
 <p>Data reading functions have the optional argument <code>na</code>, which calls for a vector of the values/labels that are representing missing values in this dataset. For example:</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="missing-values.html#cb242-1" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;Unknown&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="missing-values.html#cb242-1" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>))</span></code></pre></div>
 As you see, city in row 7 is now a missing.
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-210"></span>
 <img src="images/missings.png" alt="Screen shot of the data frame displayed in RStudio Viewer. 'Unknown' is now defined as missing." width="500px" />
@@ -398,25 +400,27 @@ Figure 14.2: Screen shot of the data frame displayed in RStudio Viewer. ‘Unkno
 </p>
 </div>
 <p>If you have multiple values that represent a missing value, it could look like this:</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="missing-values.html#cb243-1" aria-hidden="true"></a>df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;demo.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;??&quot;</span>, <span class="st">&quot;None&quot;</span>, <span class="dv">-99</span>,  <span class="st">&quot;no idea&quot;</span>, <span class="st">&quot;who knows&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="missing-values.html#cb243-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;demo.csv&quot;</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;??&quot;</span>, <span class="st">&quot;None&quot;</span>, <span class="sc">-</span><span class="dv">99</span>,  <span class="st">&quot;no idea&quot;</span>, <span class="st">&quot;who knows&quot;</span>))</span></code></pre></div>
 </div>
 <div id="drop-rows-with-missing-values" class="section level3 hasAnchor" number="14.2.2">
 <h3><span class="header-section-number">14.2.2</span> Drop rows with missing values<a href="missing-values.html#drop-rows-with-missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>Tidyverse</em> has the function <code>drop_na()</code> to remove rows from a data frame that contain missing values. This command excludes all(!) rows, in which one or more variables are <code>NA</code>:</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="missing-values.html#cb244-1" aria-hidden="true"></a>teach_no_na &lt;-<span class="st"> </span><span class="kw">drop_na</span>(teach)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="missing-values.html#cb244-1" tabindex="-1"></a>teach_no_na <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(teach)</span></code></pre></div>
 <p>Often you only want to remove rows, in which only certain variables are <code>NA</code>. Like in all <em>Tidyverse</em> functions, you can specify variables to which it a certain operations should be apply. For instance, if you want to remove all rows in which the variables <code>city</code> or <code>statistics</code> are <code>NA</code>.</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="missing-values.html#cb245-1" aria-hidden="true"></a><span class="kw">drop_na</span>(teach, city, statistics)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="missing-values.html#cb245-1" tabindex="-1"></a><span class="fu">drop_na</span>(teach, city, statistics)</span></code></pre></div>
 <div class="myexercise">
 <p>
-Calculate the again mean of <code>statistics</code> and <code>cog_psy</code> with <code>summarise()</code>, but this time use also <code>drop_na()</code>? Try to do it in one line of code.
+Calculate the again mean of <code>statistics</code> and
+<code>cog_psy</code> with <code>summarise()</code>, but this time use
+also <code>drop_na()</code>? Try to do it in one line of code.
 </p>
 </div>
 <div class="webex-solution">
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="missing-values.html#cb246-1" aria-hidden="true"></a><span class="kw">summarise</span>(<span class="kw">drop_na</span>(teach), <span class="dt">m_stats =</span> <span class="kw">mean</span>(statistics),</span>
-<span id="cb246-2"><a href="missing-values.html#cb246-2" aria-hidden="true"></a>          <span class="dt">m_cog_psy =</span> <span class="kw">mean</span>(cog_psy))</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="missing-values.html#cb246-1" tabindex="-1"></a><span class="fu">summarise</span>(<span class="fu">drop_na</span>(teach), <span class="at">m_stats =</span> <span class="fu">mean</span>(statistics),</span>
+<span id="cb246-2"><a href="missing-values.html#cb246-2" tabindex="-1"></a>          <span class="at">m_cog_psy =</span> <span class="fu">mean</span>(cog_psy))</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -438,8 +442,8 @@ Solution
 <div id="replacing-missing-values" class="section level3 hasAnchor" number="14.2.3">
 <h3><span class="header-section-number">14.2.3</span> Replacing missing values<a href="missing-values.html#replacing-missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If we know that a missing value in a certain variable actually stands for an particular meaningful value, we can replace all <code>NA</code>s values in that variable by using <code>mutate()</code> and <code>replace_na()</code>-function:</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="missing-values.html#cb247-1" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">mutate</span>(teach,</span>
-<span id="cb247-2"><a href="missing-values.html#cb247-2" aria-hidden="true"></a>              <span class="dt">city =</span> <span class="kw">replace_na</span>(city, <span class="st">&quot;Amsterdam&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="missing-values.html#cb247-1" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">mutate</span>(teach,</span>
+<span id="cb247-2"><a href="missing-values.html#cb247-2" tabindex="-1"></a>              <span class="at">city =</span> <span class="fu">replace_na</span>(city, <span class="st">&quot;Amsterdam&quot;</span>))</span></code></pre></div>
 <p>This replaces all missing values in the variable with <em>“Amsterdam”</em>. However, be careful and use <code>replace_na()</code> only, if you are absolutely sure that you can replace the missing values without messing up your data.</p>
 <!-- HACK aggregate a range of variables -->
 

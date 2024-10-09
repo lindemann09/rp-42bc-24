@@ -23,7 +23,7 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
-<meta name="date" content="2024-09-24" />
+<meta name="date" content="2024-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -57,8 +56,9 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -293,14 +293,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In <em>R</em> , factors are used to work with categorical variables. A categorical variable are often represented as text variables in raw data files (e.g. the words <em>“Male”</em> or <em>“Female”</em>).</p>
 <div class="important">
 <p>
-A factor is defined as a variable that has a <em><em>fixed</em></em> and <strong>known</strong> set of possible values or factor levels.
+A factor is defined as a variable that has a <em><em>fixed</em></em>
+and <strong>known</strong> set of possible values or factor levels.
 </p>
 </div>
 <div id="creating-factors" class="section level2 hasAnchor" number="15.1">
 <h2><span class="header-section-number">15.1</span> Creating factors<a href="factors.html#creating-factors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Examples of categorical factors are the variables <code>teaching_method</code>, <code>time</code> and <code>city</code> in our dataset <code>teaching_method2.csv</code>. You see that the variables are character variables <code>&lt;chr&gt;</code> when reading the CSV-file into <em>R</em>.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="factors.html#cb248-1" aria-hidden="true"></a>teach &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;Unknown&quot;</span>))</span>
-<span id="cb248-2"><a href="factors.html#cb248-2" aria-hidden="true"></a><span class="kw">glimpse</span>(teach)</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="factors.html#cb248-1" tabindex="-1"></a>teach <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/teaching_method2.csv&quot;</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">&quot;Unknown&quot;</span>))</span>
+<span id="cb248-2"><a href="factors.html#cb248-2" tabindex="-1"></a><span class="fu">glimpse</span>(teach)</span></code></pre></div>
 <pre><code>## Rows: 60
 ## Columns: 6
 ## $ student         &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
@@ -310,11 +311,11 @@ A factor is defined as a variable that has a <em><em>fixed</em></em> and <strong
 ## $ statistics      &lt;dbl&gt; 6, 11, 12, 10, 9, 8, NA, 9, 8, 10, 16, 11, 8, 12, 13, …
 ## $ cog_psy         &lt;dbl&gt; 10, NA, 10, 9, 8, 11, 12, 12, 10, 12, 8, 13, 13, 8, 10…</code></pre>
 <p>We want to treat these variable as factors, because they have a fixed and known number of factor levels. To tell <em>R</em> that variables in a data frame (or tibble) are factors, we make use of the function <code>factor()</code> and <code>mutate()</code> to ‘replace’ a particular text variable with a factor representation of this variable:</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="factors.html#cb250-1" aria-hidden="true"></a>teach_with_factors &lt;-<span class="st"> </span><span class="kw">mutate</span>(teach,</span>
-<span id="cb250-2"><a href="factors.html#cb250-2" aria-hidden="true"></a>                       <span class="dt">teaching_method=</span><span class="kw">factor</span>(teaching_method),</span>
-<span id="cb250-3"><a href="factors.html#cb250-3" aria-hidden="true"></a>                       <span class="dt">city=</span><span class="kw">factor</span>(city),</span>
-<span id="cb250-4"><a href="factors.html#cb250-4" aria-hidden="true"></a>                       <span class="dt">time=</span><span class="kw">factor</span>(time))</span>
-<span id="cb250-5"><a href="factors.html#cb250-5" aria-hidden="true"></a><span class="kw">glimpse</span>(teach_with_factors)</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="factors.html#cb250-1" tabindex="-1"></a>teach_with_factors <span class="ot">&lt;-</span> <span class="fu">mutate</span>(teach,</span>
+<span id="cb250-2"><a href="factors.html#cb250-2" tabindex="-1"></a>                       <span class="at">teaching_method=</span><span class="fu">factor</span>(teaching_method),</span>
+<span id="cb250-3"><a href="factors.html#cb250-3" tabindex="-1"></a>                       <span class="at">city=</span><span class="fu">factor</span>(city),</span>
+<span id="cb250-4"><a href="factors.html#cb250-4" tabindex="-1"></a>                       <span class="at">time=</span><span class="fu">factor</span>(time))</span>
+<span id="cb250-5"><a href="factors.html#cb250-5" tabindex="-1"></a><span class="fu">glimpse</span>(teach_with_factors)</span></code></pre></div>
 <pre><code>## Rows: 60
 ## Columns: 6
 ## $ student         &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
@@ -328,17 +329,17 @@ A factor is defined as a variable that has a <em><em>fixed</em></em> and <strong
 <button>
 Making factors with base-R is less readable
 </button>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="factors.html#cb252-1" aria-hidden="true"></a>teach_with_factors &lt;-<span class="st"> </span>teach</span>
-<span id="cb252-2"><a href="factors.html#cb252-2" aria-hidden="true"></a>teach_with_factors<span class="op">$</span>teaching_method =<span class="st"> </span><span class="kw">factor</span>(teach_with_factors<span class="op">$</span>teaching_method)</span>
-<span id="cb252-3"><a href="factors.html#cb252-3" aria-hidden="true"></a>teach_with_factors<span class="op">$</span>city =<span class="st"> </span><span class="kw">factor</span>(teach_with_factors<span class="op">$</span>city)</span>
-<span id="cb252-4"><a href="factors.html#cb252-4" aria-hidden="true"></a>teach_with_factors<span class="op">$</span>time =<span class="st"> </span><span class="kw">factor</span>(teach_with_factors<span class="op">$</span>time)</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="factors.html#cb252-1" tabindex="-1"></a>teach_with_factors <span class="ot">&lt;-</span> teach</span>
+<span id="cb252-2"><a href="factors.html#cb252-2" tabindex="-1"></a>teach_with_factors<span class="sc">$</span>teaching_method <span class="ot">=</span> <span class="fu">factor</span>(teach_with_factors<span class="sc">$</span>teaching_method)</span>
+<span id="cb252-3"><a href="factors.html#cb252-3" tabindex="-1"></a>teach_with_factors<span class="sc">$</span>city <span class="ot">=</span> <span class="fu">factor</span>(teach_with_factors<span class="sc">$</span>city)</span>
+<span id="cb252-4"><a href="factors.html#cb252-4" tabindex="-1"></a>teach_with_factors<span class="sc">$</span>time <span class="ot">=</span> <span class="fu">factor</span>(teach_with_factors<span class="sc">$</span>time)</span></code></pre></div>
 </div>
 </div>
 <div id="advantages-of-factors" class="section level2 hasAnchor" number="15.2">
 <h2><span class="header-section-number">15.2</span> Advantages of factors<a href="factors.html#advantages-of-factors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The Advantages of using factors can be best illustrated with a typical example of a categorical variable in psychology: the <em>gender</em>. People often use numbers to code to genders and enter for instance for the females <code>1</code> and males with <code>2</code>.</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="factors.html#cb253-1" aria-hidden="true"></a>df_no_factor =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">gender=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>, <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span>
-<span id="cb253-2"><a href="factors.html#cb253-2" aria-hidden="true"></a><span class="kw">print</span>(df_no_factor)</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="factors.html#cb253-1" tabindex="-1"></a>df_no_factor <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">gender=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>, <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb253-2"><a href="factors.html#cb253-2" tabindex="-1"></a><span class="fu">print</span>(df_no_factor)</span></code></pre></div>
 <pre><code>##    gender
 ## 1       1
 ## 2       2
@@ -353,9 +354,9 @@ Making factors with base-R is less readable
 <div id="predefined-factor-levels" class="section level3 hasAnchor" number="15.2.1">
 <h3><span class="header-section-number">15.2.1</span> Predefined factor levels<a href="factors.html#predefined-factor-levels" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One advantage of factors is that you can define the possible factor levels (like <code>...,levels=c(1, 2),...</code>) and when an row/observation has a values that does not fit the predefined levels, the values will be set automatically to <code>NA</code>. You can do it with the function argument <code>levels</code> .</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="factors.html#cb255-1" aria-hidden="true"></a>df_factor &lt;-<span class="st">  </span><span class="kw">mutate</span>(df_no_factor,</span>
-<span id="cb255-2"><a href="factors.html#cb255-2" aria-hidden="true"></a>            <span class="dt">gender =</span> <span class="kw">factor</span>(gender, <span class="dt">levels=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)))</span>
-<span id="cb255-3"><a href="factors.html#cb255-3" aria-hidden="true"></a><span class="kw">print</span>(df_factor)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="factors.html#cb255-1" tabindex="-1"></a>df_factor <span class="ot">&lt;-</span>  <span class="fu">mutate</span>(df_no_factor,</span>
+<span id="cb255-2"><a href="factors.html#cb255-2" tabindex="-1"></a>            <span class="at">gender =</span> <span class="fu">factor</span>(gender, <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)))</span>
+<span id="cb255-3"><a href="factors.html#cb255-3" tabindex="-1"></a><span class="fu">print</span>(df_factor)</span></code></pre></div>
 <pre><code>##    gender
 ## 1       1
 ## 2       2
@@ -373,9 +374,9 @@ Making factors with base-R is less readable
 <h3><span class="header-section-number">15.2.2</span> Meaningful factor labels<a href="factors.html#meaningful-factor-labels" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can introduce useful factor labels (or descriptions) for each level, which make your analysis script and, importantly, the produced output more readable and more transparent.</p>
 <p>Don’t forget, often the factor levels are represented in a raw data file just by codes. This data is not self-explaining and I’m sure that you can’t remember in a few weeks whether the females or the males have the value <code>1</code>. I therefore <strong>strongly</strong> suggest to add self-explaining labels for all levels of the factor. You can do it with the function argument <code>labels</code>.</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="factors.html#cb257-1" aria-hidden="true"></a>df_factor &lt;-<span class="st">  </span><span class="kw">mutate</span>(df_no_factor,</span>
-<span id="cb257-2"><a href="factors.html#cb257-2" aria-hidden="true"></a>            <span class="dt">gender =</span> <span class="kw">factor</span>(gender, <span class="dt">levels=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>)))</span>
-<span id="cb257-3"><a href="factors.html#cb257-3" aria-hidden="true"></a><span class="kw">print</span>(df_factor)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="factors.html#cb257-1" tabindex="-1"></a>df_factor <span class="ot">&lt;-</span>  <span class="fu">mutate</span>(df_no_factor,</span>
+<span id="cb257-2"><a href="factors.html#cb257-2" tabindex="-1"></a>            <span class="at">gender =</span> <span class="fu">factor</span>(gender, <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>)))</span>
+<span id="cb257-3"><a href="factors.html#cb257-3" tabindex="-1"></a><span class="fu">print</span>(df_factor)</span></code></pre></div>
 <pre><code>##    gender
 ## 1  female
 ## 2    male
@@ -396,7 +397,7 @@ Making factors with base-R is less readable
 <div id="nice-output" class="section level3 hasAnchor" number="15.2.4">
 <h3><span class="header-section-number">15.2.4</span> Nice output<a href="factors.html#nice-output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The output of some functions is nicer and better organized. If we do a summary of the data frame without factors:</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="factors.html#cb259-1" aria-hidden="true"></a><span class="kw">summary</span>(df_no_factor)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="factors.html#cb259-1" tabindex="-1"></a><span class="fu">summary</span>(df_no_factor)</span></code></pre></div>
 <pre><code>##      gender   
 ##  Min.   :1.0  
 ##  1st Qu.:1.0  
@@ -405,7 +406,7 @@ Making factors with base-R is less readable
 ##  3rd Qu.:2.0  
 ##  Max.   :3.0</code></pre>
 <p>and with factors,</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="factors.html#cb261-1" aria-hidden="true"></a><span class="kw">summary</span>(df_factor)</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="factors.html#cb261-1" tabindex="-1"></a><span class="fu">summary</span>(df_factor)</span></code></pre></div>
 <pre><code>##     gender 
 ##  female:4  
 ##  male  :5  
@@ -413,7 +414,15 @@ Making factors with base-R is less readable
 <p>you see that only the summary of the factor gender is meaningful and it provide is need information of all factor levels and amount of observations in each level.</p>
 <div class="geek">
 <p>
-Factors are also very useful when you need to display or process character variables in a predefined non-alphabetical order, for instance, <code>c(“Mon”, “Tue”, “Wed”, “Thr”, “Fri”, “Sat”, “Son”)</code>. However, this aspect is less relevant for social sciences and it will be therefore not disccused here. (but see for instance <a href="https://r4ds.had.co.nz/factors.html#introduction-9">this tutorial</a> or the documentation of factors in <em>Tidyverse</em>, the <a href="https://forcats.tidyverse.org/">forcats package</a>).
+Factors are also very useful when you need to display or process
+character variables in a predefined non-alphabetical order, for
+instance,
+<code>c(“Mon”, “Tue”, “Wed”, “Thr”, “Fri”, “Sat”, “Son”)</code>.
+However, this aspect is less relevant for social sciences and it will be
+therefore not disccused here. (but see for instance <a
+href="https://r4ds.had.co.nz/factors.html#introduction-9">this
+tutorial</a> or the documentation of factors in <em>Tidyverse</em>, the
+<a href="https://forcats.tidyverse.org/">forcats package</a>).
 </p>
 </div>
 

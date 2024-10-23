@@ -3271,6 +3271,15 @@ window.Quarto = {
 <li>Change the standard deviation of one variable and check the outcome again.</li>
 </ol>
 <p>Do the results confirm your assumption?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="at">sd=</span><span class="dv">2</span>), <span class="at">y=</span><span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="at">sd=</span><span class="dv">5</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>p <span class="ot">=</span> df<span class="sc">$</span>x<span class="sc">+</span>df<span class="sc">$</span>y</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(df<span class="sc">$</span>x)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(df<span class="sc">$</span>y)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(df<span class="sc">$</span>x) <span class="sc">+</span> <span class="fu">var</span>(df<span class="sc">$</span>y)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(df<span class="sc">$</span>p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="assignment-2.3" class="level1">
 <h1>Assignment 2.3</h1>
@@ -3281,6 +3290,28 @@ window.Quarto = {
 <li>Which subject has the lowest anxiety? Use the function <code>min()</code> and print the data (row) of this subject.</li>
 <li>Calculate the mean anxiety separately for the students of sports science and medicine faculty.</li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;../data/exam_anxiety.csv&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#1</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#2</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(df<span class="sc">$</span>anxiety)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#3</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">=</span> df<span class="sc">$</span>anxiety <span class="sc">==</span> <span class="fu">min</span>(df<span class="sc">$</span>anxiety)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>df[idx, ]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#4</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>anxiety[df<span class="sc">$</span>faculty <span class="sc">==</span> <span class="st">&quot;sport science&quot;</span>])</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>anxiety[df<span class="sc">$</span>faculty <span class="sc">==</span> <span class="st">&quot;medicine&quot;</span>])</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># tidyverse solution (for next week!)</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(faculty) <span class="sc">%&gt;%</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(anxiety))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <!-- \vspace{10ex}\hrule -->
 </section>
 

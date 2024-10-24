@@ -199,7 +199,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\usepackage{bookmark}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -214,7 +214,7 @@
 
 \title{Data Processing and Analysis in \emph{R} (2023)}
 \author{Oliver Lindemann}
-\date{2024-10-23}
+\date{2024-10-24}
 
 \begin{document}
 \maketitle
@@ -226,7 +226,8 @@
 }
 \newpage
 
-\section*{Overview}\label{overview}
+\hypertarget{overview}{%
+\section*{Overview}\label{overview}}
 \addcontentsline{toc}{section}{Overview}
 
 \begin{center}\includegraphics[width=300px]{images/R-course-logo} \end{center}
@@ -273,9 +274,11 @@ This tutorial is written by \href{http://cognitive-psychology.eu/lindemann}{Oliv
 
 \newpage
 
-\section{Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
-\subsection{\texorpdfstring{Why learning \emph{R}?}{Why learning R?}}\label{why-learning-r}
+\hypertarget{why-learning-r}{%
+\subsection{\texorpdfstring{Why learning \emph{R}?}{Why learning R?}}\label{why-learning-r}}
 
 \emph{R} is a computer language designed by statisticians. I think it is fair to say that \emph{R} became in the recent year the ``lingua franca'' of data science and statistics. \emph{R} is an open source software and an extremely powerful tool for any kind of task in scientific computing. It is not only great for data transformation, data visualization and statistical analyses. It is has also the capacity to deal with big data or to do text mining and analysis of internet pages and to do machine learning and more.
 
@@ -283,13 +286,15 @@ This tutorial is written by \href{http://cognitive-psychology.eu/lindemann}{Oliv
 
 Please keep in mind: \emph{R} 's learning curve is steep partially due to its syntax and the rules of the programming language that you have to learn. \emph{R} reads less like English, and in general is more difficult for beginners to wrap their heads around. However, once you got familiar with \emph{R}, it makes processing of data much easier as compared to tools such as \emph{Excel} or \emph{SPSS}.
 
-\subsection{What do I learn in this course?}\label{what-do-i-learn-in-this-course}
+\hypertarget{what-do-i-learn-in-this-course}{%
+\subsection{What do I learn in this course?}\label{what-do-i-learn-in-this-course}}
 
 This course is merely a first introduction to \emph{R}. It does not required any pre-knowledge in computer programming (For those of you who have already experiences with any kind of programming language, I guess it's is not a big deal to learn \emph{R}).
 
-This course will teach you the minimum about computer programming that you need to practice data science and get started with doing data analyses in \emph{R}. We will use \emph{R} (and RStudio) predominantly as an interactive environment for data science that enables you to read, process and analyse data. If you want to develop your \emph{R} skills beyond is basic usage and if you want to use \emph{R} as a programming language to develop your own programs and/or packages, I point you to the advanced literature in the \hyperref[readings]{appendix} \ref{readings}.
+This course will teach you the minimum about computer programming that you need to practice data science and get started with doing data analyses in \emph{R}. We will use \emph{R} (and RStudio) predominantly as an interactive environment for data science that enables you to read, process and analyse data. If you want to develop your \emph{R} skills beyond is basic usage and if you want to use \emph{R} as a programming language to develop your own programs and/or packages, I point you to the advanced literature in the \protect\hyperlink{readings}{appendix} \ref{readings}.
 
-\subsection{What is RStudio?}\label{what-is-rstudio}
+\hypertarget{what-is-rstudio}{%
+\subsection{What is RStudio?}\label{what-is-rstudio}}
 
 As said before, \emph{R} is just a programming language, which executes commands and produces certain output. To interact with the programming language, we need a program that enables us to enter the commands and edit scripts that should be executed by \emph{R} scripts. Moreover, we need a program that display the output of our \emph{R} programs, that is, to show results of our calculation or display graphics that we made with \emph{R}.
 
@@ -299,7 +304,8 @@ As said before, \emph{R} is just a programming language, which executes commands
 \includegraphics[width=650px]{images/rstudio} \caption{RStudio Window}\label{fig:rstudio}
 \end{figure}
 
-\subsubsection{The RStudio Interface}\label{the-rstudio-interface}
+\hypertarget{the-rstudio-interface}{%
+\subsubsection{The RStudio Interface}\label{the-rstudio-interface}}
 
 If you open RStudio, you get a window which look like Figure \ref{fig:rstudio}. RStudio has
 
@@ -328,7 +334,8 @@ specialized tool \emph{RStudio}. However, some nerds want the puristic
 command line experiences.
 \end{geek}
 
-\subsection{Code examples}\label{code-examples}
+\hypertarget{code-examples}{%
+\subsection{Code examples}\label{code-examples}}
 
 The manual comprises many code examples. A code example always looks like this:
 
@@ -352,7 +359,8 @@ It is suggest to execute the code examples in your own \emph{R}-console and see 
 
 \begin{center}\includegraphics[width=450px]{images/click_copy_code} \end{center}
 
-\subsubsection{Text boxes}\label{text-boxes}
+\hypertarget{text-boxes}{%
+\subsubsection{Text boxes}\label{text-boxes}}
 
 There are different types of text boxes:
 
@@ -382,7 +390,8 @@ will be display only on request.
 
 \webexunhide
 
-\subsection{Trial-and-error learning}\label{trial-and-error-learning}
+\hypertarget{trial-and-error-learning}{%
+\subsection{Trial-and-error learning}\label{trial-and-error-learning}}
 
 Trial-and-error is very essential for learning to program. I therefore suggest: \emph{Play around with the code examples and see happens if you change them.}
 
@@ -390,7 +399,8 @@ You will face many error and warning messages as a consequence. But that fine! L
 
 Don't worry, if you have the feeling at the beginning that you spend most of your time with debugging---you have to know, is quite normal.
 
-\section{Finding Help}\label{findinghelp}
+\hypertarget{findinghelp}{%
+\section{Finding Help}\label{findinghelp}}
 
 Learning to programming means trying things out, change stuff in the code and see what happens. Unfortunately, try-and-error is the only way to became a good data analyst or programmer.
 
@@ -403,7 +413,7 @@ There is another type of mistake: Sometimes \emph{R} commands or scripts do not 
 \item
   If you're struggling how a function works, remember the \texttt{?function} command and use this built-in help documentation of \emph{R} and RStudio (see section \ref{builtinhelp}).
 \item
-  Look at the \hyperref[readings]{suggested readings and online learning resources} in the Appendix \ref{readings}.
+  Look at the \protect\hyperlink{readings}{suggested readings and online learning resources} in the Appendix \ref{readings}.
 \item
   Note, the internet is your best friend while learning to programming (and afterwards).
 
@@ -416,12 +426,13 @@ There is another type of mistake: Sometimes \emph{R} commands or scripts do not 
     It is also highly recommanded use question-and-answer-sites for programmers. The most prominent examples is here \href{https://stackoverflow.com/questions/tagged/r}{stackoverflow.com}. Just enter \texttt{{[}r{]}} followed by your question and see, if other user have already asked a similar Question.
   \end{itemize}
 \item
-  \hyperref[cheatsheets]{Cheat sheets} are nice overviews of \emph{R} functions and helpful, if you can't remember correctly how to use the functions. They are however not self-explaining.
+  \protect\hyperlink{cheatsheets}{Cheat sheets} are nice overviews of \emph{R} functions and helpful, if you can't remember correctly how to use the functions. They are however not self-explaining.
 \end{enumerate}
 
 \begin{important}
+\hypertarget{difficulties-with-the-exercises-and-assignments}{%
 \subsubsection*{Difficulties with the exercises and
-assignments}\label{difficulties-with-the-exercises-and-assignments}
+assignments}\label{difficulties-with-the-exercises-and-assignments}}
 \addcontentsline{toc}{subsubsection}{Difficulties with the exercises and
 assignments}
 
@@ -439,13 +450,16 @@ productive tool.
 
 \newpage
 
-\part{Basics}\label{part-basics}
+\hypertarget{part-basics}{%
+\part{Basics}\label{part-basics}}
 
-\section{Getting started}\label{gettingstarted}
+\hypertarget{gettingstarted}{%
+\section{Getting started}\label{gettingstarted}}
 
 To get started to working with \emph{R} on your own PC or laptop, you have to install \emph{R} and RStudio. Details about how to install it on your computer can be found below and in one of the instruction videos.
 
-\subsection{\texorpdfstring{Installing \emph{R} and \emph{RStudio} on your PC}{Installing R and RStudio on your PC}}\label{installing-r-and-rstudio-on-your-pc}
+\hypertarget{installing-r-and-rstudio-on-your-pc}{%
+\subsection{\texorpdfstring{Installing \emph{R} and \emph{RStudio} on your PC}{Installing R and RStudio on your PC}}\label{installing-r-and-rstudio-on-your-pc}}
 
 \begin{myexercise}
 \textbf{Install \emph{R}}
@@ -467,7 +481,8 @@ homepage}.
 
 If you face problems with the installation you might find \href{https://techvidvan.com/tutorials/install-r/}{Step-by-Step Guide for Installing R and R Studio} useful. However, there are also several other of tutorials onli\{-\}ne.
 
-\subsection{Creating a Project}\label{creating-a-project}
+\hypertarget{creating-a-project}{%
+\subsection{Creating a Project}\label{creating-a-project}}
 
 To get started with your own programming in \emph{RStudio} and with this course you need to create a project that you use for all your exercises during this course.
 
@@ -485,13 +500,15 @@ Even though you can program and edit \emph{R} files without making a \emph{RStud
 
 Why should I use projects? When working with \emph{R}, you are running your program code from a certain \textbf{working directory} (You can change the working directory \href{https://www.youtube.com/watch?v=LNw6hzGgyxM}{like this}.). From this directory you access all your data files and \emph{R} scripts. It's therefore crucial that you have files and data in the correct folder structure and that you are in the right directory. A project saves the last working directory and the state of your previous work. That is very handy.
 
-\section{Basics of Programming in R}\label{basics}
+\hypertarget{basics}{%
+\section{Basics of Programming in R}\label{basics}}
 
 Learning to work with \emph{R} requires a little knowledge about basic concepts of computer programming. This is maybe a bit technical at the beginning. However, having an insight in this basics makes it later much easy to deal with real data analysis in \emph{R} later.
 
 Thus, the section covers the basics of the \emph{R} programming language. If you are already familiar with any another programming language, I guess these things are not new for you.
 
-\subsection{Comments in Program Code}\label{comments-in-program-code}
+\hypertarget{comments-in-program-code}{%
+\subsection{Comments in Program Code}\label{comments-in-program-code}}
 
 Before we have a look at the first \emph{R} code examples, you should know that \emph{R} ignores everything that follows a hashtag \texttt{\#}. That is, text after a \texttt{\#} will not be executed. Hashtags are used to add comments to \emph{R}-code. The comments help to document and explains the code and make it thus more readable for humans. Comments in \emph{R} code are printed in italic font and a different color by \emph{RStudio} (and in the manual). See this example:
 
@@ -512,7 +529,8 @@ will be able to remember after a few days why you did what and how your
 codes works.
 \end{important}
 
-\subsection{Variables and Objects}\label{variables-and-objects}
+\hypertarget{variables-and-objects}{%
+\subsection{Variables and Objects}\label{variables-and-objects}}
 
 Everything that is stored in \emph{R} is called an \textbf{object}. The most basic example for an object is an numerical \textbf{variable}. For instance,
 
@@ -554,7 +572,8 @@ This \href{https://vimeo.com/220493412}{video} also explains objects in
 \emph{R}.
 \end{simple}
 
-\subsubsection{Variable Environment}\label{variable-environment}
+\hypertarget{variable-environment}{%
+\subsubsection{Variable Environment}\label{variable-environment}}
 
 All variables are sorted in the data workspace or environment. In RStudio, you can find the current content of the workspace with all variables the right top panel called ``environment''.
 
@@ -571,7 +590,8 @@ Alternatively, the command \texttt{ls()} lists all objects variables in the R co
 ## [5] "third_variable" "unhide"
 \end{verbatim}
 
-\subsubsection{\texorpdfstring{Equal Sign Assignments (\texttt{=})}{Equal Sign Assignments (=)}}\label{assign}
+\hypertarget{assign}{%
+\subsubsection{\texorpdfstring{Equal Sign Assignments (\texttt{=})}{Equal Sign Assignments (=)}}\label{assign}}
 
 As you have see above, to assign a value to an object (i.e., variable) with the left arrow \texttt{\textless{}-}. In RStudio, the shortcut \texttt{alt\ \&\ -} is very handy for quickly typing this sign. Check it out.
 
@@ -590,7 +610,8 @@ You just need to know, that the coding style guidelines in the \emph{R} communit
 
 To avoid any confusion, the current manual uses the \texttt{\textless{}-} operator .
 
-\subsubsection{Left and Right Hand Side Assignments}\label{left-and-right-hand-side-assignments}
+\hypertarget{left-and-right-hand-side-assignments}{%
+\subsubsection{Left and Right Hand Side Assignments}\label{left-and-right-hand-side-assignments}}
 
 In \emph{R}, there are two different ways to assign a value to a variable; you can either assign from left to right or from right to left in R. That is, instead of using \texttt{\textless{}-} or \texttt{=}to assign a value to a variable (left-hand-side assignment), you can also work with so-called the right-hand-side assignments (\texttt{-\textgreater{}}). These comments illustrate the principle:
 
@@ -625,7 +646,8 @@ environment?
 
 \webexunhide
 
-\subsection{Basic operations}\label{basic-operations}
+\hypertarget{basic-operations}{%
+\subsection{Basic operations}\label{basic-operations}}
 
 You use \emph{R} as a calculator and perform basic operations on numbers and variables numbers. Just enter the following examples the console and check the results:
 
@@ -690,9 +712,11 @@ circle, what is \texttt{x} ?
 
 \webexunhide
 
-\subsection{Non-numerical data types}\label{non-numerical-data-types}
+\hypertarget{non-numerical-data-types}{%
+\subsection{Non-numerical data types}\label{non-numerical-data-types}}
 
-\subsubsection{Character}\label{character}
+\hypertarget{character}{%
+\subsubsection{Character}\label{character}}
 
 Besides numeric values as in the example above, \emph{R} can store text (called \texttt{character}) in variables.
 
@@ -751,13 +775,15 @@ type. Function that convert data types start in \emph{R} with
 \end{itemize}
 \end{important}
 
-\subsubsection{Logicals}\label{logicals}
+\hypertarget{logicals}{%
+\subsubsection{Logicals}\label{logicals}}
 
 Another often reoccurring data type is call \emph{logical} (in other programming languages it's other call \emph{boolean}). A logical can be only \texttt{TRUE} or \texttt{FALSE} (typed in capitals without quotation marks); it is in other words a binary variable.
 
 Logicals are very important, because are returned by \emph{R} if you make a comparison of the numbers (see section \ref{comparing}.)
 
-\paragraph*{\texorpdfstring{Negation: \texttt{!}}{Negation: !}}\label{negation}
+\hypertarget{negation}{%
+\paragraph*{\texorpdfstring{Negation: \texttt{!}}{Negation: !}}\label{negation}}
 \addcontentsline{toc}{paragraph}{Negation: \texttt{!}}
 
 In \emph{R}, \texttt{!} is used for the negation of logicals and reads like ``\emph{is not}''. It converts, in other words, a \texttt{TRUE} to \texttt{FALSE} and \texttt{FALSE} to \texttt{TRUE}:
@@ -782,7 +808,8 @@ In \emph{R}, \texttt{!} is used for the negation of logicals and reads like ``\e
 ## [1] TRUE
 \end{verbatim}
 
-\subsubsection{Combining different data types}\label{comparediffdata}
+\hypertarget{comparediffdata}{%
+\subsubsection{Combining different data types}\label{comparediffdata}}
 
 Please note, that you can preform the same operation that not combing a numerical and text variable is, of course, not possible. Try what happens if you type:
 
@@ -814,7 +841,8 @@ Why does this work?
 
 rite the R code for the following equation:
 
-\subsection{Comparing values}\label{comparing}
+\hypertarget{comparing}{%
+\subsection{Comparing values}\label{comparing}}
 
 You can compare numerical variables using comparators. For example,
 
@@ -844,7 +872,8 @@ Further comparisons are:
 
 Note that \emph{R} needs two equal signs \texttt{==} for an `'is-equal-comparison''. One equal sign is interpreted by \emph{R} as an assignment, similar to \texttt{\textless{}-} (see section \ref{assign}).
 
-\subsection{Functions}\label{functions}
+\hypertarget{functions}{%
+\subsection{Functions}\label{functions}}
 
 As other programming languages, \emph{R} has \textbf{functions} to perform a specific tasks in a program, for instance, to process or manipulate data. A function ``returns'' a results of the command or the processing. For instance, the function \texttt{ls()} lists current variables in the workspace.
 
@@ -857,7 +886,8 @@ Forgetting the parentheses results in strange behaviour. (That is,
 the function name.)
 \end{important}
 
-\subsubsection{Arguments}\label{arguments}
+\hypertarget{arguments}{%
+\subsubsection{Arguments}\label{arguments}}
 
 Often, functions take one or more arguments. The arguments are for instance data to be processed or certain information that are required to execute the task. For instance,
 
@@ -949,7 +979,8 @@ For instance, if you just call \texttt{log(64)} you get the natural logarithm \(
 ## [1] 1.80618
 \end{verbatim}
 
-\subsubsection{Built-in help for functions}\label{builtinhelp}
+\hypertarget{builtinhelp}{%
+\subsubsection{Built-in help for functions}\label{builtinhelp}}
 
 \emph{R} provides hundreds functions. As you will see late in section \ref{packages}, you can install additional packages for specific tasks, which provide basically collections of extra functions. That is, the amount of functions that you can use in \emph{R} is almost endless.
 
@@ -957,7 +988,8 @@ But how do you know what a specific functions is doing and which arguments you c
 
 As an example, let's look at the help documentation for the function \texttt{rnorm()} which randomly generates a set of numbers with a normal distribution.
 
-\subsubsection{Example}\label{examplernorm}
+\hypertarget{examplernorm}{%
+\subsubsection{Example}\label{examplernorm}}
 
 Display the documentation of the function \texttt{rnorm} by typing
 
@@ -986,7 +1018,7 @@ Let's try an example and just change the required argument \texttt{n} to ask \em
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -0.07111878 -0.70326971 -0.91141720  1.26418786 -0.63723171
+## [1]  0.8569214 -0.9654943  0.2545800  0.6411416  0.7096799
 \end{verbatim}
 
 The random numbers have a mean of 0 and an SD of 1. Of course, since this are random numbers, you have probably got different numbers. Run the function again and you will see that you get each time different `'random'' numbers.
@@ -1000,12 +1032,13 @@ Now we can change the additional arguments to produce a different set of numbers
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 105.81458 108.62827 128.52635  76.87807 105.73811
+## [1] 146.02113 115.51830 113.97228  92.13657  97.47474
 \end{verbatim}
 
 This time \emph{R} has still produced 5 random numbers, but now this set of numbers has a mean of 100 and a standard deviation of 15 as specified (this is the distribution of the scores in many IQ tests). Always remember to use the help documentation to help you understand what arguments a function requires.
 
-\subsubsection{Argument names}\label{argument-names}
+\hypertarget{argument-names}{%
+\subsubsection{Argument names}\label{argument-names}}
 
 In the above examples, we have written out the argument names in our code (e.g., \texttt{n}, \texttt{mean}, \texttt{sd}), however, this is not strictly necessary. The following two lines of code would both produce the same result (although each time you run \texttt{rnorm()} it will produce a slightly different set of numbers, because it's random, but they would still have the same mean and SD):
 
@@ -1035,7 +1068,8 @@ The assign a value to an named argument of the function, you have to use
 the equal sign \texttt{=} and not \texttt{\textless{}-}.
 \end{important}
 
-\subsubsection{Tab auto-complete}\label{tab-auto-complete}
+\hypertarget{tab-auto-complete}{%
+\subsubsection{Tab auto-complete}\label{tab-auto-complete}}
 
 One very useful feature of R Studio is the tab auto-complete for functions (see Figure \ref{fig:autocomplete}). If you write the name of the function and then press the tab key, R Studio will show you the arguments that function takes along with a brief description. If you press enter on the argument name it will fill in the name for you, just like auto-complete on your phone. This is incredibly useful when you are first learning R and you should remember to use this feature frequently.
 
@@ -1049,15 +1083,17 @@ autocomplete function in RStudio. Compare it with the
 \texttt{?}-documentation.
 \end{myexercise}
 
-\subsubsection{Important Base R functions}\label{important-base-r-functions}
+\hypertarget{important-base-r-functions}{%
+\subsubsection{Important Base R functions}\label{important-base-r-functions}}
 
 When you install \emph{R} you will have access to a range of functions including options for data wrangling and statistical analysis. These functions that are included in the default installation are typically referred to as Base \emph{R} . There is a very useful overview that shows the most important Base \emph{R} functions.
 
-An overview of this functions is online available as pdf and call the ``\hyperref[cheatsheets]{Base R cheat sheet}''.
+An overview of this functions is online available as pdf and call the ``\protect\hyperlink{cheatsheets}{Base R cheat sheet}''.
 
 Don't worry, you don't have to know this functions. You just have to know \textbf{how to figure out} which function is needed to accomplish you task and where you find to detailed information how to use this function (see section \ref{findinghelp}).
 
-\subsubsection{User-defined functions}\label{user-defined-functions}
+\hypertarget{user-defined-functions}{%
+\subsubsection{User-defined functions}\label{user-defined-functions}}
 
 The real power of a programming language is that you can develop your own functions that accomplish reoccurring tasks or that this way facilitate or structures your analysis.
 
@@ -1069,14 +1105,17 @@ Later in the course we will a package called \href{https://www.tidyverse.org/}{T
 If you want to develop your own functions (or even packages), please
 have a look, for instance, at the
 \href{https://r4ds.had.co.nz/functions.html}{online tutorial} of
-Grolemund and Wickham or see the \hyperref[readings]{suggested reading}.
+Grolemund and Wickham or see the \protect\hyperlink{readings}{suggested
+reading}.
 \end{geek}
 
 \newpage
 
-\part{Data Structures}\label{part-data-structures}
+\hypertarget{part-data-structures}{%
+\part{Data Structures}\label{part-data-structures}}
 
-\section{Atomic Vectors}\label{vectors}
+\hypertarget{vectors}{%
+\section{Atomic Vectors}\label{vectors}}
 
 A dataset consists typically not only of a single number or a single data point. We need to be able to deal with collections of data points or datasets. \emph{R} knows different types of objects that store datasets.
 
@@ -1134,7 +1173,8 @@ You can make vectors of any type of data, but \textbf{one atomic vector comprise
 
 As you see, all elements have been converted to character. That's bad. If you want to mix different data types in one collection, you have to use \texttt{list()} as described in chapter \ref{lists}.
 
-\subsubsection*{Concatenating two vectors}\label{concatenating-two-vectors}
+\hypertarget{concatenating-two-vectors}{%
+\subsubsection*{Concatenating two vectors}\label{concatenating-two-vectors}}
 \addcontentsline{toc}{subsubsection}{Concatenating two vectors}
 
 You can use the \texttt{c()}-command also to concatenate two vectors:
@@ -1152,7 +1192,8 @@ You can use the \texttt{c()}-command also to concatenate two vectors:
 ## [1]  1  2  3  4  5  6 20 30 40
 \end{verbatim}
 
-\subsubsection*{Vector length}\label{vector-length}
+\hypertarget{vector-length}{%
+\subsubsection*{Vector length}\label{vector-length}}
 \addcontentsline{toc}{subsubsection}{Vector length}
 
 The command \texttt{length} returns the number of elements in an atomic vector.
@@ -1167,7 +1208,8 @@ The command \texttt{length} returns the number of elements in an atomic vector.
 ## [1] 7
 \end{verbatim}
 
-\subsection{Number sequences}\label{number-sequences}
+\hypertarget{number-sequences}{%
+\subsection{Number sequences}\label{number-sequences}}
 
 You can generate a simple ascending or descending sequence of integer numbers like this:
 
@@ -1205,7 +1247,8 @@ You can generate a simple ascending or descending sequence of integer numbers li
 
 What does the numbers in brackets in the output mean? \emph{R} indicates before each output line the position of the next printed element in the vector (e.g.~\texttt{{[}19{]}}). That's why the console output of vectors always start with \texttt{\#\#\ {[}1{]}}.
 
-\subsubsection{Sequence generating functions}\label{sequence-generating-functions}
+\hypertarget{sequence-generating-functions}{%
+\subsubsection{Sequence generating functions}\label{sequence-generating-functions}}
 
 \emph{R} come with a lot of methods that generate sequence. For instance, for instance the function \texttt{seq()} has be already used in the previous assignment. Let's have a look at some further features of the function. You can also produce floating points with \texttt{seq()}:
 
@@ -1245,8 +1288,8 @@ Drawing random numbers from a normal distribution has already been discussed in 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 0.98438863 0.10403653 0.54515148 0.64686639 0.37667165 0.07137119
-##  [7] 0.73565797 0.21806163 0.47623019 0.17347514
+##  [1] 0.71175650 0.22243533 0.72286562 0.69924724 0.73011552 0.59298233
+##  [7] 0.79503230 0.41203178 0.04541326 0.93479101
 \end{verbatim}
 
 \begin{Shaded}
@@ -1256,8 +1299,8 @@ Drawing random numbers from a normal distribution has already been discussed in 
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 31.85086 93.37549 27.79072 16.11267 32.22946 31.95163 80.59151 88.37831
-##  [9] 79.95292 61.40491
+##  [1] 95.36957 98.98966 13.88228 59.33912 42.50488 45.86845 16.41393 67.71864
+##  [9] 17.86188 34.11949
 \end{verbatim}
 
 \begin{geek}
@@ -1266,7 +1309,8 @@ distributions that are implemented in base \emph{R} can be found by
 calling \texttt{?RNG} and \texttt{?distributions}.
 \end{geek}
 
-\subsection{Manipulating vectors}\label{manipulating-vectors}
+\hypertarget{manipulating-vectors}{%
+\subsection{Manipulating vectors}\label{manipulating-vectors}}
 
 If you apply an operation on a vector, \emph{R} applies it to each element. You have seen already some examples.
 
@@ -1370,7 +1414,8 @@ Examples:
 \textbf{Answer}: \emph{R} returns a vector of logicals that results for the comparison the number with each element.
 \webexunhide
 
-\subsubsection{Basic operations \& comparisons with two vectors}\label{basic-operations-comparisons-with-two-vectors}
+\hypertarget{basic-operations-comparisons-with-two-vectors}{%
+\subsubsection{Basic operations \& comparisons with two vectors}\label{basic-operations-comparisons-with-two-vectors}}
 
 Basic operations between two vectors are useful only between vectors of the same length. In this case, \emph{R} combines or compares each element of the first with each element of the second vector:
 
@@ -1417,7 +1462,8 @@ shorter vector. Check out what happens here:
 
 Other object types that are commonly used is \emph{R} are \textbf{arrays} and \textbf{matrices}. Matrices store values in a two-dimensional array, that is, you have rows and columns. These data types are crucial for those who use \emph{R} for linear algebra or want to handle very large dataset. \emph{R} furthermore knows n-dimensional arrays. However, in this course will not further discuss this data types.
 
-\subsection{Subsetting Vectors}\label{subsetting}
+\hypertarget{subsetting}{%
+\subsection{Subsetting Vectors}\label{subsetting}}
 
 Often you want to access only subsets, that is, parts or single elements of a vector. Let's explore the different types of subsetting with a simple vector of floating point numbers \texttt{x}.
 
@@ -1443,7 +1489,8 @@ If you want to have only certain elements of a vector you have the use the opera
   with nothing
 \end{itemize}
 
-\subsubsection{Positive integers}\label{positive-integers}
+\hypertarget{positive-integers}{%
+\subsubsection{Positive integers}\label{positive-integers}}
 
 Positive integers return elements at the specified positions:
 
@@ -1500,7 +1547,8 @@ or another example
 Type \texttt{?NA} to get the documentation: \texttt{NA} stands for ``Not Available'' and is an important basic ``data type'' that you need to know.
 \webexunhide
 
-\subsubsection{Negative integers}\label{negative-integers}
+\hypertarget{negative-integers}{%
+\subsubsection{Negative integers}\label{negative-integers}}
 
 Negative integers exclude elements at the specified positions
 
@@ -1524,7 +1572,8 @@ Negative integers exclude elements at the specified positions
 ## [1] 2.1 5.4
 \end{verbatim}
 
-\subsubsection{Logical vectors}\label{subsettinglogicals}
+\hypertarget{subsettinglogicals}{%
+\subsubsection{Logical vectors}\label{subsettinglogicals}}
 
 Logical vectors select elements where the corresponding logical value is \texttt{TRUE}.
 
@@ -1558,7 +1607,8 @@ different lengths? This is, for instance, explained
 \href{https://adv-r.hadley.nz/subsetting.html}{here}.
 \end{geek}
 
-\subsubsection{With nothing}\label{with-nothing}
+\hypertarget{with-nothing}{%
+\subsubsection{With nothing}\label{with-nothing}}
 
 Nothing returns the original vector.
 
@@ -1574,7 +1624,8 @@ Nothing returns the original vector.
 
 Why shall I do this? This is not useful for 1D vectors in this example, but, as you'll see shortly in chapter \ref{dataframes}, it's very useful for data frames.
 
-\subsection{Named vectors}\label{namedvectors}
+\hypertarget{namedvectors}{%
+\subsection{Named vectors}\label{namedvectors}}
 
 \emph{R} object can have \textbf{attributes}. An attribute is a piece of information that you can attach to an atomic vector (or any \emph{R} object). The attribute won't affect any of the values in the object, and it will not appear when you display your object. You can think of an attribute as ``metadata''; it is just a convenient place to put information associated with an object. R will normally ignore this metadata, but some \emph{R} functions will check for specific attributes.
 
@@ -1612,7 +1663,8 @@ This will give you just the names:
 ## [1] "Peter" "John"  "Maria" "Linda"
 \end{verbatim}
 
-\subsubsection{\texorpdfstring{Subsetting named vectors by \texttt{{[}name{]}}}{Subsetting named vectors by {[}name{]}}}\label{subsetting-named-vectors-by-name}
+\hypertarget{subsetting-named-vectors-by-name}{%
+\subsubsection{\texorpdfstring{Subsetting named vectors by \texttt{{[}name{]}}}{Subsetting named vectors by {[}name{]}}}\label{subsetting-named-vectors-by-name}}
 
 If the vector is named, you can also use the names or a vector of names to access selected elements. This is a convenient feature and can produced more readable code:
 
@@ -1638,7 +1690,8 @@ If the vector is named, you can also use the names or a vector of names to acces
 ##  1.71  1.84
 \end{verbatim}
 
-\section{Lists}\label{lists}
+\hypertarget{lists}{%
+\section{Lists}\label{lists}}
 
 Lists are like atomic vectors because they group data into a one-dimensional set. However, lists do not group together individual values; lists group together \emph{R} objects, such as atomic vectors and other lists. For example, you can make a list that contains a numeric vector of length 31 in its first element, a character vector of length 1 in its second element, and a new list of length 3 in its third element. To do this, use the \texttt{list()} function.
 
@@ -1666,7 +1719,8 @@ The double-bracketed indexes, \texttt{{[}{[}..{]}{]}}, tell you which element of
 
 As you can imagine, the structure of lists can become quite complicated, but this flexibility makes lists a useful all-purpose storage tool in \emph{R}: you can group together anything with a list.
 
-\subsection{Subsetting lists}\label{subsetting-lists}
+\hypertarget{subsetting-lists}{%
+\subsection{Subsetting lists}\label{subsetting-lists}}
 
 If you want to access the third element in the list you have to call:
 
@@ -1694,7 +1748,8 @@ with single brackets also return vectors. This check this out:
 \texttt{typeof(a\_list{[}{[}2{]}{]})}
 \end{geek}
 
-\subsection{Named lists}\label{namedlists}
+\hypertarget{namedlists}{%
+\subsection{Named lists}\label{namedlists}}
 
 This subsetting is double-brackets not very intuitive. At least in my view. I try to avoid it always and prefer to use names in lists. List produce readable code, if you use \texttt{name} attribute and if assign useful names to the elements in the list. You assign names to lists, like you did it with vectors in section \ref{namedvectors}. In our example, it would be:
 
@@ -1725,7 +1780,8 @@ But this can be done also in one line of code and is even easier and even more r
 ## [1] FALSE  TRUE FALSE
 \end{verbatim}
 
-\subsection{\texorpdfstring{The \texttt{\$} operator}{The \$ operator}}\label{listsdollar}
+\hypertarget{listsdollar}{%
+\subsection{\texorpdfstring{The \texttt{\$} operator}{The \$ operator}}\label{listsdollar}}
 
 If you want to access a specific element you can call it by it's name using the \texttt{\$} operator. See want you get, if you type:
 
@@ -1810,7 +1866,8 @@ Make a list called \texttt{lst} with three objects
 
 \webexunhide
 
-\section{Data Frames}\label{dataframes}
+\hypertarget{dataframes}{%
+\section{Data Frames}\label{dataframes}}
 
 So far, we have worked in this course with very basic data structures. In psychology we have often a specific type of data so-called tabular data. Tabular data are data that can be stored in a table with different variables arranged in columns. The rows of the table comprise different cases. You do know this kind of data from spreadsheet or statistics software like \emph{MS Excel} or \emph{SPSS}. For example:
 
@@ -1877,7 +1934,8 @@ map the vectors to variable names and not the left hand side assignment
 \texttt{\textless{}-}.
 \end{important}
 
-\subsubsection*{Variable overview}\label{variable-overview}
+\hypertarget{variable-overview}{%
+\subsubsection*{Variable overview}\label{variable-overview}}
 \addcontentsline{toc}{subsubsection}{Variable overview}
 
 To function \texttt{str()} gives you a side-wise overview of the variables in a data frame. This show the variable names, the data types and the first few data points:
@@ -1896,7 +1954,8 @@ To function \texttt{str()} gives you a side-wise overview of the variables in a 
 ##  $ International_student: logi  FALSE FALSE TRUE FALSE
 \end{verbatim}
 
-\subsubsection*{Descriptive summary}\label{descriptive-summary}
+\hypertarget{descriptive-summary}{%
+\subsubsection*{Descriptive summary}\label{descriptive-summary}}
 \addcontentsline{toc}{subsubsection}{Descriptive summary}
 
 A descriptive summary of all variables a data frame is very handy and important to check your data quality and to exclude potential technical issue in your dataset. It's very simply to do by:
@@ -1944,13 +2003,13 @@ in this dataset?
 \end{Shaded}
 
 \begin{verbatim}
-##    variable_a         variable_b        variable_c
-##  Min.   :-169.226   Min.   :-2.0733   Min.   :10  
-##  1st Qu.:   5.939   1st Qu.:-1.0021   1st Qu.:10  
-##  Median :  65.460   Median :-0.3157   Median :10  
-##  Mean   :  69.294   Mean   :-0.2864   Mean   :10  
-##  3rd Qu.: 136.455   3rd Qu.: 0.3370   3rd Qu.:10  
-##  Max.   : 347.719   Max.   : 1.7386   Max.   :10  
+##    variable_a         variable_b         variable_c
+##  Min.   :-198.253   Min.   :-2.93728   Min.   :10  
+##  1st Qu.:   6.353   1st Qu.:-0.86563   1st Qu.:10  
+##  Median :  71.565   Median : 0.07209   Median :10  
+##  Mean   :  72.715   Mean   :-0.00458   Mean   :10  
+##  3rd Qu.: 136.081   3rd Qu.: 0.81602   3rd Qu.:10  
+##  Max.   : 329.453   Max.   : 2.19391   Max.   :10  
 ##                     NA's   :131
 \end{verbatim}
 
@@ -1969,11 +2028,13 @@ The summary of this dataset shows that
 
 \webexunhide
 
-\subsection{Subsetting}\label{nolabel}
+\hypertarget{nolabel}{%
+\subsection{Subsetting}\label{nolabel}}
 
-\subsubsection{Selecting columns by name}\label{selectbyname}
+\hypertarget{selectbyname}{%
+\subsubsection{Selecting columns by name}\label{selectbyname}}
 
-You can access a specific column/variable of the data frame with \texttt{\$} \hyperref[listsdollar]{operator} as you know it from \hyperref[lists]{lists}. For example:
+You can access a specific column/variable of the data frame with \texttt{\$} \protect\hyperlink{listsdollar}{operator} as you know it from \protect\hyperlink{lists}{lists}. For example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1985,7 +2046,7 @@ You can access a specific column/variable of the data frame with \texttt{\$} \hy
 ## [1] 102 121 112 103
 \end{verbatim}
 
-As you see above, if you access a variable of a data frame with the \texttt{\$} operator, you get an \hyperref[vectors]{atomic vector}. This means that you can use subsetting of vectors as described in section \ref{subsetting}.
+As you see above, if you access a variable of a data frame with the \texttt{\$} operator, you get an \protect\hyperlink{vectors}{atomic vector}. This means that you can use subsetting of vectors as described in section \ref{subsetting}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2052,7 +2113,8 @@ But this can be done also in one expression.
 
 \webexunhide
 
-\subsubsection{Selecting by row and column indices}\label{selecting-by-row-and-column-indices}
+\hypertarget{selecting-by-row-and-column-indices}{%
+\subsubsection{Selecting by row and column indices}\label{selecting-by-row-and-column-indices}}
 
 Cells in an data frame can be also access via row and column indices and the \texttt{{[}{]}} operator. The syntax looks like this: \texttt{{[}row\_index,\ column\_index{]}}.
 
@@ -2114,7 +2176,8 @@ Consequently, \texttt{df{[},{]}} or \texttt{df{[}{]}} should return the entire d
 
 \webexunhide
 
-\subsubsection{Subsetting with logicals}\label{subsettinglogicalsdataframe}
+\hypertarget{subsettinglogicalsdataframe}{%
+\subsubsection{Subsetting with logicals}\label{subsettinglogicalsdataframe}}
 
 Section \ref{subsettinglogicals} demonstrated that you can select subsets with logicals. This subsetting with logical vectors is very useful for data frames and very often used. For example, if you want to have the data of the females only:
 
@@ -2159,7 +2222,8 @@ Make a data frame with the clever people only.
 
 \webexunhide
 
-\subsection{Lists and data frames}\label{lists-and-data-frames}
+\hypertarget{lists-and-data-frames}{%
+\subsection{Lists and data frames}\label{lists-and-data-frames}}
 
 Since lists and data frame can store multiple atomic vectors and they can actually both store tabular-like data. You can therefore convert between this two types using an \texttt{as.}-converter function. For instance, the list \texttt{lst} that we made in section \ref{listsdollar} can be converter to a data frame.
 
@@ -2207,7 +2271,8 @@ Finally, a data frame can be converted into a list using \texttt{as.list()}. See
 ## [1] FALSE  TRUE  TRUE FALSE
 \end{verbatim}
 
-\subsection{\texorpdfstring{Summary: Data structures in \emph{R}}{Summary: Data structures in R}}\label{summary-data-structures-in-r}
+\hypertarget{summary-data-structures-in-r}{%
+\subsection{\texorpdfstring{Summary: Data structures in \emph{R}}{Summary: Data structures in R}}\label{summary-data-structures-in-r}}
 
 You can store data in \emph{R} with five different objects, which let you store different types of values in different types of relationships. The most common data structures in the analysis of psychological data are \textbf{vectors}, \textbf{lists} and \textbf{data frames}. For the sake of completeness, you should know that \textbf{matrices} and \textbf{n-dimentinal arrays} also exists in \emph{R}---they are however not relevant for this course.
 
@@ -2217,15 +2282,17 @@ You can store data in \emph{R} with five different objects, which let you store 
 
 Importantly, data frames can store data of different types (e.g.~number, characters, text, factors, logical). Each column is conceptually a atomic vector and can thus only store data of one type. Data frames store the most common forms of data used in statistics, which are tabular data.
 
-\section{Packages}\label{packages}
+\hypertarget{packages}{%
+\section{Packages}\label{packages}}
 
-When you install \emph{R} you will have access to a range of functions including basic options for data wrangling and statistical analyses. The functions that are included in the default installation are typically referred to as \textbf{Base \emph{R}} and there is a useful \hyperref[cheatsheets]{cheat sheet} that shows many Base \emph{R} functions here. We've been using a couple functions from base \emph{R}, such as \texttt{seq()} or \texttt{rnorm()}-
+When you install \emph{R} you will have access to a range of functions including basic options for data wrangling and statistical analyses. The functions that are included in the default installation are typically referred to as \textbf{Base \emph{R}} and there is a useful \protect\hyperlink{cheatsheets}{cheat sheet} that shows many Base \emph{R} functions here. We've been using a couple functions from base \emph{R}, such as \texttt{seq()} or \texttt{rnorm()}-
 
 However, the amazing power of \emph{R} is that it is extendable. That is, if a command or method doesn't exist anyone can create a so-called \emph{package} that contains one or multiple functions (and/or data) to perform new tasks. The large active \emph{R} user community is always creating new packages to expand \emph{R}'s capabilities. You may find it useful to think of Base \emph{R} as the default apps that come on your phone and packages as additional apps that you need to download separately.
 
 In \emph{R} , the fundamental unit of shareable code is a package. A package bundles together code, data, documentation, and tests, and is easy to share with others. They increase the power of \emph{R} by improving existing base \emph{R} functionalities, or by adding new ones.
 
-\subsection{Installing a package}\label{installing-a-package}
+\hypertarget{installing-a-package}{%
+\subsection{Installing a package}\label{installing-a-package}}
 
 The traditional place to get \emph{R} packages is from \href{https://cran.r-project.org/}{\emph{CRAN}, the Comprehensive R Archive Network}, which is where you have downloaded \emph{R}.
 
@@ -2259,7 +2326,8 @@ vector of the package names you want to install as argument, e.g.,
 \texttt{install.packages(\ c("package-a",\ "package-b")\ )}.
 \end{geek}
 
-\subsection{Using a package}\label{using-a-package}
+\hypertarget{using-a-package}{%
+\subsection{Using a package}\label{using-a-package}}
 
 So far, we've just installed packages. That is, the packages are now available on the local computer. Before we can use the new functionality, we need to tell \emph{R} to activate the package for this session, or better said, to load the library to memory. This will be done by the function \texttt{library()}. For example, to use the \texttt{praise}-package we call first:
 
@@ -2278,7 +2346,7 @@ Now that the \texttt{praise} package is loaded, you can use the function in that
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "You are polished!"
+## [1] "You are tremendous!"
 \end{verbatim}
 
 \emph{(As you see, you can do really useful things with \emph{R} \texttt{;-)})}
@@ -2287,7 +2355,8 @@ Now that the \texttt{praise} package is loaded, you can use the function in that
 
 Sometimes there is a confusion between a package and a library. Please don't get confused. You can find many people calling ``libraries'' to packages (like me, sometimes). To be precise, a library is a the collection of functions that we use in \emph{R} and that will be loaded into memory with the \texttt{library()}-command. A package is the bundle of software that you have to install to get the library. A package can contain more than just the library, for instance, documentation, example scripts and data.
 
-\subsubsection*{\texorpdfstring{The \texttt{::} operator}{The :: operator}}\label{the-operator}
+\hypertarget{the-operator}{%
+\subsubsection*{\texorpdfstring{The \texttt{::} operator}{The :: operator}}\label{the-operator}}
 \addcontentsline{toc}{subsubsection}{The \texttt{::} operator}
 
 Once you have load the package with \texttt{library()} \emph{R} knows all functions of that package and you can run the function just by calling it's name (as you know it).
@@ -2321,7 +2390,8 @@ collection, that we'll use next week. Mask conflicts will be depicted as
 warnings while loading (importing) a library.
 \end{geek}
 
-\subsection{Getting help for packages}\label{getting-help-for-packages}
+\hypertarget{getting-help-for-packages}{%
+\subsection{Getting help for packages}\label{getting-help-for-packages}}
 
 If you want to know more about a package, you can use \emph{R}'s built-in help function: \texttt{help(package="package-name")}.
 
@@ -2330,7 +2400,8 @@ Try to access the documentation of the function \texttt{read\_excel} of
 the newly installed \texttt{readxl}-package.
 \end{myexercise}
 
-\section{Importing Data}\label{importing-data}
+\hypertarget{importing-data}{%
+\section{Importing Data}\label{importing-data}}
 
 A crucial function of a statistical software is of course the ability to read data from files. There are many different types of files that you might work with when doing data analysis. These different file types are usually distinguished by the three letter extension following a period at the end of the file name. Here are some examples of functions (and packages!) that you can use to import data from different file types:
 
@@ -2365,7 +2436,8 @@ As you see, different packages that are dealing with data import. You have alrea
 
 \textbf{Example data}: You find some example data files in the \href{./data}{data folder}.
 
-\subsection{Import via RStudio interface}\label{import-via-rstudio-interface}
+\hypertarget{import-via-rstudio-interface}{%
+\subsection{Import via RStudio interface}\label{import-via-rstudio-interface}}
 
 \emph{R} offers several ways to import data from a file. One way is RStudio's import functions (see this week's instruction video).
 
@@ -2383,16 +2455,19 @@ Load the dataset (via double click). How many rows does this file have?
 Almost two million rows: \texttt{1924664}
 \webexunhide
 
-\paragraph*{Other file types}\label{other-file-types}
+\hypertarget{other-file-types}{%
+\paragraph*{Other file types}\label{other-file-types}}
 \addcontentsline{toc}{paragraph}{Other file types}
 
 To import data from other (non-\emph{R}) file types, you can use the import panel of RStudio.
 
 \includegraphics[width=350px]{images/data_import}
 
-\subsection{Import via Console or Script}\label{import-via-console-or-script}
+\hypertarget{import-via-console-or-script}{%
+\subsection{Import via Console or Script}\label{import-via-console-or-script}}
 
-\subsubsection*{.Rdata}\label{rdata}
+\hypertarget{rdata}{%
+\subsubsection*{.Rdata}\label{rdata}}
 \addcontentsline{toc}{subsubsection}{.Rdata}
 
 To load an \emph{R} data file via a script or the console, you called \texttt{load()} and the file path as argument. A file path consist of the subdirectory (relative to your current directory) and the filename separated by a \texttt{/} (backslash). For instance, if the data file is \texttt{babynames.Rdata} located in the subfolder \texttt{data}, this command should load the dataset:
@@ -2415,7 +2490,8 @@ panel. Also the command \texttt{getcw()} gives you this information. The
 autocompletion function is also handy here.
 \end{important}
 
-\subsubsection*{csv- and xlsx-files and other files}\label{csv--and-xlsx-files-and-other-files}
+\hypertarget{csv--and-xlsx-files-and-other-files}{%
+\subsubsection*{csv- and xlsx-files and other files}\label{csv--and-xlsx-files-and-other-files}}
 \addcontentsline{toc}{subsubsection}{csv- and xlsx-files and other files}
 
 When you read in CSV files, it is best practice to use the \texttt{readr::read\_csv()} function. Note that you would normally want to store the result of the \texttt{read\_csv()} function to an object, as so:
@@ -2429,13 +2505,15 @@ When you read in CSV files, it is best practice to use the \texttt{readr::read\_
 
 The function \texttt{read\_excel()} from the package \texttt{readxl} is handy to read in Excel spreadsheet data.
 
-A summary of data import function can be found in this \hyperref[cheatsheets]{data import cheat sheet}.
+A summary of data import function can be found in this \protect\hyperlink{cheatsheets}{data import cheat sheet}.
 
 \newpage
 
-\part{Data Wrangling}\label{part-data-wrangling}
+\hypertarget{part-data-wrangling}{%
+\part{Data Wrangling}\label{part-data-wrangling}}
 
-\section{Tidyverse package collection}\label{tidyverse-package-collection}
+\hypertarget{tidyverse-package-collection}{%
+\section{Tidyverse package collection}\label{tidyverse-package-collection}}
 
 \emph{Tidyverse} (\url{https://www.tidyverse.org/}) is a collection of \texttt{R} packages created by data scientist \href{http://hadley.nz/}{Hadley Wickham}, who has massively influenced the development \emph{R} in the recent decade. \emph{Tidyverse} contains several core packages (for example, \texttt{dplyr}, \texttt{tidyr}, \texttt{readr}, \texttt{purrr}, \texttt{ggplot2}, and \texttt{tibble}). It intends to facilitates the handling and visualization of data. After Wickham released these packages, they became heavily used in the \emph{R} community and are, in my view, the new quasi-standard of \emph{R} programming.
 
@@ -2456,7 +2534,8 @@ than the ugly base-\emph{R} code.
 because make it makes the data analyses less error-prone.}
 \end{important}
 
-\subsubsection*{Installing}\label{installing}
+\hypertarget{installing}{%
+\subsubsection*{Installing}\label{installing}}
 \addcontentsline{toc}{subsubsection}{Installing}
 
 \emph{Tidyverse} is actually not really a package, but a meta-package, that is, a collection of packages. That is, if you install \emph{Tidyverse}, you install several packages. \textbf{It will therefore takes some time to install it}, especially on old machines.
@@ -2467,9 +2546,10 @@ because make it makes the data analyses less error-prone.}
 \end{Highlighting}
 \end{Shaded}
 
-\emph{Remark}: \textbf{MacOS} or \textbf{Linux} users that get an error when installing \emph{Tidyverse} need to install first some additional programs (see \hyperref[tidyverseinstall]{workaround} \ref{tidyverseinstall}).
+\emph{Remark}: \textbf{MacOS} or \textbf{Linux} users that get an error when installing \emph{Tidyverse} need to install first some additional programs (see \protect\hyperlink{tidyverseinstall}{workaround} \ref{tidyverseinstall}).
 
-\subsubsection*{Importing}\label{importing}
+\hypertarget{importing}{%
+\subsubsection*{Importing}\label{importing}}
 \addcontentsline{toc}{subsubsection}{Importing}
 
 As with all \emph{R} -packages, if you want to make use of it in yours scripts, you need to import it first:
@@ -2481,13 +2561,13 @@ As with all \emph{R} -packages, if you want to make use of it in yours scripts, 
 \end{Shaded}
 
 \begin{verbatim}
-## -- Attaching core tidyverse packages ----------------------------------------------------------------------------------------------------------------------- tidyverse 2.0.0 --
-## v dplyr     1.1.4     v readr     2.1.5
-## v forcats   1.0.0     v stringr   1.5.1
-## v ggplot2   3.5.1     v tibble    3.2.1
-## v lubridate 1.9.3     v tidyr     1.3.1
+## -- Attaching core tidyverse packages ------------------------------------------------------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.3     v readr     2.1.4
+## v forcats   1.0.0     v stringr   1.5.0
+## v ggplot2   3.5.0     v tibble    3.2.1
+## v lubridate 1.9.3     v tidyr     1.3.0
 ## v purrr     1.0.2     
-## -- Conflicts ----------------------------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------------------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
@@ -2506,7 +2586,8 @@ As with all \emph{R} -packages, if you want to make use of it in yours scripts, 
 
 If you import the \emph{Tidyverse}-package with the \texttt{library()}-command you see that several core packages will be imported. The names of this packages are not really important here, you should just be aware that you can also import the single sub-packages separately. You see that often in code examples, if you check the help pages of \emph{R} or if you google for solutions in data processing.
 
-\subsection{Tibble is the new Data Frame}\label{tibble-is-the-new-data-frame}
+\hypertarget{tibble-is-the-new-data-frame}{%
+\subsection{Tibble is the new Data Frame}\label{tibble-is-the-new-data-frame}}
 
 \emph{Tidyverse} introduces a new type of \texttt{data.frame}, called \texttt{tibble}. You use tibbles exactly like data frames and it does not really matter for you, whether you have a tibble or a data frame. \emph{R} converts a data frame automatically into a tibble whenever that is required and possible. I use the two labels therefore sometimes interchangeably.
 
@@ -2530,15 +2611,18 @@ You can convert a data frame to a tibble with the function
 \texttt{as.data.frame()}.
 \end{geek}
 
-\subsection{\texorpdfstring{Naming convention (``\texttt{\_}'' or ``\texttt{.}'')}{Naming convention (``\_'' or ``.'')}}\label{naming-convention-_-or-.}
+\hypertarget{naming-convention-_-or-.}{%
+\subsection{\texorpdfstring{Naming convention (``\texttt{\_}'' or ``\texttt{.}'')}{Naming convention (``\_'' or ``.'')}}\label{naming-convention-_-or-.}}
 
 If you are unsure whether a function is from \emph{Tidyverse} or part of base-\emph{R}, the function name often gives you a hint. \emph{Tidyverse} functions use always an underscore sign (\texttt{\_}) in the function names; for example \texttt{as\_tibble()}, the function to convert sometimes into a tibble. Classic base-\emph{R} uses the dot (\texttt{.}) in names, like in \texttt{as.numeric()} or \texttt{as.data.frame()}. This has historical reasons, because \emph{R} is inspired by the \href{https://en.wikipedia.org/wiki/S_(programming_language)}{programming language \emph{S}}, a language form the 70th. In that time the underscore was not a key on all computer keyboards.
 
 I personally also prefer to use the underscore sign (as you have seen in the examples of this manual), because it's better readable and in line with naming conversions in other programming languages often used for data processing like \href{https://www.python.org/}{Python}, \href{https://julialang.org/}{Julia} or \href{https://en.wikipedia.org/wiki/MATLAB}{MATLAB}. Since more and more \emph{R}-users work with \emph{Tidyverse} the naming convention is currently also changing in the \emph{R}-community---that is at least my impression.
 
-\section{Transforming Data}\label{transformingdata}
+\hypertarget{transformingdata}{%
+\section{Transforming Data}\label{transformingdata}}
 
-\subsubsection*{Example data}\label{example-data}
+\hypertarget{example-data}{%
+\subsubsection*{Example data}\label{example-data}}
 \addcontentsline{toc}{subsubsection}{Example data}
 
 To illustrate the \emph{Tidyverse}-functions for data transformation, we use an example dataset \texttt{teaching\_method.csv} from that \href{./data}{data folder}.
@@ -2600,11 +2684,12 @@ The import dataset is a tibble and looks in the console of RStudio like this:
 ## # i 50 more rows
 \end{verbatim}
 
-\subsection{\texorpdfstring{Selecting rows: \texttt{Filter()}}{Selecting rows: Filter()}}\label{selecting-rows-filter}
+\hypertarget{selecting-rows-filter}{%
+\subsection{\texorpdfstring{Selecting rows: \texttt{Filter()}}{Selecting rows: Filter()}}\label{selecting-rows-filter}}
 
 \begin{center}\includegraphics[width=300px]{images/dplyr-filter} \end{center}
 
-We have already selected rows or cases of data frames with base-\emph{R} (see for last assignment or \hyperref[subsettinglogicalsdataframe]{section} \ref{subsettinglogicalsdataframe} ). If we want to select all students from Rotterdam, we would do it in base-\emph{R} like this:
+We have already selected rows or cases of data frames with base-\emph{R} (see for last assignment or \protect\hyperlink{subsettinglogicalsdataframe}{section} \ref{subsettinglogicalsdataframe} ). If we want to select all students from Rotterdam, we would do it in base-\emph{R} like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2633,7 +2718,8 @@ This table gives an overview of of logical comparisons in \emph{R}:
 
 \begin{center}\includegraphics[width=500px]{images/logic_in_r} \end{center}
 
-\subsubsection{Multiple criteria}\label{multiple-criteria}
+\hypertarget{multiple-criteria}{%
+\subsubsection{Multiple criteria}\label{multiple-criteria}}
 
 \textbf{logical ``AND''}
 
@@ -2681,7 +2767,8 @@ The sign \texttt{\textbar{}} is used in \emph{R} as logical \emph{or}. For examp
 
 More information about logical operators in \emph{R} can be found for instance \href{https://r4ds.had.co.nz/transform.html\#logical-operators}{here}
 
-\subsection{\texorpdfstring{Sorting rows: \texttt{arrange()}}{Sorting rows: arrange()}}\label{sorting-rows-arrange}
+\hypertarget{sorting-rows-arrange}{%
+\subsection{\texorpdfstring{Sorting rows: \texttt{arrange()}}{Sorting rows: arrange()}}\label{sorting-rows-arrange}}
 
 \begin{center}\includegraphics[width=300px]{images/dplyr-arrange} \end{center}
 
@@ -2751,13 +2838,15 @@ Check out the different types of sorting and use RStudios object viewer
 to see differently sorted data frames.
 \end{myexercise}
 
-\subsection{\texorpdfstring{Selecting \& Arranging Variables: \texttt{select()}}{Selecting \& Arranging Variables: select()}}\label{selecting-arranging-variables-select}
+\hypertarget{selecting-arranging-variables-select}{%
+\subsection{\texorpdfstring{Selecting \& Arranging Variables: \texttt{select()}}{Selecting \& Arranging Variables: select()}}\label{selecting-arranging-variables-select}}
 
-\subsubsection{Select a Variable}\label{select-a-variable}
+\hypertarget{select-a-variable}{%
+\subsubsection{Select a Variable}\label{select-a-variable}}
 
 \begin{center}\includegraphics[width=300px]{images/dplyr-select} \end{center}
 
-Selecting variables from a data frame was already easy in base-\emph{R} (see \hyperref[selectbyname]{section} \ref{selectbyname}{]}). \emph{Tidyverse} offers the function \texttt{select()} for this and you will see that it's even easier. \texttt{select()} more powerful when it come to selecting multiple variables and it improves the readability of your code.
+Selecting variables from a data frame was already easy in base-\emph{R} (see \protect\hyperlink{selectbyname}{section} \ref{selectbyname}{]}). \emph{Tidyverse} offers the function \texttt{select()} for this and you will see that it's even easier. \texttt{select()} more powerful when it come to selecting multiple variables and it improves the readability of your code.
 
 It's not uncommon to get datasets with a large amount of variables. In this case, the first challenge is often narrowing in on the variables you're actually interested in. \texttt{select()} allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
 
@@ -2811,7 +2900,8 @@ To select multiple variables just add further variables names as argument, separ
 ## # i 50 more rows
 \end{verbatim}
 
-\subsubsection{Re-arranging the Order of Variables}\label{re-arranging-the-order-of-variables}
+\hypertarget{re-arranging-the-order-of-variables}{%
+\subsubsection{Re-arranging the Order of Variables}\label{re-arranging-the-order-of-variables}}
 
 As you see the variables appear in the order you mentioned them in the command. Inn other words, you can use select also to re-arrange the order of your columns.
 
@@ -2840,7 +2930,8 @@ When re-arranging the order, another option is to use the \texttt{everything()} 
 ## # i 50 more rows
 \end{verbatim}
 
-\subsubsection{Dropping a Variable}\label{dropping-a-variable}
+\hypertarget{dropping-a-variable}{%
+\subsubsection{Dropping a Variable}\label{dropping-a-variable}}
 
 \begin{center}\includegraphics[width=300px]{images/dplyr-select-drop} \end{center}
 
@@ -2869,7 +2960,8 @@ If you want to exclude a column you just write \texttt{-} followed by the variab
 ## # i 50 more rows
 \end{verbatim}
 
-\subsubsection{Select a Range of Variables}\label{select-a-range-of-variables}
+\hypertarget{select-a-range-of-variables}{%
+\subsubsection{Select a Range of Variables}\label{select-a-range-of-variables}}
 
 \begin{center}\includegraphics[width=300px]{images/dplyr-select-range} \end{center}
 
@@ -2898,7 +2990,8 @@ If you want to select all variable from column \texttt{city} to column \texttt{s
 ## # i 50 more rows
 \end{verbatim}
 
-\subsection{\texorpdfstring{Add new variables: \texttt{mutate()}}{Add new variables: mutate()}}\label{add-new-variables-mutate}
+\hypertarget{add-new-variables-mutate}{%
+\subsection{\texorpdfstring{Add new variables: \texttt{mutate()}}{Add new variables: mutate()}}\label{add-new-variables-mutate}}
 
 \begin{center}\includegraphics[width=300px]{images/dplyr-mutate} \end{center}
 
@@ -3017,11 +3110,13 @@ Check out how the resulting data frame \texttt{teach\_extended} looks like. Reme
 
 \webexunhide
 
-\section{Summarizing \& Aggregating Data}\label{summarising}
+\hypertarget{summarising}{%
+\section{Summarizing \& Aggregating Data}\label{summarising}}
 
-\subsection{\texorpdfstring{Aggregating data with \texttt{summarise()}}{Aggregating data with summarise()}}\label{aggregating-data-with-summarise}
+\hypertarget{aggregating-data-with-summarise}{%
+\subsection{\texorpdfstring{Aggregating data with \texttt{summarise()}}{Aggregating data with summarise()}}\label{aggregating-data-with-summarise}}
 
-Create summary statistics for the dataset can be done with the command \texttt{summarise()}. Check the data transformation \hyperref[cheatsheets]{cheat sheet} for various summary functions. Some common ones are: \texttt{mean()}, \texttt{sd()}, \texttt{n()}, \texttt{sum()} or \texttt{quantile()}.
+Create summary statistics for the dataset can be done with the command \texttt{summarise()}. Check the data transformation \protect\hyperlink{cheatsheets}{cheat sheet} for various summary functions. Some common ones are: \texttt{mean()}, \texttt{sd()}, \texttt{n()}, \texttt{sum()} or \texttt{quantile()}.
 
 For instance,
 
@@ -3047,7 +3142,8 @@ As you see this command generates a data frame (that we save in \texttt{summary\
 
 Ok, fine, but you may think now: ``I could get the same information much simpler with the base-\emph{R}. Why shall I use this strange \texttt{summarise()} thing?'' The actual power of it becomes clear if used together with the \texttt{group\_by()} command described in the next section.
 
-\subsection{\texorpdfstring{Grouping data by \texttt{group\_by()}}{Grouping data by group\_by()}}\label{grouping-data-by-group_by}
+\hypertarget{grouping-data-by-group_by}{%
+\subsection{\texorpdfstring{Grouping data by \texttt{group\_by()}}{Grouping data by group\_by()}}\label{grouping-data-by-group_by}}
 
 If you want that all \emph{Tidyverse}-operations will be done separately for different parts of a tibble or data frame, you can group your data and use a grouped tibble. You group a data with the \texttt{group\_by()} command:
 
@@ -3104,7 +3200,8 @@ If we now apply the \texttt{summarise()} command on the new group data, we get t
 
 You see the aggregated data for each city. In each city we have 12 measures. In our fake dataset, the statistics grades seems to be on average higher in Utrecht than in Leiden.
 
-\subsubsection*{Grouping for multiple variables}\label{grouping-for-multiple-variables}
+\hypertarget{grouping-for-multiple-variables}{%
+\subsubsection*{Grouping for multiple variables}\label{grouping-for-multiple-variables}}
 \addcontentsline{toc}{subsubsection}{Grouping for multiple variables}
 
 Like with the other \emph{Tidyverse} functions you can add variables and further group the dataset. Let's get the aggregated data for each \texttt{teaching\_method} and in each \texttt{city}:
@@ -3219,12 +3316,14 @@ who have lower grades.
 TRUE is the group with a grade \texttt{\textgreater{}\ median(statistics)}. FALSE is the low stats group.
 \webexunhide
 
-\subsubsection*{Ungrouping a grouped data frame}\label{ungrouping-a-grouped-data-frame}
+\hypertarget{ungrouping-a-grouped-data-frame}{%
+\subsubsection*{Ungrouping a grouped data frame}\label{ungrouping-a-grouped-data-frame}}
 \addcontentsline{toc}{subsubsection}{Ungrouping a grouped data frame}
 
 You can remove the grouping of a data frame with \texttt{ungroup()}.
 
-\subsection{Summary}\label{summary}
+\hypertarget{summary}{%
+\subsection{Summary}\label{summary}}
 
 The last two chapters introduced the following six \emph{Tidyverse} -commands, which all stems actually from the subpackage \texttt{dplyr} in the \texttt{tidyverse}.
 
@@ -3246,11 +3345,13 @@ The last two chapters introduced the following six \emph{Tidyverse} -commands, w
 
 These six functions are known as 'single table verbs' because they only operate on one table at a time. Although the operations of these functions may seem very simplistic, it's amazing what you can accomplish when you string them together: Some people claimed that 90\% of data analysis can be reduced to the operations described by these six functions.
 
-Again, you don't have to remember everything in these chapters - the important thing is that you know where to come and look for help when you need to do particular tasks. Being good at coding really is just being good at knowing what to copy and paste. You may also find the \hyperref[cheatsheets]{cheat sheet} about data transformation useful at this point.
+Again, you don't have to remember everything in these chapters - the important thing is that you know where to come and look for help when you need to do particular tasks. Being good at coding really is just being good at knowing what to copy and paste. You may also find the \protect\hyperlink{cheatsheets}{cheat sheet} about data transformation useful at this point.
 
-\section{Structuring Tabular Data}\label{structuring-tabular-data}
+\hypertarget{structuring-tabular-data}{%
+\section{Structuring Tabular Data}\label{structuring-tabular-data}}
 
-\subsection{Tidy data}\label{tidy-data}
+\hypertarget{tidy-data}{%
+\subsection{Tidy data}\label{tidy-data}}
 
 For almost all statistical analyses, we have to our collected data in a tabular format. The previous chapters introduced how to handle tabular data. Please keep in mind that reshaping and re-aggregating data to have them in a format that is appropriate for your statistical software is not always that simple and takes typically much more time than the actual statistics. You have to think therefore carefully about the way how to represent you data in a table or how to structure your dataset, so that it can be efficiently processed in \emph{R}.
 
@@ -3395,7 +3496,8 @@ This means for most real analyses, you'll need to do some reshaping of the data 
   \end{enumerate}
 \end{enumerate}
 
-\subsection{Long and Wide Data}\label{long-and-wide-data}
+\hypertarget{long-and-wide-data}{%
+\subsection{Long and Wide Data}\label{long-and-wide-data}}
 
 Tidy data can be organized in different ways. A common problem is for instance that you can treat different measurements as either
 
@@ -3445,7 +3547,8 @@ As you see in the \textbf{long data} format at the \textbf{right}, the time is c
 
 In contrast, in the \textbf{wide data} format at the \textbf{left} all measurements that belong to one person/case get their variable (in our example, \texttt{before} and \texttt{after}). One person/case is not spread across multiple rows. \emph{SPSS} uses, for instance, this representations and needs always a \emph{wide format} for all repeated measurements. That is, a wide data format represents all repeated measurements of the same person/case (such as weight at time 1 \& 2) in different columns/variables. Only between subject variables, such as the \texttt{age}, get in the wide data format it's own column. By the way: also the \emph{t}-test function in \emph{R} (\texttt{t-test()}) needs a wide data format.
 
-\subsubsection{Pivoting functions}\label{pivoting-functions}
+\hypertarget{pivoting-functions}{%
+\subsubsection{Pivoting functions}\label{pivoting-functions}}
 
 \emph{Tidyverse} offers the functions \texttt{pivot\_longer()} and \texttt{pivot\_wider()} to convert data between the two formats. For example, the file \texttt{weight.csv} \href{./data}{data folder} contains the data above in the wide data format (left part of Table \ref{tab:longwide}).
 
@@ -3466,7 +3569,8 @@ In contrast, in the \textbf{wide data} format at the \textbf{left} all measureme
 ## 4 Jim        25   91    87
 \end{verbatim}
 
-\paragraph*{Wide to long}\label{wide-to-long}
+\hypertarget{wide-to-long}{%
+\paragraph*{Wide to long}\label{wide-to-long}}
 \addcontentsline{toc}{paragraph}{Wide to long}
 
 It's simple and straightforward to covert the wide data to a long format:
@@ -3499,7 +3603,8 @@ Please note, the second argument of \texttt{pivot\_longer()} is the columns to b
 ## 8 Jim        25 After    87
 \end{verbatim}
 
-\paragraph*{Long to wide}\label{long-to-wide}
+\hypertarget{long-to-wide}{%
+\paragraph*{Long to wide}\label{long-to-wide}}
 \addcontentsline{toc}{paragraph}{Long to wide}
 
 The function \texttt{pivot\_wider()} does the opposite, that is, it transforms a long data format into a wide format.
@@ -3541,13 +3646,16 @@ the new \texttt{pivot\_wider()} and \texttt{pivot\_longer()} functions.
 
 \newpage
 
-\part{Data Processing \& Visualizing}\label{part-data-processing-visualizing}
+\hypertarget{part-data-processing-visualizing}{%
+\part{Data Processing \& Visualizing}\label{part-data-processing-visualizing}}
 
-\section{Missing Values}\label{missing-values}
+\hypertarget{missing-values}{%
+\section{Missing Values}\label{missing-values}}
 
 \emph{R} has a distinct data type to indicate that an object, a variable or aN element of a vector has no value or that this data point is missing.
 
-\subsection{\texorpdfstring{\texttt{NA}: Not Available}{NA: Not Available}}\label{na-not-available}
+\hypertarget{na-not-available}{%
+\subsection{\texorpdfstring{\texttt{NA}: Not Available}{NA: Not Available}}\label{na-not-available}}
 
 \texttt{NA} stands for ``Not Available'' and is used to indicate a missing value. For instance, if you have a vector of the body heights of three subjects and, let's say, you don't know the height of the second person, it should look like this in \emph{R}:
 
@@ -3604,7 +3712,8 @@ Since your use the \texttt{!}-sign in \emph{R} to make a negation (like in the c
 ## [1]  TRUE FALSE  TRUE
 \end{verbatim}
 
-\paragraph*{Aggregating/processing vectors with missing values}\label{aggregatingprocessing-vectors-with-missing-values}
+\hypertarget{aggregatingprocessing-vectors-with-missing-values}{%
+\paragraph*{Aggregating/processing vectors with missing values}\label{aggregatingprocessing-vectors-with-missing-values}}
 \addcontentsline{toc}{paragraph}{Aggregating/processing vectors with missing values}
 
 Since all operations with missing values return \texttt{NA}, all functions that calculate a single value from a vector (e.g.~\texttt{sum()}, \texttt{mean()} or \texttt{sd()}) return always \texttt{NA}, if only one single value in the vector is \texttt{NA}.
@@ -3657,7 +3766,8 @@ That is a problem, because we typically just want to ignore \texttt{NA} and calc
 
 \webexunhide
 
-\subsection{Missings in data frames}\label{missings-in-data-frames}
+\hypertarget{missings-in-data-frames}{%
+\subsection{Missings in data frames}\label{missings-in-data-frames}}
 
 The datasets that we have used in the previous chapter were always complete and did not contain any missing data point. In real life, however, you often encounter the situation that you are missing some measurements in some variables. In other words, not all subjects provide a measurement in all columns. This might cause problems for the data processing and we need to deal with that issue.
 
@@ -3722,7 +3832,8 @@ the \texttt{summarise()} function of \emph{Tidyverse}?
 
 \webexunhide
 
-\subsubsection{Defining missing values}\label{defining-missing-values}
+\hypertarget{defining-missing-values}{%
+\subsubsection{Defining missing values}\label{defining-missing-values}}
 
 As you have seen above, when using \texttt{read\_csv()}, \emph{R} detected automatically the missing values in the variables \texttt{statistics} and \texttt{cog\_psy} and inserted instead \texttt{NA}. This was the case because there was simple no value in the data file.
 
@@ -3755,7 +3866,8 @@ If you have multiple values that represent a missing value, it could look like t
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Drop rows with missing values}\label{drop-rows-with-missing-values}
+\hypertarget{drop-rows-with-missing-values}{%
+\subsubsection{Drop rows with missing values}\label{drop-rows-with-missing-values}}
 
 \emph{Tidyverse} has the function \texttt{drop\_na()} to remove rows from a data frame that contain missing values. This command excludes all(!) rows, in which one or more variables are \texttt{NA}:
 
@@ -3796,7 +3908,8 @@ Try to do it in one line of code.
 
 \webexunhide
 
-\subsubsection{Replacing missing values}\label{replacing-missing-values}
+\hypertarget{replacing-missing-values}{%
+\subsubsection{Replacing missing values}\label{replacing-missing-values}}
 
 If we know that a missing value in a certain variable actually stands for an particular meaningful value, we can replace all \texttt{NA}s values in that variable by using \texttt{mutate()} and \texttt{replace\_na()}-function:
 
@@ -3809,7 +3922,8 @@ If we know that a missing value in a certain variable actually stands for an par
 
 This replaces all missing values in the variable with \emph{``Amsterdam''}. However, be careful and use \texttt{replace\_na()} only, if you are absolutely sure that you can replace the missing values without messing up your data.
 
-\section{Factors}\label{factors}
+\hypertarget{factors}{%
+\section{Factors}\label{factors}}
 
 In \emph{R} , factors are used to work with categorical variables. A categorical variable are often represented as text variables in raw data files (e.g.~the words \emph{``Male''} or \emph{``Female''}).
 
@@ -3818,7 +3932,8 @@ A factor is defined as a variable that has a \emph{\emph{fixed}} and
 \textbf{known} set of possible values or factor levels.
 \end{important}
 
-\subsection{Creating factors}\label{creating-factors}
+\hypertarget{creating-factors}{%
+\subsection{Creating factors}\label{creating-factors}}
 
 Examples of categorical factors are the variables \texttt{teaching\_method}, \texttt{time} and \texttt{city} in our dataset \texttt{teaching\_method2.csv}. You see that the variables are character variables \texttt{\textless{}chr\textgreater{}} when reading the CSV-file into \emph{R}.
 
@@ -3878,7 +3993,8 @@ The three variables are now factors (\texttt{\textless{}fct\textgreater{}}). The
 
 \webexunhide
 
-\subsection{Advantages of factors}\label{advantages-of-factors}
+\hypertarget{advantages-of-factors}{%
+\subsection{Advantages of factors}\label{advantages-of-factors}}
 
 The Advantages of using factors can be best illustrated with a typical example of a categorical variable in psychology: the \emph{gender}. People often use numbers to code to genders and enter for instance for the females \texttt{1} and males with \texttt{2}.
 
@@ -3903,7 +4019,8 @@ The Advantages of using factors can be best illustrated with a typical example o
 ## 10      1
 \end{verbatim}
 
-\subsubsection{Predefined factor levels}\label{predefined-factor-levels}
+\hypertarget{predefined-factor-levels}{%
+\subsubsection{Predefined factor levels}\label{predefined-factor-levels}}
 
 One advantage of factors is that you can define the possible factor levels (like \texttt{...,levels=c(1,\ 2),...}) and when an row/observation has a values that does not fit the predefined levels, the values will be set automatically to \texttt{NA}. You can do it with the function argument \texttt{levels} .
 
@@ -3931,7 +4048,8 @@ One advantage of factors is that you can define the possible factor levels (like
 
 Gender \texttt{3} became not not \texttt{NA}.
 
-\subsubsection{Meaningful factor labels}\label{meaningful-factor-labels}
+\hypertarget{meaningful-factor-labels}{%
+\subsubsection{Meaningful factor labels}\label{meaningful-factor-labels}}
 
 You can introduce useful factor labels (or descriptions) for each level, which make your analysis script and, importantly, the produced output more readable and more transparent.
 
@@ -3959,11 +4077,13 @@ Don't forget, often the factor levels are represented in a raw data file just by
 ## 10 female
 \end{verbatim}
 
-\subsubsection{Statistics with categorical variables}\label{statistics-with-categorical-variables}
+\hypertarget{statistics-with-categorical-variables}{%
+\subsubsection{Statistics with categorical variables}\label{statistics-with-categorical-variables}}
 
-Inferential statistics needs to know which variable is categorical and which is continuous. Almost all packages that do inferential statistics (see \hyperref[packagelist]{Appendix} \ref{packagelist}) use factors to indicate categorical variables.
+Inferential statistics needs to know which variable is categorical and which is continuous. Almost all packages that do inferential statistics (see \protect\hyperlink{packagelist}{Appendix} \ref{packagelist}) use factors to indicate categorical variables.
 
-\subsubsection{Nice output}\label{nice-output}
+\hypertarget{nice-output}{%
+\subsubsection{Nice output}\label{nice-output}}
 
 The output of some functions is nicer and better organized. If we do a summary of the data frame without factors:
 
@@ -4012,7 +4132,8 @@ tutorial} or the documentation of factors in \emph{Tidyverse}, the
 \href{https://forcats.tidyverse.org/}{forcats package}).
 \end{geek}
 
-\section{Pipes}\label{pipes}
+\hypertarget{pipes}{%
+\section{Pipes}\label{pipes}}
 
 You have seen in the previous chapters that if you have a raw dataset you need to apply typically multiple operations and processing steps on a dataset. The resulting data of one operations, will be used a input data for the next operations. That is, when processing and analysing data, we typically setup a processing pipeline.
 
@@ -4020,7 +4141,8 @@ You have seen in the previous chapters that if you have a raw dataset you need t
 
 Pipes are a powerful tool for clearly expressing a sequence of multiple operations. Pipes are a way to order your code in a more readable format.
 
-\subsection{\texorpdfstring{The pipe operator: \texttt{\%\textgreater{}\%}}{The pipe operator: \%\textgreater\%}}\label{the-pipe-operator}
+\hypertarget{the-pipe-operator}{%
+\subsection{\texorpdfstring{The pipe operator: \texttt{\%\textgreater{}\%}}{The pipe operator: \%\textgreater\%}}\label{the-pipe-operator}}
 
 \emph{Tidyverse} has the operator \texttt{\%\textgreater{}\%}, which sends an object (e.g.~data frame) as input for the following function:
 
@@ -4051,7 +4173,8 @@ The package that defines pipes in \emph{Tidyverse} is called
 \texttt{magrittr}.
 \end{geek}
 
-\subsection{Motivation for pipes}\label{motivation-for-pipes}
+\hypertarget{motivation-for-pipes}{%
+\subsection{Motivation for pipes}\label{motivation-for-pipes}}
 
 Why shall I use pipes? Pipes can be very handy, because you can not only send data to functions, but also the results of functions (i.e., the resulting data) to the following functions. You can build with this technology very efficiently a complex processing pipeline and your code remains well structured and readable (which this is always the aim of a good data science practice).
 
@@ -4072,7 +4195,8 @@ Why shall I use pipes? Pipes can be very handy, because you can not only send da
  \emph{Tidyverse}-functions.
  \end{important}
 
-\subsection{Building a processing pipeline}\label{building-a-processing-pipeline}
+\hypertarget{building-a-processing-pipeline}{%
+\subsection{Building a processing pipeline}\label{building-a-processing-pipeline}}
 
 Let's have an example and use our dataset \texttt{teaching\_method2.csv} (see section \ref{transformingdata}). Assume we want to calculate the mean percent correct in cognitive psychology for all cities and teaching methods. We want also to exclude the cities \emph{``Leiden''} and \emph{``Utrecht''}. You know we have missing values and need to deal with it.
 
@@ -4080,7 +4204,8 @@ Let's have an example and use our dataset \texttt{teaching\_method2.csv} (see se
 Try to do this analysis yourself, be fore you go on.
 \end{myexercise}
 
-\subsubsection{Intermediate steps}\label{intermediatesteps}
+\hypertarget{intermediatesteps}{%
+\subsubsection{Intermediate steps}\label{intermediatesteps}}
 
 To do it, we need to read the data and process it in multiple steps. For each step we create a new data frame and use the previous data frame as input. You are already familiar with that approach.
 
@@ -4139,7 +4264,8 @@ We produced in total 6 data frames (\texttt{teach}, \texttt{teach2}, \texttt{tea
 
 All the other five intermediate data frames are not really wanted as result. This is very inefficient and occupies a lot of memory.
 
-\subsubsection{Overwrite the original}\label{overwrite-the-original}
+\hypertarget{overwrite-the-original}{%
+\subsubsection{Overwrite the original}\label{overwrite-the-original}}
 
 Instead of creating intermediate objects at each step, we could overwrite the original object:
 
@@ -4165,7 +4291,8 @@ This is less typing (and less thinking), so you're less likely to make mistakes.
   The repetition of the object being transformed (we've written foo\_foo six times!) obscures what's changing on each line.
 \end{enumerate}
 
-\subsubsection{\texorpdfstring{Build a processing pipeline with pipe \texttt{\%\textgreater{}\%}}{Build a processing pipeline with pipe \%\textgreater\%}}\label{build-a-processing-pipeline-with-pipe}
+\hypertarget{build-a-processing-pipeline-with-pipe}{%
+\subsubsection{\texorpdfstring{Build a processing pipeline with pipe \texttt{\%\textgreater{}\%}}{Build a processing pipeline with pipe \%\textgreater\%}}\label{build-a-processing-pipeline-with-pipe}}
 
 Finally, we can use the pipe:
 
@@ -4180,7 +4307,7 @@ Finally, we can use the pipe:
 \end{Highlighting}
 \end{Shaded}
 
-If you compare this code with the code in which we produced multiple \hyperref[intermediatesteps]{intermediate data frames}, I think you see the benefit. It does not only do the same computations, it's also faster executed (which you noticed however only if you have really big datasets).
+If you compare this code with the code in which we produced multiple \protect\hyperlink{intermediatesteps}{intermediate data frames}, I think you see the benefit. It does not only do the same computations, it's also faster executed (which you noticed however only if you have really big datasets).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4204,7 +4331,8 @@ If you compare this code with the code in which we produced multiple \hyperref[i
 ## 9 Rotterdam method_B             7.1
 \end{verbatim}
 
-\section{Visualizing Data}\label{visualizing-data}
+\hypertarget{visualizing-data}{%
+\section{Visualizing Data}\label{visualizing-data}}
 
 This chapter will give merely a superficial overview on plotting and some examples how to create graphs in \emph{R}. Unfortunately, we do not have the time to have a detailed discussion of data visualizations. \textbf{Data visualization will be not part of the exam.}
 
@@ -4217,7 +4345,7 @@ There are excellent resources online that nicely explain how to do graphs with \
 \item
   \href{http://www.cookbook-r.com/Graphs/}{R Graphics Cookbook}
 \item
-  \href{https://ggplot2.tidyverse.org/reference/}{ggplot2 documentation} and \hyperref[cheatsheets]{ggplot2 cheat sheet}
+  \href{https://ggplot2.tidyverse.org/reference/}{ggplot2 documentation} and \protect\hyperlink{cheatsheets}{ggplot2 cheat sheet}
 \end{itemize}
 
 It's often very useful find \emph{R}-code of plots that are similar to a graph you want to create. You can then copy \& paste the code, include your data and modify code that it suits your purposes. An overview of plots will be provided below. Websites with galleries of nice figures can be found online, for example:
@@ -4232,7 +4360,8 @@ It's often very useful find \emph{R}-code of plots that are similar to a graph y
   \href{https://plotly.com/ggplot2/}{Plotly}
 \end{itemize}
 
-\subsubsection*{Simulating example data}\label{simulating-example-data}
+\hypertarget{simulating-example-data}{%
+\subsubsection*{Simulating example data}\label{simulating-example-data}}
 \addcontentsline{toc}{subsubsection}{Simulating example data}
 
 For the example plots in this chapter, we use a simulated dataset with scores of two IQ tests (\texttt{IQ\_A} \& \texttt{IQ\_B}) from 1000 students. 300 students study at \emph{``University A''}, 500 at \emph{``University B''} and 200 at \emph{``University C''}.
@@ -4272,11 +4401,13 @@ assumptions:
 \end{itemize}
 \end{geek}
 
-\subsection{\texorpdfstring{Plots with base \emph{R}}{Plots with base R}}\label{plots-with-base-r}
+\hypertarget{plots-with-base-r}{%
+\subsection{\texorpdfstring{Plots with base \emph{R}}{Plots with base R}}\label{plots-with-base-r}}
 
 \emph{R} has some basic plotting functions, but they're somewhat difficult to use and aesthetically not very nice. They can be useful to have a quick look at data while you're working on a script, though. The function \texttt{plot()} usually defaults to a sensible type of plot, depending on whether the arguments \texttt{x} and \texttt{y} are categorical or continuous.
 
-\subsubsection{Plot with a categorical variable}\label{plot-with-a-categorical-variable}
+\hypertarget{plot-with-a-categorical-variable}{%
+\subsubsection{Plot with a categorical variable}\label{plot-with-a-categorical-variable}}
 
 \texttt{plot()} with a categorical factor variable (\texttt{school}) shows how often the factor levels occur.
 
@@ -4288,7 +4419,8 @@ assumptions:
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-245-1.pdf}
 
-\subsubsection{Plot a categorical and a continuous variable}\label{plot-a-categorical-and-a-continuous-variable}
+\hypertarget{plot-a-categorical-and-a-continuous-variable}{%
+\subsubsection{Plot a categorical and a continuous variable}\label{plot-a-categorical-and-a-continuous-variable}}
 
 \texttt{plot()} with a categorical variable \texttt{x} and a continuous variable \texttt{y} shows a box plot with the distribution of continuous data in the factor levels.
 
@@ -4300,7 +4432,8 @@ assumptions:
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-246-1.pdf}
 
-\subsubsection{Plot two continuous variables}\label{plot-two-continuous-variables}
+\hypertarget{plot-two-continuous-variables}{%
+\subsubsection{Plot two continuous variables}\label{plot-two-continuous-variables}}
 
 \texttt{plot()} with a categorical variable \texttt{x} and a continuous variable \texttt{y} shows a scatter plot of the two variables. You see that \texttt{IQ\_A} and \texttt{IQ\_B} are correlated.
 
@@ -4322,12 +4455,13 @@ By the way: To calculate the correlation coefficient \(r\), you can use the func
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5730241
+## [1] 0.575097
 \end{verbatim}
 
 \webexunhide
 
-\subsection{ggplot2: Plotting in Tidyverse}\label{ggplot2-plotting-in-tidyverse}
+\hypertarget{ggplot2-plotting-in-tidyverse}{%
+\subsection{ggplot2: Plotting in Tidyverse}\label{ggplot2-plotting-in-tidyverse}}
 
 While the functions above are nice for quick visualisations, it's difficult to make publication-ready plots. The package \texttt{ggplot2}, which is also part of the \emph{Tidyverse} ), is one of the most common packages to visualise data in \emph{R}.
 
@@ -4369,11 +4503,13 @@ If we add, for example, the \texttt{geom\_point()}, we tell \emph{R} to plot the
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-251-1.pdf}
 
-\subsection{Geoms or plot types}\label{geoms-or-plot-types}
+\hypertarget{geoms-or-plot-types}{%
+\subsection{Geoms or plot types}\label{geoms-or-plot-types}}
 
 There are many geoms, and they can take different arguments to customise their appearance. Lets have a look a common plot types. Look carefully at the code to see the different mappings, \texttt{aes()}, and geoms, \texttt{geom\_?()}. This ways you get hopefully a bit of an inside how the functions work. As you know, if you want information about these functions, you can always look at the function documentation by typing \texttt{?function\_name}.
 
-\subsubsection{Bar plot}\label{bar-plot}
+\hypertarget{bar-plot}{%
+\subsubsection{Bar plot}\label{bar-plot}}
 
 Bar plot are done pity easy by adding (\texttt{+}) the geom \texttt{geom\_bar()}:
 
@@ -4386,7 +4522,8 @@ Bar plot are done pity easy by adding (\texttt{+}) the geom \texttt{geom\_bar()}
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-252-1.pdf}
 
-\subsubsection{Density plots}\label{density-plots}
+\hypertarget{density-plots}{%
+\subsubsection{Density plots}\label{density-plots}}
 
 Density plots are good for one continuous variable, but only if you have a fairly large number of observations.
 
@@ -4419,7 +4556,8 @@ You can represent subsets of a variable by assigning the category variable to th
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-255-1.pdf}
 
-\subsubsection{Histogram}\label{histogram}
+\hypertarget{histogram}{%
+\subsubsection{Histogram}\label{histogram}}
 
 Histogram are useful to get an overview on the shape of the distribution of your continuous data.
 
@@ -4462,7 +4600,8 @@ Again, you can add the factor variable the mapping (\texttt{aes()}) of the plot 
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-258-1.pdf}
 
-\subsubsection{Column plots}\label{column-plots}
+\hypertarget{column-plots}{%
+\subsubsection{Column plots}\label{column-plots}}
 
 Column plots are the most common way to depict grouped continuous data. If your data are already aggregated with \texttt{summarise()} (see chapter \ref{summarising}), you can use \texttt{geom\_bar} (and \texttt{geom\_col} and \texttt{geom\_errorbar}) to make this plots.
 
@@ -4479,7 +4618,8 @@ If not, you can use the function \texttt{stat\_summary} to calculate the mean an
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-259-1.pdf}
 
-\subsubsection{Box plots}\label{box-plots}
+\hypertarget{box-plots}{%
+\subsubsection{Box plots}\label{box-plots}}
 
 Boxplots are, I my view, a much better way to depict grouped continuous data, because they provide some information about the distribution and about outliers. Unfortunately, they are less common in psychology and social sciences. With \texttt{ggplot2}, it's very easy to do:
 
@@ -4492,7 +4632,8 @@ Boxplots are, I my view, a much better way to depict grouped continuous data, be
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-260-1.pdf}
 
-\subsubsection{Violin pots}\label{violin-pots}
+\hypertarget{violin-pots}{%
+\subsubsection{Violin pots}\label{violin-pots}}
 
 Violin pots are like sideways, mirrored density plots. They give even more direct information about distribution and are, in my view, useful when you have non-normal distributions.
 
@@ -4505,7 +4646,8 @@ Violin pots are like sideways, mirrored density plots. They give even more direc
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-261-1.pdf}
 
-\subsubsection{Scatter plot}\label{scatter-plot}
+\hypertarget{scatter-plot}{%
+\subsubsection{Scatter plot}\label{scatter-plot}}
 
 Let's plot \texttt{IQ\_A} on the \texttt{x} and \texttt{IQ\_B} on the \texttt{y}-axes and take also the \texttt{school} into account:
 
@@ -4519,7 +4661,8 @@ Let's plot \texttt{IQ\_A} on the \texttt{x} and \texttt{IQ\_B} on the \texttt{y}
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-262-1.pdf}
 
-\subsubsection{Line graph}\label{line-graph}
+\hypertarget{line-graph}{%
+\subsubsection{Line graph}\label{line-graph}}
 
 To illustrate the correlation between the two variables, we can plot line graph that depicts the regression line.
 
@@ -4532,7 +4675,8 @@ To illustrate the correlation between the two variables, we can plot line graph 
 
 \includegraphics{_main_files/figure-latex/unnamed-chunk-263-1.pdf}
 
-\subsubsection{Combining two plot types}\label{combining-two-plot-types}
+\hypertarget{combining-two-plot-types}{%
+\subsubsection{Combining two plot types}\label{combining-two-plot-types}}
 
 Finally, it's also possible the combine two plot types, such a line and scatter plot:
 
@@ -4549,10 +4693,12 @@ Finally, it's also possible the combine two plot types, such a line and scatter 
 
 \newpage
 
-\appendix
+\hypertarget{appendix-appendix}{%
+\appendix}
 
 
-\section{Suggested Readings}\label{readings}
+\hypertarget{readings}{%
+\section{Suggested Readings}\label{readings}}
 
 The following free books and online resources provide further introductions to data science skills with \emph{R}.
 
@@ -4586,7 +4732,8 @@ Further resources
   \href{http://socviz.co/}{Data Visualization: A practical introduction}
 \end{itemize}
 
-\subsection{Cheat sheets}\label{cheatsheets}
+\hypertarget{cheatsheets}{%
+\subsection{Cheat sheets}\label{cheatsheets}}
 
 \begin{itemize}
 \tightlist
@@ -4606,7 +4753,8 @@ Further resources
   \href{https://rstudio.com/resources/cheatsheets/}{and more..}
 \end{itemize}
 
-\section{Interesting Packages}\label{packagelist}
+\hypertarget{packagelist}{%
+\section{Interesting Packages}\label{packagelist}}
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
@@ -4634,24 +4782,29 @@ Description
 \href{https://cran.r-project.org/web/packages/rtweet/index.html}{rtweet} & Collecting Twitter data \\
 \end{longtable}
 
-\subsubsection*{Examples Analyses}\label{examples-analyses}
+\hypertarget{examples-analyses}{%
+\subsubsection*{Examples Analyses}\label{examples-analyses}}
 \addcontentsline{toc}{subsubsection}{Examples Analyses}
 
 Most package come with well documented example analyses called \emph{``vignettes''}. They are done with RMarkdown. Just type \texttt{vignette()} to see a list of the vignettes of all packages installed on your machine. For instance, to see an example ANOVA done with the \texttt{afex} packages, install \texttt{afex} and run \texttt{vignette("afex\_anova\_example",\ package="afex")}.
 
-\subsection*{RMarkdown}\label{rmarkdown}
+\hypertarget{rmarkdown}{%
+\subsection*{RMarkdown}\label{rmarkdown}}
 \addcontentsline{toc}{subsection}{RMarkdown}
 
 \href{https://rmarkdown.rstudio.com/}{R Markdown} is perfect for generating reproducible data analyses and to write manuscripts and reports. Write \emph{R} code in your markdown reports. When you run render, \emph{R} Markdown will replace the code with its results and then export your report as an HTML, pdf, or MS Word document, or a HTML or pdf slideshow. This manual has been, for instance, written with \emph{R} Markdown and a extension called \href{https://www.bookdown.org/}{bookdown}.
 
-\subsection*{Shiny Apps}\label{shiny-apps}
+\hypertarget{shiny-apps}{%
+\subsection*{Shiny Apps}\label{shiny-apps}}
 \addcontentsline{toc}{subsection}{Shiny Apps}
 
 With \href{https://shiny.rstudio.com/}{Shiny Apps} you can make interactive web apps. It's great to explore data and share findings with non-programmers.
 
-\section{Compatibility Issues and Workarounds}\label{compatibility-issues-and-workarounds}
+\hypertarget{compatibility-issues-and-workarounds}{%
+\section{Compatibility Issues and Workarounds}\label{compatibility-issues-and-workarounds}}
 
-\subsection{\texorpdfstring{Can't install \emph{Tidyverse} on MacOS or Linux}{Can't install Tidyverse on MacOS or Linux}}\label{tidyverseinstall}
+\hypertarget{tidyverseinstall}{%
+\subsection{\texorpdfstring{Can't install \emph{Tidyverse} on MacOS or Linux}{Can't install Tidyverse on MacOS or Linux}}\label{tidyverseinstall}}
 
 Several libraries are mandatory for successfully installing the \emph{Tidyverse}. Before you call the \texttt{install.package(\ )} command in R, you need to have some programs installed. That is, if you encountered issues, install them like this:
 
@@ -4671,11 +4824,13 @@ Terminal command:
 sudo apt install -y libcurl4-openssl-dev libssl-dev libxml2-dev
 \end{verbatim}
 
-\section{Course Exam}\label{course-exam}
+\hypertarget{course-exam}{%
+\section{Course Exam}\label{course-exam}}
 
 The course ends with a little exam on campus. Please look at your timetable on Canvas for time and location. The exam consist of data analysis tasks that you have to do. The exam will be graded.
 
-\subsection*{Examination procedure}\label{examination-procedure}
+\hypertarget{examination-procedure}{%
+\subsection*{Examination procedure}\label{examination-procedure}}
 \addcontentsline{toc}{subsection}{Examination procedure}
 
 \begin{itemize}
@@ -4692,7 +4847,8 @@ The course ends with a little exam on campus. Please look at your timetable on C
   During the exam, an invigilator will come by and carry out an identity check. To do this, have your ID, driver's license, residence permit or possibly a physical student card ready on the top left corner of your table. The invigilator will wear gloves and a mask.
 \end{itemize}
 
-\subsection*{What is allowed to use and what will be consider as an attempt of fraud?}\label{what-is-allowed-to-use-and-what-will-be-consider-as-an-attempt-of-fraud}
+\hypertarget{what-is-allowed-to-use-and-what-will-be-consider-as-an-attempt-of-fraud}{%
+\subsection*{What is allowed to use and what will be consider as an attempt of fraud?}\label{what-is-allowed-to-use-and-what-will-be-consider-as-an-attempt-of-fraud}}
 \addcontentsline{toc}{subsection}{What is allowed to use and what will be consider as an attempt of fraud?}
 
 \begin{itemize}

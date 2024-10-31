@@ -23,7 +23,11 @@
 <meta name="author" content="Oliver Lindemann" />
 
 
+<<<<<<< HEAD
 <meta name="date" content="2024-10-31" />
+=======
+<meta name="date" content="2024-10-30" />
+>>>>>>> c8f73c40163455d4d1a636e625477321be4caf2b
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +60,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -571,11 +575,19 @@ Solution
 <p>In the arguments section, there are explanations for each of the arguments. <code>n</code> is the number of random numbers we want to create, <code>mean</code> is the mean of the data points we will create and <code>sd</code> is the standard deviation of the set. In the details section it notes that if no values are entered for <code>mean</code> and <code>sd</code> it will use a default of 0 and 1 for these values. Because there is no default value for <code>n</code> it must be specified otherwise the code won’t run.</p>
 <p>Let’s try an example and just change the required argument <code>n</code> to ask <em>R</em> to produce 5 random numbers.</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="basics.html#cb48-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<<<<<<< HEAD
 <pre><code>## [1]  1.5154356  1.5799567  0.1188531 -0.6839650 -0.8081898</code></pre>
 <p>The random numbers have a mean of 0 and an SD of 1. Of course, since this are random numbers, you have probably got different numbers. Run the function again and you will see that you get each time different ‘’random’’ numbers.</p>
 <p>Now we can change the additional arguments to produce a different set of numbers.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="basics.html#cb50-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span></code></pre></div>
 <pre><code>## [1] 104.27243 130.05669 117.14983  85.58226  87.80008</code></pre>
+=======
+<pre><code>## [1] -0.4085202 -1.3555072  0.3999870 -2.1808557 -0.8654972</code></pre>
+<p>The random numbers have a mean of 0 and an SD of 1. Of course, since this are random numbers, you have probably got different numbers. Run the function again and you will see that you get each time different ‘’random’’ numbers.</p>
+<p>Now we can change the additional arguments to produce a different set of numbers.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="basics.html#cb50-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span></code></pre></div>
+<pre><code>## [1]  95.20482 119.08624  95.89516 113.02436 104.97178</code></pre>
+>>>>>>> c8f73c40163455d4d1a636e625477321be4caf2b
 <p>This time <em>R</em> has still produced 5 random numbers, but now this set of numbers has a mean of 100 and a standard deviation of 15 as specified (this is the distribution of the scores in many IQ tests). Always remember to use the help documentation to help you understand what arguments a function requires.</p>
 </div>
 <div id="argument-names" class="section level3 hasAnchor" number="4.6.4">

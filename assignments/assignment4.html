@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -3200,7 +3234,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 2024</p>
+      <p class="date">October 2024</p>
     </div>
   </div>
   
@@ -3221,6 +3255,23 @@ window.Quarto = {
 <li>Calculate the correlation between the two sum scores. (<em>R</em>-Function for simple correlations is called <code>cor()</code>)</li>
 <li>If you examine your scatter plot, there seems to be some outliers (very large values on both scales). Exclude these outliers and calculate the correlation again.</li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/jobsatisfaction.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">JS_score =</span> JS_1<span class="sc">+</span>JS_2<span class="sc">+</span>JS_3<span class="sc">+</span>JS_4<span class="sc">+</span>JS_5<span class="sc">+</span>JS_6<span class="sc">+</span>JS_7<span class="sc">+</span>JS_8<span class="sc">+</span>JS_9<span class="sc">+</span>JS_10,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">LS_score =</span> LS_1<span class="sc">+</span>LS_2<span class="sc">+</span>LS_3<span class="sc">+</span>LS_4<span class="sc">+</span>LS_5<span class="sc">+</span>LS_6<span class="sc">+</span>LS_7<span class="sc">+</span>LS_8<span class="sc">+</span>LS_9<span class="sc">+</span>LS_10) <span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">drop_na</span>()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>df<span class="sc">$</span>JS_score, <span class="at">y=</span>df<span class="sc">$</span>LS_score)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#2</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x=</span>df<span class="sc">$</span>JS_score, <span class="at">y=</span>df<span class="sc">$</span>LS_score)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#3</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df_excluded <span class="ot">&lt;-</span> <span class="fu">filter</span>(df, JS_score<span class="sc">&lt;</span><span class="dv">50</span>, JS_score<span class="sc">&gt;</span><span class="dv">10</span>, LS_score<span class="sc">&lt;</span><span class="dv">50</span>, LS_score<span class="sc">&gt;</span><span class="dv">10</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x=</span>df_excluded<span class="sc">$</span>JS_score, <span class="at">y=</span>df_excluded<span class="sc">$</span>LS_score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="assignment-4.2" class="level1">
 <h1>Assignment 4.2</h1>
@@ -3232,6 +3283,32 @@ window.Quarto = {
 <li>Make the following plot <code>ggplot(data = data_frame_name, aes(x=year, y=n, colour=name) ) + geom_line()</code>. What does it tell your?</li>
 <li>How often was each name on average given per year in the 90’s? Make a data frame that contains (only) this information.</li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>babynames <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/babynames.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">filter</span>(sex<span class="sc">==</span><span class="st">&quot;F&quot;</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                       name<span class="sc">==</span><span class="st">&quot;Linda&quot;</span> <span class="sc">|</span> name<span class="sc">==</span><span class="st">&quot;Emma&quot;</span> <span class="sc">|</span> name<span class="sc">==</span><span class="st">&quot;Jennifer&quot;</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                       year<span class="sc">&gt;=</span><span class="dv">1990</span>, year<span class="sc">&lt;</span><span class="dv">2020</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#2</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>babynames <span class="ot">&lt;-</span> babynames <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>sex) <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#3</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(babynames)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#4</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>babynames, <span class="fu">aes</span>(year, n, <span class="at">colour=</span>name) ) <span class="sc">+</span> <span class="fu">geom_line</span>()</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Emma become more and Jennifer less popular since 1990.</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="do">## The popularity of Linda is low and rather stable.</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#5</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(babynames, year<span class="sc">&gt;=</span><span class="dv">1990</span>, year<span class="sc">&lt;</span><span class="dv">2000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">m=</span><span class="fu">mean</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="assignment-4.3" class="level1">
 <h1>Assignment 4.3</h1>
@@ -3251,6 +3328,45 @@ window.Quarto = {
 <li>Calculate the measurements adjusted for the populations size of the different countries, that is, calculate the confirmed cases per 100,000 capita: <code>confirmed_capita = confirmed/population * 100000</code></li>
 <li>Make a plot with <code>ggplot2</code> that depicts the development (i.e. <code>date</code>on the <span class="math inline">\(x\)</span>-axes) of a relative measurement to you find interesting. See my example:</li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;COVID19&quot;) # or via Rstudio: Tools/Install Packages...</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(COVID19)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#1</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>corona_nl <span class="ot">&lt;-</span> <span class="fu">covid19</span>(<span class="at">country =</span> <span class="st">&quot;NLD&quot;</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#2</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(corona_nl)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># View(corona_nl)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#3</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(corona_nl$confirmed)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(corona_nl, <span class="fu">is.na</span>(confirmed))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#4</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>corona_nl <span class="ot">=</span> <span class="fu">drop_na</span>(corona_nl, confirmed)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#5</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(corona_nl, date<span class="sc">==</span><span class="fu">max</span>(date)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, confirmed)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#6</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>corona_nl<span class="sc">$</span>date, <span class="at">y=</span>corona_nl<span class="sc">$</span>confirmed, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>corona_nl<span class="sc">$</span>date, <span class="at">y=</span>corona_nl<span class="sc">$</span>deaths, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)  <span class="co"># also interesting</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#7</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>corona_eu <span class="ot">&lt;-</span> <span class="fu">covid19</span>(<span class="at">country =</span> <span class="fu">c</span>(<span class="st">&quot;NLD&quot;</span>, <span class="st">&quot;France&quot;</span>, <span class="st">&quot;Germany&quot;</span>, <span class="st">&quot;Poland&quot;</span>))</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(corona_eu)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#8</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>corona_eu <span class="ot">&lt;-</span> <span class="fu">mutate</span>(corona_eu,</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>                    <span class="at">confirmed_capita =</span> confirmed<span class="sc">/</span>population <span class="sc">*</span> <span class="dv">100000</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#9</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co"># iso_alpha_2 is one variable in that dataset that indicates the country</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(corona_eu, <span class="fu">aes</span>(date, confirmed_capita, <span class="at">colour=</span>iso_alpha_2)) <span class="sc">+</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <!-- \vspace{10ex}\hrule -->
 </section>
 
